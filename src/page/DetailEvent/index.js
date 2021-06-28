@@ -5,9 +5,9 @@ import {
   Typography, Container, Card,
 } from '@material-ui/core';
 
-import { Footer, Navbar } from '../../components';
-import Info from './components/Info';
-import Header from './components/Header';
+import { Footer, Navbar } from '../../components/organisms';
+import { Info } from '../../components/molecules';
+import Header from '../../components/molecules/Header';
 import { ContentImage } from '../../utils/image';
 import DetailEventStyle from './style';
 import GetScreenSize from '../../utils/breakpoints/index';

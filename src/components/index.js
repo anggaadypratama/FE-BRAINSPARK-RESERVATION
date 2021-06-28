@@ -1,11 +1,9 @@
-import Navbar from './Navbar/index';
-import CardItem from './CardItem/index';
-import Footer from './Footer/index';
-import Button from './Button/index';
+import * as Atoms from './Atom';
+import * as Molecules from './molecules';
+import * as Organisms from './organisms';
 
 export {
-  Navbar,
-  CardItem,
-  Footer,
-  Button,
+  Atoms,
+  Molecules,
+  Organisms,
 };

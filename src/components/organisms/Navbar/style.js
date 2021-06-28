@@ -1,9 +1,15 @@
 import { makeStyles } from '@material-ui/core';
-import style from '../../utils/style/index';
 
-const NavbarStyle = makeStyles(() => ({
+const NavbarStyle = makeStyles(({
+  font: {
+    raleway,
+  },
+  color: {
+    dustyOrange,
+  },
+}) => ({
   navText: {
-    fontFamily: style.font.raleway,
+    fontFamily: raleway,
     fontWeight: 800,
     fontSize: '1.25rem',
     marginLeft: '8px',
@@ -26,7 +32,7 @@ const NavbarStyle = makeStyles(() => ({
     alignItems: 'center',
   },
   button: {
-    fontFamily: style.font.raleway,
+    fontFamily: raleway,
     fontWeight: 800,
     textTransform: 'uppercase',
     padding: '0 16px',
@@ -40,7 +46,7 @@ const NavbarStyle = makeStyles(() => ({
   },
   contained: {
     marginLeft: 12,
-    color: style.color.dustyOrange,
+    color: dustyOrange,
     display: 'block',
     backgroundColor: 'white',
 

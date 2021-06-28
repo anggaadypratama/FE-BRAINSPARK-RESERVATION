@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import { FooterWave } from '../../utils/image';
+import { FooterWave } from '../../../utils/image';
 
 const FooterStyle = makeStyles(({ color, font }) => ({
   imgWave: {

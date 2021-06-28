@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, IconButton } from '@material-ui/core';
 import classNames from 'classnames';
 import FooterStyle from './style';
-import { Instagram, Line } from '../../utils/image';
+import { Instagram, Line } from '../../../utils/image';
 
 const Footer = () => {
   const classes = FooterStyle();

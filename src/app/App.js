@@ -5,7 +5,6 @@ import React, { Suspense, lazy } from 'react';
 // import './App.css';
 
 import { ThemeProvider } from '@material-ui/core';
-
 import theme from '../utils/style';
 
 const DetailEvent = lazy(() => import('../page/DetailEvent'));
