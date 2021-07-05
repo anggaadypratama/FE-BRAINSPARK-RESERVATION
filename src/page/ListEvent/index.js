@@ -2,12 +2,12 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Container, Typography } from '@material-ui/core';
-import { CardItem, Navbar, Footer } from '../../components';
-import { waveJumboTron } from '../../utils/image';
-
-import GetScreenSize from '../../utils/breakpoints';
+import { Navbar, Footer } from '../../components/organisms';
+import { CardItem } from '../../components/molecules';
+import { waveJumboTron } from '../../assets/image';
 
 import ListEventStyle from './style';
+import GetScreenSize from '../../assets/breakpoints/index';
 
 const ListEvent = () => {
   const screenSize = GetScreenSize({ isMax: true, size: 768 });

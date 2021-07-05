@@ -6,8 +6,8 @@ import {
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import CardStyle from './style';
-import { CalendarIcon, cardStyle, ContentImage } from '../../../utils/image';
-import GetScreenSize from '../../../utils/breakpoints/index';
+import { CalendarIcon, cardStyle, ContentImage } from '../../../assets/image';
+import GetScreenSize from '../../../assets/breakpoints/index';
 
 const CardItem = ({
   className, src, status, title, desc, time,

@@ -11,8 +11,8 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import NavbarStyle from './style';
-import GetScreenSize from '../../../utils/breakpoints/index';
-import { IconLogo } from '../../../utils/image';
+import GetScreenSize from '../../../assets/breakpoints/index';
+import { IconLogo } from '../../../assets/image';
 
 const Navbar = ({ className, color }) => {
   const ScreenLarge = GetScreenSize({ isMax: true, size: 959 });

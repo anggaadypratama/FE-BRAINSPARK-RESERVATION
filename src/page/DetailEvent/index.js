@@ -6,11 +6,10 @@ import {
 } from '@material-ui/core';
 
 import { Footer, Navbar } from '../../components/organisms';
-import { Info } from '../../components/molecules';
-import Header from '../../components/molecules/Header';
-import { ContentImage } from '../../utils/image';
+import { Info, Header } from '../../components/molecules';
+import { ContentImage } from '../../assets/image';
 import DetailEventStyle from './style';
-import GetScreenSize from '../../utils/breakpoints/index';
+import GetScreenSize from '../../assets/breakpoints/index';
 
 const DetailEvent = () => {
   const isMedium = GetScreenSize({ isMax: true, size: 900 });

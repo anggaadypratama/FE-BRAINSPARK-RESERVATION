@@ -6,7 +6,7 @@ import {
 import classNames from 'classnames';
 import { Button } from '../../Atom';
 import infoStyle from './style';
-import GetScreenSize from '../../../utils/breakpoints';
+import GetScreenSize from '../../../assets/breakpoints';
 
 const Info = () => {
   const isMedium = GetScreenSize({ isMax: true, size: 900 });
