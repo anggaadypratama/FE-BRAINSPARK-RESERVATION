@@ -1,18 +1,21 @@
-import { ThemeProvider } from '@material-ui/core';
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
-import theme from '../assets/style/index';
+import { ThemeProvider } from '@material-ui/core/styles';
+
+import { theme } from '@assets';
 
 const AppWrapper = ({ children }) => (
   <ThemeProvider theme={theme}>
+
     <Router>
       <Switch>
-        <Suspense fallback={<div>ea</div>}>
+        <Suspense fallback={<div>Loading ....</div>}>
           {children}
         </Suspense>
       </Switch>
     </Router>
+
   </ThemeProvider>
 );
 

@@ -1,5 +1,5 @@
 import IconLogo from './cbimage.png';
-import waveJumboTron from './jumbotron_bottom.1b24a735.png';
+import waveJumboTron from './jumbotron_bottom.1b24a735.webp';
 import cardStyle from './Vector 5.svg';
 import CalendarIcon from './CalendarX.svg';
 import FooterWave from './Vector 2.svg';

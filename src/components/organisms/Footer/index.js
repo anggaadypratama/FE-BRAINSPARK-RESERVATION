@@ -1,8 +1,8 @@
 import React from 'react';
 import { Typography, IconButton } from '@material-ui/core';
 import classNames from 'classnames';
+import { Instagram, Line } from '@assets/image';
 import FooterStyle from './style';
-import { Instagram, Line } from '../../../assets/image';
 
 const Footer = () => {
   const classes = FooterStyle();

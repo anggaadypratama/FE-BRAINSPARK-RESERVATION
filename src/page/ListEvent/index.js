@@ -1,13 +1,13 @@
+/* eslint-disable import/no-unresolved */
 import React from 'react';
 import classNames from 'classnames';
 
 import { Container, Typography } from '@material-ui/core';
-import { Navbar, Footer } from '../../components/organisms';
-import { CardItem } from '../../components/molecules';
-import { waveJumboTron } from '../../assets/image';
+import { CardItem, Navbar, Footer } from '@components';
+import GetScreenSize from '@assets/breakpoints';
+import { waveJumboTron } from '@assets/image';
 
 import ListEventStyle from './style';
-import GetScreenSize from '../../assets/breakpoints/index';
 
 const ListEvent = () => {
   const screenSize = GetScreenSize({ isMax: true, size: 768 });

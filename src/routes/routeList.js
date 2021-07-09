@@ -1,20 +1,30 @@
-import { lazy } from 'react';
+import loadable from '@loadable/component';
 
-const DetailEvent = lazy(() => import('../page/DetailEvent'));
-const ListEvent = lazy(() => import('../page/ListEvent'));
+const ListEvent = loadable(() => import(/* webpackPrefetch: true */ '@page/ListEvent'));
+const DetailEvent = loadable(() => import(/* webpackPrefetch: true */ '@page/DetailEvent'));
+const Login = loadable(() => import(/* webpackPrefetch: true */ '@page/Login'));
+
+const prefix = '/brainspark';
+// const privatePrefix = '/dashboard';
 
 const ROUTES = [
   {
     name: 'Brainspark',
-    path: '/brainspark',
+    Component: ListEvent,
+    path: `${prefix}`,
     isPrivate: false,
-    component: ListEvent,
   },
   {
     name: 'Brainspark Detail',
-    path: '/brainspark/:id',
+    Component: DetailEvent,
+    path: `${prefix}/content/:id`,
     isPrivate: false,
-    component: DetailEvent,
+  },
+  {
+    name: 'Login',
+    Component: Login,
+    path: `${prefix}/login`,
+    isPrivate: false,
   },
 ];
 

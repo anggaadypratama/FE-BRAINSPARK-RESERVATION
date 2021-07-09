@@ -5,9 +5,9 @@ import {
   TextField,
   Card,
 } from '@material-ui/core';
-import { Button } from '../../components';
+import { Button } from '@components';
+import { LoginBackgroundLeft, LoginBackgroundRight } from '@assets/image';
 import LoginStyle from './style';
-import { LoginBackgroundLeft, LoginBackgroundRight } from '../../assets/image';
 
 const Login = () => {
   const classes = LoginStyle();
