@@ -1,22 +1,29 @@
-import React, { Suspense, lazy } from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
+// import { PrivateRoute, routeList } from '../routes';
 
 // import logo from './logo.svg';
 // import { Counter } from '../features/counter/Counter';
 // import './App.css';
 
-import { ThemeProvider } from '@material-ui/core';
-import theme from '../utils/style';
-
-const DetailEvent = lazy(() => import('../page/DetailEvent'));
+import { Redirect, Route } from 'react-router';
+import { nanoid } from 'nanoid';
+import AppWrapper from './AppWrapper';
+import GlobalRoute from '../routes/GlobalRoute';
+import ROUTES from '../routes/routeList';
 
 function App() {
   return (
+    <AppWrapper>
+      {
+        ROUTES
+          ?.filter(({ isPrivate }) => !isPrivate)
+          .map((val) => <GlobalRoute exact key={nanoid()} {...val} />)
+      }
 
-    <ThemeProvider theme={theme}>
-      <Suspense fallback={<div>a</div>}>
-        <DetailEvent />
-      </Suspense>
-    </ThemeProvider>
+      <Route path="/" render={() => <Redirect to="/brainspark" />} exact />
+
+    </AppWrapper>
 
   );
 }

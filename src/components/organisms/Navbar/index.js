@@ -1,18 +1,19 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+
 import {
   Container, Button, IconButton, List, ListItem,
-  Popover,
+  Popover, Typography, Toolbar, AppBar,
 } from '@material-ui/core';
+
 import MenuIcon from '@material-ui/icons/Menu';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+
+import GetScreenSize from '@assets/breakpoints';
+import { IconLogo } from '@assets/image';
+
 import NavbarStyle from './style';
-import GetScreenSize from '../../../utils/breakpoints/index';
-import { IconLogo } from '../../../utils/image';
 
 const Navbar = ({ className, color }) => {
   const ScreenLarge = GetScreenSize({ isMax: true, size: 959 });

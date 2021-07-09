@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import {
@@ -5,9 +6,11 @@ import {
 } from '@material-ui/core';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import {
+  GetScreenSize, CalendarIcon, cardStyle, ContentImage,
+} from '@assets';
+
 import CardStyle from './style';
-import { CalendarIcon, cardStyle, ContentImage } from '../../../utils/image';
-import GetScreenSize from '../../../utils/breakpoints/index';
 
 const CardItem = ({
   className, src, status, title, desc, time,

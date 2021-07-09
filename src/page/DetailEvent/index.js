@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable max-len */
 import React from 'react';
@@ -5,12 +6,12 @@ import {
   Typography, Container, Card,
 } from '@material-ui/core';
 
-import { Footer, Navbar } from '../../components/organisms';
-import { Info } from '../../components/molecules';
-import Header from '../../components/molecules/Header';
-import { ContentImage } from '../../utils/image';
+import { GetScreenSize, ContentImage } from '@assets';
+import {
+  Footer, Navbar, Info, Header,
+} from '@components';
+
 import DetailEventStyle from './style';
-import GetScreenSize from '../../utils/breakpoints/index';
 
 const DetailEvent = () => {
   const isMedium = GetScreenSize({ isMax: true, size: 900 });

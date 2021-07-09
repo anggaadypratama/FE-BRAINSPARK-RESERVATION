@@ -1,11 +1,11 @@
+/* eslint-disable import/no-unresolved */
 import React from 'react';
 import classNames from 'classnames';
 
 import { Container, Typography } from '@material-ui/core';
-import { CardItem, Navbar, Footer } from '../../components';
-import { waveJumboTron } from '../../utils/image';
-
-import GetScreenSize from '../../utils/breakpoints';
+import { CardItem, Navbar, Footer } from '@components';
+import GetScreenSize from '@assets/breakpoints';
+import { waveJumboTron } from '@assets/image';
 
 import ListEventStyle from './style';
 

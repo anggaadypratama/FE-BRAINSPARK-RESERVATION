@@ -4,9 +4,9 @@ import {
   Typography, Card, Divider,
 } from '@material-ui/core';
 import classNames from 'classnames';
-import { Button } from '../../Atom';
+import { Button } from '@components';
+import GetScreenSize from '@assets/breakpoints';
 import infoStyle from './style';
-import GetScreenSize from '../../../utils/breakpoints';
 
 const Info = () => {
   const isMedium = GetScreenSize({ isMax: true, size: 900 });

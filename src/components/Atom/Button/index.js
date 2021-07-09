@@ -43,7 +43,7 @@ Button.defaultProps = {
   className: '',
   children: '',
   props: {},
-  variant: '',
+  variant: 'text',
   disableElevation: false,
   onClick: () => {},
   disabled: false,
