@@ -2,10 +2,9 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Container, Typography } from '@material-ui/core';
+import { Container, Typography, Grid } from '@material-ui/core';
 import { CardItem, Navbar, Footer } from '@components';
 import GetScreenSize from '@assets/breakpoints';
-import { waveJumboTron } from '@assets/image';
 
 import ListEventStyle from './style';
 
@@ -24,16 +23,30 @@ const ListEvent = () => {
             BRAINSPARK
           </Typography>
         </div>
-        <img src={waveJumboTron} className={waveJumbotronClassNames} alt="jumbotron bottom" />
+        <div className={waveJumbotronClassNames} />
       </div>
-      <Container maxWidth="md" className={classes.content}>
+      <Container maxWidth="lg" className={classes.content}>
         <div className={classes.textCenter}>
           <Typography variant="h4">
             Latest brainspark
           </Typography>
         </div>
         <div className={classes.content}>
-          <CardItem />
+          <Grid container spacing={4}>
+            <Grid item lg={4} md={4}>
+              <CardItem />
+            </Grid>
+            <Grid item lg={4} md={4}>
+              <CardItem />
+            </Grid>
+            <Grid item lg={4} md={4}>
+              <CardItem />
+            </Grid>
+            <Grid item lg={4} md={4}>
+              <CardItem />
+            </Grid>
+          </Grid>
+
         </div>
       </Container>
       <Footer />

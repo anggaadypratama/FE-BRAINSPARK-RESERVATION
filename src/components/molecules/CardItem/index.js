@@ -2,85 +2,106 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import {
-  Card, CardActionArea, CardContent, Typography,
+  Card, CardContent, Typography, CardActionArea,
 } from '@material-ui/core';
+
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {
-  GetScreenSize, CalendarIcon, cardStyle, ContentImage,
+  GetScreenSize, cardStyle, ContentImage,
 } from '@assets';
 
+import { Button } from '@components';
+
+import EventRoundedIcon from '@material-ui/icons/EventRounded';
+import RoomIcon from '@material-ui/icons/Room';
 import CardStyle from './style';
 
 const CardItem = ({
-  className, src, status, title, desc, time,
+  className, src, status, title, desc, time, cardButton,
 }) => {
-  const isDescHide = GetScreenSize({ isMax: true, size: 800 });
   const isMobileCard = GetScreenSize({ isMax: true, size: 600 });
 
   const classes = CardStyle(isMobileCard);
 
   const cardClassnames = classNames(classes.card, className);
-  const brainsparkClassnames = classNames(classes.brainspark, classes.brainsparkText);
+  // const brainsparkClassnames = classNames(classes.brainspark, classes.brainsparkText);
   const contentWrapperClassnames = classNames(
     classes.contentWrapper, isMobileCard && classes.flexColumn,
   );
 
-  return (
-    <CardActionArea className={classes.cardAction}>
-      <Card className={cardClassnames}>
-        {
-                !isMobileCard && (
-                <Typography className={brainsparkClassnames}>
-                  brainspark
-                </Typography>
-                )
-        }
-        <img
-          src={cardStyle}
-          className={classes.CardStyle}
-          alt="card style"
-        />
-        <div className={contentWrapperClassnames}>
-          <img
-            src={ContentImage}
-            className={classes.imageNormal}
-            alt="ea"
-          />
-          <CardContent className={classes.content}>
-            <div>
-              <Typography variant="h6" className={classes.status}>
-                Coming Up
-              </Typography>
-              <Typography variant="h6" className={classes.title}>
-                SOLID Rest API for Web Development
-              </Typography>
-              {
-                        !isDescHide
-                          ? (
-                            <Typography className={classes.textContent}>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                              ut aliquam, purus sit amet luctus venenatis, lectus magna
-                              fringilla urna, porttitor rhoncus dolor purus non enim
-                              praesent elementum facilisis leo, vel fringilla est
-                              ullamcorper eget nulla facilisi etiam dignissim diam quis
-                            </Typography>
-                          ) : ''
-                    }
-            </div>
-            <div className={classes.time}>
-              <div className={classes.timeIconWrapper}>
-                <img src={CalendarIcon} className={classes.timeIcon} alt="waktu diselenggara" />
-              </div>
-              <Typography className={classes.timeContent}>
-                17/05/20 at 15.30 WIB
-              </Typography>
-            </div>
-          </CardContent>
-        </div>
+  const ListWithIcon = ({ children, content }) => (
+    <div className={classes.item}>
+      <div className={classes.itemIconWrapper}>
+        {children}
+      </div>
+      <Typography className={classes.itemContent}>
+        {content}
+      </Typography>
+    </div>
+  );
 
-      </Card>
-    </CardActionArea>
+  ListWithIcon.propTypes = {
+    children: PropTypes.node.isRequired,
+    content: PropTypes.string.isRequired,
+  };
+
+  const CardWithContent = () => (
+    <Card className={cardClassnames}>
+
+      <img
+        src={cardStyle}
+        className={classes.CardStyle}
+        alt="card style"
+      />
+      <div className={contentWrapperClassnames}>
+        <img
+          src={ContentImage}
+          className={classes.imageNormal}
+          alt="ea"
+        />
+        <CardContent className={classes.content}>
+          <div>
+            <Typography variant="h6" className={classes.status}>
+              Coming Up
+            </Typography>
+            <Typography variant="h6" className={classes.title}>
+              SOLID Rest API for Web Development
+            </Typography>
+
+            <div className={classes.itemSection}>
+              <div className={classes.itemWrapper}>
+                <ListWithIcon content="Google Meets">
+                  <RoomIcon className={classes.itemIcon} />
+                </ListWithIcon>
+                <ListWithIcon content="23 Jan 20, at 10:00 WIB">
+                  <EventRoundedIcon className={classes.itemIcon} />
+                </ListWithIcon>
+              </div>
+              <div>
+                {!cardButton && <Button className={classes.buttonIconView}>View</Button>}
+              </div>
+
+            </div>
+
+          </div>
+
+        </CardContent>
+      </div>
+
+    </Card>
+  );
+
+  return (
+    <>
+      {
+      cardButton ? (
+        <CardActionArea>
+          <CardWithContent />
+        </CardActionArea>
+      ) : <CardWithContent />
+    }
+    </>
   );
 };
 
@@ -91,6 +112,7 @@ CardItem.propTypes = {
   title: PropTypes.string,
   desc: PropTypes.string,
   time: PropTypes.string,
+  cardButton: PropTypes.bool,
 };
 
 CardItem.defaultProps = {
@@ -100,6 +122,7 @@ CardItem.defaultProps = {
   title: '',
   desc: '',
   time: '',
+  cardButton: false,
 };
 
 export default CardItem;

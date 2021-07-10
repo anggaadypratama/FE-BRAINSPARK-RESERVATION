@@ -7,7 +7,6 @@ import { theme } from '@assets';
 
 const AppWrapper = ({ children }) => (
   <ThemeProvider theme={theme}>
-
     <Router>
       <Switch>
         <Suspense fallback={<div>Loading ....</div>}>
@@ -15,7 +14,6 @@ const AppWrapper = ({ children }) => (
         </Suspense>
       </Switch>
     </Router>
-
   </ThemeProvider>
 );
 
