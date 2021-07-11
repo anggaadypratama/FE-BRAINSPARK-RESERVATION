@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import {
-  Card, CardContent, Typography, CardActionArea,
+  Card, CardContent, Typography, CardActionArea, CardActions, Divider,
 } from '@material-ui/core';
 
 import classNames from 'classnames';
@@ -14,11 +14,14 @@ import {
 import { Button } from '@components';
 
 import EventRoundedIcon from '@material-ui/icons/EventRounded';
+import CreateRoundedIcon from '@material-ui/icons/CreateRounded';
+import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import RoomIcon from '@material-ui/icons/Room';
+
 import CardStyle from './style';
 
 const CardItem = ({
-  className, src, status, title, desc, time, cardButton,
+  className, src, status, title, desc, time, cardButton, editable,
 }) => {
   const isMobileCard = GetScreenSize({ isMax: true, size: 600 });
 
@@ -81,8 +84,25 @@ const CardItem = ({
               <div>
                 {!cardButton && <Button className={classes.buttonIconView}>View</Button>}
               </div>
-
             </div>
+
+            {
+              !editable && (
+                <>
+                  <Divider />
+                  <CardActions className={classes.editable}>
+                    <Button className={classes.buttonEditable}>
+                      <CreateRoundedIcon />
+                      <span className={classes.buttonEditableText}>Edit</span>
+                    </Button>
+                    <Button className={classes.buttonEditable}>
+                      <DeleteRoundedIcon />
+                      <span className={classes.buttonEditableText}>Delete</span>
+                    </Button>
+                  </CardActions>
+                </>
+              )
+            }
 
           </div>
 
@@ -113,6 +133,7 @@ CardItem.propTypes = {
   desc: PropTypes.string,
   time: PropTypes.string,
   cardButton: PropTypes.bool,
+  editable: PropTypes.bool,
 };
 
 CardItem.defaultProps = {
@@ -123,6 +144,7 @@ CardItem.defaultProps = {
   desc: '',
   time: '',
   cardButton: false,
+  editable: false,
 };
 
 export default CardItem;

@@ -87,14 +87,13 @@ const CardStyle = makeStyles(({ color, font }) => ({
     paddingBottom: 5,
     paddingTop: 5,
   },
-  itemWrapper: {
-    margin: '10px 0',
-  },
   itemSection: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 10,
+    marginBottom: 16,
+    padding: '10px 0',
   },
   itemContent: {
     marginLeft: 8,
@@ -121,6 +120,19 @@ const CardStyle = makeStyles(({ color, font }) => ({
     background: 'linear-gradient(68.21deg, #FC6D21 12.88%, #EE3B52 74.92%, #DD2476 98.79%);',
     color: 'white',
   },
+  editable: {
+    display: 'flex',
+    width: '100%',
+    padding: '8px 0',
+  },
+  buttonEditable: {
+    width: '100%',
+    padding: '10px 0',
+  },
+  buttonEditableText: {
+    marginLeft: 6,
+  },
+
 }));
 
 export default CardStyle;
