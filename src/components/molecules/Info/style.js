@@ -12,7 +12,7 @@ const infoStyle = makeStyles((
 ) => ({
   info: {
     maxWidth: '100%',
-    marginLeft: (isMedium) => (isMedium ? 0 : 20),
+    marginLeft: ({ isMedium }) => (isMedium ? 0 : 20),
     display: 'block',
   },
   infoMobile: {
@@ -20,8 +20,8 @@ const infoStyle = makeStyles((
     justifyContent: 'center',
   },
   cardInfo: {
-    position: 'sticky',
-    width: (isMedium) => (isMedium ? 600 : '100%'),
+    position: ({ position }) => (position ? 'sticky' : 'relative'),
+    width: ({ isMedium }) => (isMedium ? 600 : '100%'),
     top: 20,
     maxWidth: '100%',
 

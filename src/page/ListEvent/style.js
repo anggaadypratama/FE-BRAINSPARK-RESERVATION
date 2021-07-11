@@ -35,8 +35,13 @@ const ListEventStyle = makeStyles(() => ({
   content: {
     marginTop: 100,
   },
-  textCenter: {
-    textAlign: 'center',
+  filter: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  totalItem: {
+    marginRight: 30,
   },
 }));
 

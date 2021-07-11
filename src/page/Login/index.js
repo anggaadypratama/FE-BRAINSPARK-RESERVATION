@@ -4,9 +4,10 @@ import {
 //   Container,
   TextField,
   Card,
+  Typography,
 } from '@material-ui/core';
 import { Button } from '@components';
-import { LoginBackgroundLeft, LoginBackgroundRight } from '@assets/image';
+import { LoginBackgroundLeft, LoginBackgroundRight, IconLogo } from '@assets/image';
 import LoginStyle from './style';
 
 const Login = () => {
@@ -19,12 +20,22 @@ const Login = () => {
         <img src={LoginBackgroundLeft} className={classes.waveLeft} alt="wave left" />
       </div>
       <div className={classes.content}>
+        <div className={classes.heading}>
+          <div className={classes.headingIcon}>
+            <img className={classes.logo} src={IconLogo} alt="icon logo" />
+          </div>
+          <div className={classes.headingInfo}>
+            <Typography className={classes.headText}>RPL-GDC</Typography>
+            <Typography className={classes.subHeadText}>Admin</Typography>
+          </div>
+        </div>
         <Card elevation={0} className={classes.formCard}>
+          <Typography className={classes.title}>Login as Admin</Typography>
           <form className={classes.form} noValidate autoComplete="off">
             <TextField id="outlined-basic" className={classes.formItem} label="Username" variant="outlined" />
             <TextField id="outlined-basic" className={classes.formItem} label="Password" variant="outlined" />
             <div className={classes.buttonWrapper}>
-              <Button type="secondary">Login</Button>
+              <Button className={classes.buttonLogin} type="secondary">Login</Button>
             </div>
           </form>
         </Card>

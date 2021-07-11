@@ -52,6 +52,40 @@ const LoginStyle = makeStyles(({ color }) => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
+  title: {
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    marginBottom: 21,
+    fontSize: '0.875rem',
+  },
+  buttonLogin: {
+    padding: '8px 16px',
+    textTransform: 'capitalize',
+  },
+  heading: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 36,
+  },
+
+  headingInfo: {
+    display: 'block',
+    marginLeft: 8,
+  },
+  logo: {
+    height: 50,
+    width: 50,
+  },
+  headText: {
+    fontWeight: '800',
+    fontSize: '21px',
+  },
+  subHeadText: {
+    color: color.dustyOrange,
+    fontSize: '14px',
+    fontWeight: '800',
+  },
 }));
 
 export default LoginStyle;

@@ -2,8 +2,10 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Container, Typography, Grid } from '@material-ui/core';
-import { CardItem, Navbar, Footer } from '@components';
+import { Container, Grid, Typography } from '@material-ui/core';
+import {
+  CardItem, Navbar, Footer, Filter,
+} from '@components';
 import GetScreenSize from '@assets/breakpoints';
 
 import ListEventStyle from './style';
@@ -13,6 +15,12 @@ const ListEvent = () => {
   const classes = ListEventStyle(screenSize);
   const backdropClassNames = classNames(classes.waveBackdrop);
   const waveJumbotronClassNames = classNames(classes.waveJumbotron);
+
+  const dataFilter = [
+    'All Events',
+    'In This Month',
+    'In This Week',
+  ];
 
   return (
     <>
@@ -26,27 +34,25 @@ const ListEvent = () => {
         <div className={waveJumbotronClassNames} />
       </div>
       <Container maxWidth="lg" className={classes.content}>
-        <div className={classes.textCenter}>
-          <Typography variant="h4">
-            Latest brainspark
-          </Typography>
+        <div className={classes.filter}>
+          <span className={classes.totalItem}>Result : 4</span>
+          <Filter data={dataFilter} onChange={(e) => e} />
         </div>
         <div className={classes.content}>
           <Grid container spacing={4}>
-            <Grid item lg={4} md={4}>
+            <Grid item md={4}>
+              <CardItem md={4} />
+            </Grid>
+            <Grid item md={4}>
               <CardItem />
             </Grid>
-            <Grid item lg={4} md={4}>
+            <Grid item md={4}>
               <CardItem />
             </Grid>
-            <Grid item lg={4} md={4}>
-              <CardItem />
-            </Grid>
-            <Grid item lg={4} md={4}>
+            <Grid item md={4}>
               <CardItem />
             </Grid>
           </Grid>
-
         </div>
       </Container>
       <Footer />
