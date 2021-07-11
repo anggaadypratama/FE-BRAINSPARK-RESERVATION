@@ -12,20 +12,20 @@ const CardStyle = makeStyles(({ color, font }) => ({
     borderRadius: 40,
   },
   imageNormal: {
-    width: (isMobile) => (isMobile ? '100%' : 250),
-    height: (isMobile) => (isMobile ? 'inherit' : 250),
+    width: '100%',
+    height: 'inherit',
     borderRadius: 25,
     backgroundSize: 'cover',
   },
   contentWrapper: {
     display: 'flex',
     position: 'relative',
-    flexDirection: (isMobile) => (isMobile ? 'column' : 'row'),
+    flexDirection: 'column',
     zIndex: 2,
   },
   content: {
-    marginLeft: (isMobile) => (isMobile ? 0 : 10),
-    marginTop: (isMobile) => (isMobile ? 16 : 0),
+    marginLeft: 0,
+    marginTop: 16,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -82,11 +82,18 @@ const CardStyle = makeStyles(({ color, font }) => ({
   time: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: (isMobile) => (isMobile ? 10 : 0),
+    marginBottom: 10,
   },
-  timeContent: {
+  itemSection: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+    padding: '10px 0',
+  },
+  itemContent: {
     marginLeft: 8,
-    marginTop: (isMobile) => (isMobile ? 16 : 0),
+    marginTop: 16,
     fontFamily: font.robotoCon,
     fontWeight: 600,
   },
@@ -97,12 +104,32 @@ const CardStyle = makeStyles(({ color, font }) => ({
     height: '30px',
     width: '30px',
     background: color.red,
-    marginTop: (isMobile) => (isMobile ? 16 : 0),
+    marginTop: 16,
     borderRadius: '15px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
+  buttonIconView: {
+    background: 'linear-gradient(68.21deg, #FC6D21 12.88%, #EE3B52 74.92%, #DD2476 98.79%);',
+    color: 'white',
+  },
+  editable: {
+    display: 'flex',
+    width: '100%',
+    padding: '8px 0',
+  },
+  editableWrapper: {
+    marginTop: 10,
+  },
+  buttonEditable: {
+    width: '100%',
+    padding: '10px 0',
+  },
+  buttonEditableText: {
+    marginLeft: 6,
+  },
+
 }));
 
 export default CardStyle;

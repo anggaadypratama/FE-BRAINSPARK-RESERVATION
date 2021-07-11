@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import buttonStyle from './style';
 
 const Button = ({
-  className, children, variant, disableElevation, onClick, disabled, type, isFullWidth,
+  className, children, variant, disableElevation, onClick, disabled, type, isFullWidth, size,
 }) => {
   const classes = buttonStyle();
   const {
@@ -23,6 +23,7 @@ const Button = ({
     disableElevation,
     onClick,
     disabled,
+    size,
   };
   return <ButtonMaterial className={buttonClassnames} {...props}>{children}</ButtonMaterial>;
 };
@@ -37,6 +38,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   type: PropTypes.string,
   isFullWidth: PropTypes.bool,
+  size: PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -49,6 +51,7 @@ Button.defaultProps = {
   disabled: false,
   type: '',
   isFullWidth: false,
+  size: '',
 };
 
 export default Button;
