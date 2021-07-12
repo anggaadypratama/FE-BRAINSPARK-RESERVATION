@@ -2,11 +2,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const DetailEventStyle = makeStyles(({
   font: {
-    raleway, robotoCon,
+    raleway,
   },
-  color: {
-    paragraph,
-  },
+
 }) => ({
   containerContent: {
     marginTop: 50,
@@ -20,29 +18,11 @@ const DetailEventStyle = makeStyles(({
     padding: '24px 0',
     borderRadius: 20,
   },
-
   contentTitle: {
     fontFamily: raleway,
     fontWeight: 700,
     padding: 20,
     paddingTop: 0,
-  },
-  contentBanner: {
-    width: '100%',
-    marginTop: 20,
-  },
-  contentDescWrapper: {
-    marginTop: 30,
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  contentDesc: {
-    maxWidth: ' 600px',
-    fontFamily: robotoCon,
-    fontSize: ({ isMedium }) => (isMedium ? '1rem' : '1.25rem'),
-    fontWeight: 400,
-    lineHeight: ({ isMedium }) => (isMedium ? '28px' : '32px'),
-    color: paragraph,
   },
   avatarImage: {
     height: 'inherit',

@@ -10,7 +10,7 @@ import { Button } from '@components';
 import { LoginBackgroundLeft, LoginBackgroundRight, IconLogo } from '@assets/image';
 import LoginStyle from './style';
 
-const Login = () => {
+const LoginPage = () => {
   const classes = LoginStyle();
 
   return (
@@ -44,4 +44,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

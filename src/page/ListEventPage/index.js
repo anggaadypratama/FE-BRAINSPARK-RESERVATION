@@ -10,7 +10,7 @@ import GetScreenSize from '@assets/breakpoints';
 
 import ListEventStyle from './style';
 
-const ListEvent = () => {
+const ListEventPage = () => {
   const screenSize = GetScreenSize({ isMax: true, size: 768 });
   const classes = ListEventStyle(screenSize);
   const backdropClassNames = classNames(classes.waveBackdrop);
@@ -61,4 +61,4 @@ const ListEvent = () => {
   );
 };
 
-export default ListEvent;
+export default ListEventPage;

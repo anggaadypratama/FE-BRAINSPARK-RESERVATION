@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { memo } from 'react';
 import {
   Card, CardContent, Typography, CardActionArea, CardActions, Divider,
 } from '@material-ui/core';
@@ -25,7 +25,7 @@ const CardItem = ({
 }) => {
   const isMobileCard = GetScreenSize({ isMax: true, size: 600 });
 
-  const classes = CardStyle(isMobileCard);
+  const classes = CardStyle();
 
   const cardClassnames = classNames(classes.card, className);
   // const brainsparkClassnames = classNames(classes.brainspark, classes.brainsparkText);
@@ -48,6 +48,22 @@ const CardItem = ({
     children: PropTypes.node.isRequired,
     content: PropTypes.string.isRequired,
   };
+
+  const EditableMenu = () => (
+    <>
+      <Divider />
+      <CardActions className={classes.editable}>
+        <Button className={classes.buttonEditable}>
+          <CreateRoundedIcon />
+          <span className={classes.buttonEditableText}>Edit</span>
+        </Button>
+        <Button className={classes.buttonEditable}>
+          <DeleteRoundedIcon />
+          <span className={classes.buttonEditableText}>Delete</span>
+        </Button>
+      </CardActions>
+    </>
+  );
 
   const CardWithContent = () => (
     <Card className={cardClassnames}>
@@ -82,25 +98,13 @@ const CardItem = ({
                 </ListWithIcon>
               </div>
               <div>
-                {!cardButton && <Button className={classes.buttonIconView}>View</Button>}
+                {!cardButton && <Button type="primary">View</Button>}
               </div>
             </div>
 
             {
-              !editable && (
-                <>
-                  <Divider />
-                  <CardActions className={classes.editable}>
-                    <Button className={classes.buttonEditable}>
-                      <CreateRoundedIcon />
-                      <span className={classes.buttonEditableText}>Edit</span>
-                    </Button>
-                    <Button className={classes.buttonEditable}>
-                      <DeleteRoundedIcon />
-                      <span className={classes.buttonEditableText}>Delete</span>
-                    </Button>
-                  </CardActions>
-                </>
+              editable && (
+                <EditableMenu />
               )
             }
 
