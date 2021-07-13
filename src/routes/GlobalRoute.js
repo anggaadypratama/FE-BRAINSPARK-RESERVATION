@@ -1,13 +1,14 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router';
 import { PropTypes } from 'prop-types';
+import AsyncPage from './AsyncPage';
 
-const GlobalRoute = ({ Component, isPrivate, ...rest }) => (
+const GlobalRoute = ({ isPrivate, ...rest }) => (
   <Route
     {...rest}
-    render={(props) => (isPrivate
+    render={() => (isPrivate
       ? <Redirect to="/dashboard" />
-      : <Component {...props} />)}
+      : <AsyncPage {...rest} />)}
   />
 );
 

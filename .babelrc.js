@@ -11,6 +11,7 @@ const plugins = [
           preventFullImport: true,
         },
       },
+      "@loadable/babel-plugin"
     ],
   ];
   
