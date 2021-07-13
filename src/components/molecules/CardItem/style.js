@@ -4,7 +4,7 @@ const CardStyle = makeStyles(({ color, font }) => ({
   card: {
     background: 'linear-gradient(3.55deg, #FEE8D0 37.62%, #FFF8F1 95.02%)',
     minHeight: '250px',
-    borderRadius: 40,
+    borderRadius: 30,
     padding: 16,
     position: 'relative',
   },
@@ -12,24 +12,24 @@ const CardStyle = makeStyles(({ color, font }) => ({
     borderRadius: 40,
   },
   imageNormal: {
-    width: (isMobile) => (isMobile ? '100%' : 250),
-    height: (isMobile) => (isMobile ? 'inherit' : 250),
+    width: '100%',
+    height: 'inherit',
     borderRadius: 25,
     backgroundSize: 'cover',
   },
   contentWrapper: {
     display: 'flex',
     position: 'relative',
-    flexDirection: (isMobile) => (isMobile ? 'column' : 'row'),
+    flexDirection: 'column',
     zIndex: 2,
   },
   content: {
-    marginLeft: (isMobile) => (isMobile ? 0 : 10),
-    marginTop: (isMobile) => (isMobile ? 16 : 0),
+    marginLeft: 0,
+    marginTop: 16,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    padding: '8px 16px 8px 16px',
+    padding: 4,
     '&:last-child': {
       paddingBottom: 0,
     },
@@ -38,14 +38,16 @@ const CardStyle = makeStyles(({ color, font }) => ({
     textTransform: 'uppercase',
     color: color.primary,
     fontFamily: font.raleway,
-    fontWeight: 800,
-    lineHeight: '21px',
+    fontWeight: 700,
+    lineHeight: '20px',
+    fontSize: 18,
   },
   title: {
     marginTop: '6px',
-    lineHeight: '30px',
+    lineHeight: '21px',
     fontFamily: font.raleway,
-    fontWeight: 800,
+    fontWeight: 700,
+    fontSize: 18,
   },
   textContent: {
     fontFamily: font.robotoCon,
@@ -79,30 +81,58 @@ const CardStyle = makeStyles(({ color, font }) => ({
     fontFamily: font.raleway,
     color: 'rgba(255, 255, 255, 0.4)',
   },
-  time: {
+  item: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: (isMobile) => (isMobile ? 10 : 0),
+    paddingBottom: 5,
+    paddingTop: 5,
   },
-  timeContent: {
+  itemSection: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 16,
+    padding: '10px 0',
+  },
+  itemContent: {
     marginLeft: 8,
-    marginTop: (isMobile) => (isMobile ? 16 : 0),
+    fontSize: 16,
+
     fontFamily: font.robotoCon,
-    fontWeight: 600,
+    fontWeight: 500,
   },
-  timeIcon: {
+  itemIcon: {
     fill: 'white',
+    height: 15,
+    width: 15,
   },
-  timeIconWrapper: {
-    height: '30px',
-    width: '30px',
+  itemIconWrapper: {
+    height: '25px',
+    width: '25px',
     background: color.red,
-    marginTop: (isMobile) => (isMobile ? 16 : 0),
     borderRadius: '15px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
+  buttonIconView: {
+    background: 'linear-gradient(68.21deg, #FC6D21 12.88%, #EE3B52 74.92%, #DD2476 98.79%);',
+    color: 'white',
+  },
+  editable: {
+    display: 'flex',
+    width: '100%',
+    padding: '8px 0',
+  },
+  buttonEditable: {
+    width: '100%',
+    padding: '10px 0',
+  },
+  buttonEditableText: {
+    marginLeft: 6,
+  },
+
 }));
 
 export default CardStyle;

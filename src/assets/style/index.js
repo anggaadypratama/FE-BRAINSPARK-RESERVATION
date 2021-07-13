@@ -12,6 +12,7 @@ const theme = createTheme({
     dustyOrange: '#f0793c',
     tequila: '#FFE8C7',
     paragraph: '#292929',
+    darkSilver: '#6F6F6F',
   },
 });
 

@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-// import { PrivateRoute, routeList } from '../routes';
 
 // import logo from './logo.svg';
 // import { Counter } from '../features/counter/Counter';
@@ -8,9 +7,9 @@ import React from 'react';
 
 import { Redirect, Route } from 'react-router';
 import { nanoid } from 'nanoid';
+import { GlobalRoute } from '@routes';
+import ROUTES from '@routes/routeList';
 import AppWrapper from './AppWrapper';
-import GlobalRoute from '../routes/GlobalRoute';
-import ROUTES from '../routes/routeList';
 
 function App() {
   return (

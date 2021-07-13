@@ -6,11 +6,15 @@ import {
 import classNames from 'classnames';
 import { Button } from '@components';
 import GetScreenSize from '@assets/breakpoints';
+import { PropTypes } from 'prop-types';
 import infoStyle from './style';
 
-const Info = () => {
+const Info = ({ position }) => {
   const isMedium = GetScreenSize({ isMax: true, size: 900 });
-  const classes = infoStyle(isMedium);
+  const classes = infoStyle({
+    isMedium,
+    position: position === 'sticky',
+  });
 
   const infoClassnames = classNames(isMedium ? classes.infoMobile : classes.info);
 
@@ -71,6 +75,14 @@ const Info = () => {
 
     </aside>
   );
+};
+
+Info.propTypes = {
+  position: PropTypes.string,
+};
+
+Info.defaultProps = {
+  position: '',
 };
 
 export default Info;

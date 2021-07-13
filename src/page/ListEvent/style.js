@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { waveJumboTron2 } from '@assets/image';
 
 const ListEventStyle = makeStyles(() => ({
   waveBackdrop: {
@@ -11,7 +12,11 @@ const ListEventStyle = makeStyles(() => ({
   },
   waveJumbotron: {
     position: 'absolute',
-    bottom: '-25vh',
+    background: `url("${waveJumboTron2}")`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'bottom',
+    height: '100vh',
+    bottom: (screenSize) => (screenSize ? '-25vh' : '-30vh'),
     width: '100%',
   },
   titlePosition: {
@@ -30,8 +35,13 @@ const ListEventStyle = makeStyles(() => ({
   content: {
     marginTop: 100,
   },
-  textCenter: {
-    textAlign: 'center',
+  filter: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  totalItem: {
+    marginRight: 30,
   },
 }));
 
