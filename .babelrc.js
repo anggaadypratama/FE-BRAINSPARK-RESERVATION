@@ -1,5 +1,5 @@
 const plugins = [
-  
+  [
     'babel-plugin-transform-imports',
     {
       '@material-ui/core': {
@@ -9,10 +9,10 @@ const plugins = [
       '@material-ui/icons': {
         'transform': '@material-ui/icons/esm/${member}',
         'preventFullImport': true
-      },
+      }
     },
     "@loadable/babel-plugin"
-  ];
-
+  ]
+];
 
 module.exports = {plugins};
