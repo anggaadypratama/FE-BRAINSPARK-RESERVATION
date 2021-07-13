@@ -50,7 +50,7 @@ const ListEventPage = () => {
               <CardItem />
             </Grid>
             <Grid item md={4}>
-              <CardItem />
+              <CardItem editable />
             </Grid>
           </Grid>
         </div>

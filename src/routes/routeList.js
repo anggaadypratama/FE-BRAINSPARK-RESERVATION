@@ -2,6 +2,7 @@ import loadable from '@loadable/component';
 
 const ListEventPage = loadable(() => import(/* webpackPrefetch: true */ '@/page/ListEventPage'));
 const DetailEventPage = loadable(() => import(/* webpackPrefetch: true */ '@/page/DetailEventPage'));
+const UserFormPage = loadable(() => import(/* webpackPrefetch: true */ '@/page/UserFormPage'));
 const LoginPage = loadable(() => import(/* webpackPrefetch: true */ '@/page/LoginPage'));
 
 const prefix = '/brainspark';
@@ -18,6 +19,12 @@ const ROUTES = [
     name: 'Brainspark Detail',
     Component: DetailEventPage,
     path: `${prefix}/content/:id`,
+    isPrivate: false,
+  },
+  {
+    name: 'Brainspark Form',
+    Component: UserFormPage,
+    path: `${prefix}/content/:id/form`,
     isPrivate: false,
   },
   {

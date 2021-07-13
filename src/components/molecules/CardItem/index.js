@@ -103,7 +103,7 @@ const CardItem = ({
             </div>
 
             {
-              editable && (
+              !editable && (
                 <EditableMenu />
               )
             }
