@@ -4,6 +4,7 @@ const DetailEventStyle = makeStyles(({
   font: {
     raleway,
   },
+  color,
 
 }) => ({
   containerContent: {
@@ -20,7 +21,8 @@ const DetailEventStyle = makeStyles(({
   },
   contentTitle: {
     fontFamily: raleway,
-    fontWeight: 700,
+    fontWeight: 800,
+    color: color.primaryText,
     padding: 20,
     paddingTop: 0,
   },

@@ -35,7 +35,7 @@ const LoginPage = () => {
             <TextField id="outlined-basic" className={classes.formItem} label="Username" variant="outlined" />
             <TextField id="outlined-basic" className={classes.formItem} label="Password" variant="outlined" />
             <div className={classes.buttonWrapper}>
-              <Button className={classes.buttonLogin} type="secondary">Login</Button>
+              <Button className={classes.buttonLogin} type="secondary-gradient">Login</Button>
             </div>
           </form>
         </Card>

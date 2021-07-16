@@ -1,9 +1,11 @@
+import React from 'react';
+import { LoadingLayout } from '@/components';
 import loadable from '@loadable/component';
 
-const ListEventPage = loadable(() => import(/* webpackPrefetch: true */ '@/page/ListEventPage'));
-const DetailEventPage = loadable(() => import(/* webpackPrefetch: true */ '@/page/DetailEventPage'));
-const UserFormPage = loadable(() => import(/* webpackPrefetch: true */ '@/page/UserFormPage'));
-const LoginPage = loadable(() => import(/* webpackPrefetch: true */ '@/page/LoginPage'));
+const ListEventPage = loadable(() => import(/* webpackPrefetch: true */ '@/page/ListEventPage'), { fallback: <LoadingLayout /> });
+const DetailEventPage = loadable(() => import(/* webpackPrefetch: true */ '@/page/DetailEventPage'), { fallback: <LoadingLayout /> });
+const UserFormPage = loadable(() => import(/* webpackPrefetch: true */ '@/page/UserFormPage'), { fallback: <LoadingLayout /> });
+const LoginPage = loadable(() => import(/* webpackPrefetch: true */ '@/page/LoginPage'), { fallback: <LoadingLayout /> });
 
 const prefix = '/brainspark';
 // const privatePrefix = '/dashboard';

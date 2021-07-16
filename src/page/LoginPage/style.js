@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const LoginStyle = makeStyles(({ color }) => ({
+const LoginStyle = makeStyles(({ color, font }) => ({
   root: {
     width: '100%',
     height: '100vh',
@@ -35,7 +35,7 @@ const LoginStyle = makeStyles(({ color }) => ({
   formCard: {
     padding: '32px',
     boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)',
-    borderRadius: 10,
+    borderRadius: 20,
   },
   form: {
     display: 'flex',
@@ -57,10 +57,12 @@ const LoginStyle = makeStyles(({ color }) => ({
     textTransform: 'uppercase',
     marginBottom: 21,
     fontSize: '0.875rem',
+    fontFamily: font.raleway,
+    fontWeight: 800,
+    color: color.primary,
   },
   buttonLogin: {
     padding: '8px 16px',
-    textTransform: 'capitalize',
   },
   heading: {
     display: 'flex',
