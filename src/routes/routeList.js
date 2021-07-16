@@ -21,6 +21,12 @@ const ROUTES = [
     isPrivate: false,
   },
   {
+    name: 'UserFormPage',
+    // Component: UserFormPage,
+    path: `${prefix}/content/:id/form`,
+    isPrivate: false,
+  },
+  {
     name: 'Login',
     // Component: Login,
     path: `${prefix}/login`,

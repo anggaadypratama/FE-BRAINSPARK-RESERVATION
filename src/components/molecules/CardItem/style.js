@@ -92,7 +92,7 @@ const CardStyle = makeStyles(({ color, font }) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 10,
-    marginBottom: 16,
+
     padding: '10px 0',
   },
   itemContent: {
@@ -115,10 +115,6 @@ const CardStyle = makeStyles(({ color, font }) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  buttonIconView: {
-    background: 'linear-gradient(68.21deg, #FC6D21 12.88%, #EE3B52 74.92%, #DD2476 98.79%);',
-    color: 'white',
   },
   editable: {
     display: 'flex',
