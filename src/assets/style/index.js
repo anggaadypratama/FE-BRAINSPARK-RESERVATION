@@ -1,12 +1,52 @@
 import { createTheme } from '@material-ui/core/styles';
 
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#FF7A00',
+    },
+  },
+  overrides: {
+    MuiPickersToolbar: {
+      toolbar: {
+        backgroundColor: '#FF7A00',
+        color: 'white',
+      },
+    },
+    MuiPickersCalendarHeader: {
+      switchHeader: {
+        // backgroundColor: '#FF7A00',
+        // color: 'white',
+      },
+    },
+    MuiPickersDay: {
+      day: {
+        color: '#FF7A00',
+      },
+      daySelected: {
+        backgroundColor: '#FF7A00',
+        color: 'white',
+      },
+      dayDisabled: {
+        color: '#FF7A00',
+      },
+      current: {
+        color: '#FF7A00',
+      },
+    },
+    MuiPickersModal: {
+      dialogAction: {
+        color: '#FF7A00',
+      },
+    },
+  },
   font: {
     robotoCon: 'roboto condensed',
     raleway: 'raleway',
   },
   color: {
     primary: '#FF7A00',
+    primaryText: '#424242',
     red: '#EE3A52',
     sandyBeach: '#FEE8D0',
     dustyOrange: '#f0793c',

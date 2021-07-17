@@ -10,13 +10,16 @@ const Button = ({
 }) => {
   const classes = buttonStyle();
   const {
-    primary, secondary, fullWidth, root,
+    primary, secondary, fullWidth, root, secondaryGradient, transparent,
   } = classes;
 
-  const buttonType = type === 'primary' ? primary : type === 'secondary' ? secondary : '';
+  const buttonType = type === 'primary' ? primary
+    : type === 'secondary' ? secondary
+      : type === 'secondary-gradient' ? secondaryGradient : '';
 
   const buttonClassnames = classNames(className, root, buttonType, {
     [`${fullWidth}`]: isFullWidth,
+    [`${transparent}`]: variant === 'transparent',
   });
   const props = {
     variant,

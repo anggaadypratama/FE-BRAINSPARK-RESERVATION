@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -12,6 +13,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const zlib = require('zlib');
 const webpack = require('webpack');
 const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const customizePlugin = [
   new CompressionWebpackPlugin({
@@ -24,20 +26,35 @@ const customizePlugin = [
       },
     },
     threshold: 10240,
-    minRatio: 0.7,
+    minRatio: 0.5,
     deleteOriginalAssets: false,
   }),
 
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('production'),
   }),
+  // new webpack.optimize.AggressiveMergingPlugin(),
   new CleanWebpackPlugin(),
+
 ];
 
 const addCustomize = () => (config) => {
   if (process.env.NODE_ENV === 'production') {
     config.devtool = false;
     config.plugins.push(...customizePlugin);
+    config.output = {
+      ...config.output,
+      filename: '[name].[chunkhash].js',
+      chunkFilename: '[name].[chunkhash].js',
+    };
+    config = {
+      ...config,
+      optimization: {
+        minimizer: [
+          new UglifyJsPlugin(),
+        ],
+      },
+    };
   }
   return config;
 };

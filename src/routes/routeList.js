@@ -1,28 +1,34 @@
-import loadable from '@loadable/component';
+// import loadable from '@loadable/component';
 
-const ListEvent = loadable(() => import(/* webpackPrefetch: true */ '@page/ListEvent'));
-const DetailEvent = loadable(() => import(/* webpackPrefetch: true */ '@page/DetailEvent'));
-const Login = loadable(() => import(/* webpackPrefetch: true */ '@page/Login'));
+// const ListEvent = loadable(() => import(/* webpackPrefetch: true */ '@page/ListEvent'));
+// const DetailEvent = loadable(() => import(/* webpackPrefetch: true */ '@page/DetailEvent'));
+// const Login = loadable(() => import(/* webpackPrefetch: true */ '@page/Login'));
 
 const prefix = '/brainspark';
 // const privatePrefix = '/dashboard';
 
 const ROUTES = [
   {
-    name: 'Brainspark',
-    Component: ListEvent,
+    name: 'ListEvent',
+    // Component: ListEvent,
     path: `${prefix}`,
     isPrivate: false,
   },
   {
-    name: 'Brainspark Detail',
-    Component: DetailEvent,
+    name: 'DetailEvent',
+    // Component: DetailEvent,
     path: `${prefix}/content/:id`,
     isPrivate: false,
   },
   {
+    name: 'UserFormPage',
+    // Component: UserFormPage,
+    path: `${prefix}/content/:id/form`,
+    isPrivate: false,
+  },
+  {
     name: 'Login',
-    Component: Login,
+    // Component: Login,
     path: `${prefix}/login`,
     isPrivate: false,
   },

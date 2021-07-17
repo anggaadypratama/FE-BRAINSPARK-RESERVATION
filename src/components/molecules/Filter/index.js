@@ -37,7 +37,12 @@ const Filter = ({ data, onChange }) => {
             }
           >
             {active === index && <DoneOutlinedIcon />}
-            <span className={classes.buttonName}>{val.name}</span>
+            <span
+              className={classes.buttonName}
+              style={{ marginLeft: active !== index && 0 }}
+            >
+              {val.name}
+            </span>
           </Button>
         ))
       }

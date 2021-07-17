@@ -10,7 +10,8 @@ const plugins = [
         'transform': '@material-ui/icons/esm/${member}',
         'preventFullImport': true
       }
-    }
+    },
+    "@loadable/babel-plugin"
   ]
 ];
 
