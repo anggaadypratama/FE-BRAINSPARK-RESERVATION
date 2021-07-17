@@ -6,6 +6,7 @@ const buttonStyle = makeStyles((theme) => ({
     fontWeight: 800,
     padding: '8px 22px',
     borderRadius: 5,
+    minWidth: 100,
   },
   primary: {
     background: 'linear-gradient(68.21deg, #FC6D21 12.88%, #EE3B52 74.92%, #DD2476 98.79%)',
@@ -18,6 +19,9 @@ const buttonStyle = makeStyles((theme) => ({
   secondary: {
     backgroundColor: theme.color.tequila,
     color: theme.color.dustyOrange,
+  },
+  transparent: {
+    color: theme.color.red,
   },
   fullWidth: {
     width: '100%',

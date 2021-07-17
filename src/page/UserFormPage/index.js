@@ -1,7 +1,6 @@
-import { EventTemplate } from '@/components';
-import { Card } from '@material-ui/core';
+import { Card, Typography } from '@material-ui/core';
 import React from 'react';
-import { Input } from '@components';
+import { Input, Button, EventTemplate } from '@components';
 import UserFormStyle from './style';
 
 const UserFormPage = () => {
@@ -36,7 +35,8 @@ const UserFormPage = () => {
   return (
     <EventTemplate>
       <Card className={classes.root} elevation={3}>
-        <form className={classes.root}>
+        <Typography variant="h6" className={classes.formTitle}>Form Registrasi</Typography>
+        <form className={classes.formWrapper}>
           <div className={classes.inputWrapper}>
             <Input
               label="Nama Lengkap"
@@ -80,6 +80,10 @@ const UserFormPage = () => {
               }}
               id="standard-full-width"
             />
+          </div>
+          <div className={classes.buttonWrapper}>
+            <Button variant="transparent" className={classes.button}>cancel</Button>
+            <Button type="primary" className={classes.button}>send</Button>
           </div>
         </form>
       </Card>
