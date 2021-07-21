@@ -4,11 +4,11 @@ import classNames from 'classnames';
 
 import { Container, Typography } from '@material-ui/core';
 import {
-  Navbar, Footer,
   ListCard,
 } from '@components';
 import GetScreenSize from '@assets/breakpoints';
 import { withRouter } from 'react-router-dom';
+import { GeneralUserTemplate } from '@/components';
 import ListEventStyle from './style';
 
 // eslint-disable-next-line react/prop-types
@@ -28,20 +28,19 @@ const ListEventPage = ({ history }) => {
 
   return (
     <>
-      <Navbar color="transparent" />
-      <div className={backdropClassNames}>
-        <div className={classes.titlePosition}>
-          <Typography variant={screenSize ? 'h3' : 'h1'} className={classes.title}>
-            BRAINSPARK
-          </Typography>
+      <GeneralUserTemplate color="transparent">
+        <div className={backdropClassNames}>
+          <div className={classes.titlePosition}>
+            <Typography variant={screenSize ? 'h3' : 'h1'} className={classes.title}>
+              BRAINSPARK
+            </Typography>
+          </div>
+          <div className={waveJumbotronClassNames} />
         </div>
-        <div className={waveJumbotronClassNames} />
-      </div>
-      <Container maxWidth="lg">
-        <ListCard dataFilter={dataFilter} />
-      </Container>
-      <Footer />
-
+        <Container maxWidth="lg">
+          <ListCard dataFilter={dataFilter} />
+        </Container>
+      </GeneralUserTemplate>
     </>
   );
 };
