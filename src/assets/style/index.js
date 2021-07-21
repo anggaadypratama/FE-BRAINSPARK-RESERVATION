@@ -48,11 +48,13 @@ const theme = createTheme({
     primary: '#FF7A00',
     primaryText: '#424242',
     red: '#EE3A52',
+    brightOrange: '#FF5800',
     sandyBeach: '#FEE8D0',
     dustyOrange: '#f0793c',
     tequila: '#FFE8C7',
     paragraph: '#292929',
     darkSilver: '#6F6F6F',
+    background: '#F7F7F7',
   },
 });
 

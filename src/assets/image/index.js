@@ -10,6 +10,9 @@ import LoginBackgroundLeft from './Vector.svg';
 import LoginBackgroundRight from './Vector 6.svg';
 import waveJumboTron from './jumbotron_bottom.1b24a735.webp';
 import waveJumboTron2 from './wave.svg';
+import CreateFormIcon from './KeyboardCreateForms.svg';
+import ListEventIcon from './TableListEvent.svg';
+import DataRespondersIcon from './UsersDataResponders.svg';
 
 export {
   IconLogo,
@@ -23,4 +26,7 @@ export {
   Instagram,
   LoginBackgroundLeft,
   LoginBackgroundRight,
+  CreateFormIcon,
+  ListEventIcon,
+  DataRespondersIcon,
 };

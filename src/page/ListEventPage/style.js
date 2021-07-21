@@ -32,17 +32,6 @@ const ListEventStyle = makeStyles(() => ({
     color: 'white',
 
   },
-  content: {
-    marginTop: 100,
-  },
-  filter: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  totalItem: {
-    marginRight: 30,
-  },
 }));
 
 export default ListEventStyle;

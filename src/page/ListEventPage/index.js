@@ -2,19 +2,23 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Container, Grid, Typography } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import {
-  CardItem, Navbar, Footer, Filter,
+  Navbar, Footer,
+  ListCard,
 } from '@components';
 import GetScreenSize from '@assets/breakpoints';
-
+import { withRouter } from 'react-router-dom';
 import ListEventStyle from './style';
 
-const ListEventPage = () => {
+// eslint-disable-next-line react/prop-types
+const ListEventPage = ({ history }) => {
   const screenSize = GetScreenSize({ isMax: true, size: 768 });
   const classes = ListEventStyle(screenSize);
   const backdropClassNames = classNames(classes.waveBackdrop);
   const waveJumbotronClassNames = classNames(classes.waveJumbotron);
+
+  console.log(history);
 
   const dataFilter = [
     'All Events',
@@ -33,27 +37,8 @@ const ListEventPage = () => {
         </div>
         <div className={waveJumbotronClassNames} />
       </div>
-      <Container maxWidth="lg" className={classes.content}>
-        <div className={classes.filter}>
-          <span className={classes.totalItem}>Result : 4</span>
-          <Filter data={dataFilter} onChange={(e) => e} />
-        </div>
-        <div className={classes.content}>
-          <Grid container spacing={4}>
-            <Grid item md={4}>
-              <CardItem md={4} />
-            </Grid>
-            <Grid item md={4}>
-              <CardItem />
-            </Grid>
-            <Grid item md={4}>
-              <CardItem />
-            </Grid>
-            <Grid item md={4}>
-              <CardItem editable />
-            </Grid>
-          </Grid>
-        </div>
+      <Container maxWidth="lg">
+        <ListCard dataFilter={dataFilter} />
       </Container>
       <Footer />
 
@@ -61,4 +46,4 @@ const ListEventPage = () => {
   );
 };
 
-export default ListEventPage;
+export default withRouter(ListEventPage);

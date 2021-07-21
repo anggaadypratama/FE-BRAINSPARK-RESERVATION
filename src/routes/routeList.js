@@ -9,13 +9,13 @@ const prefix = '/brainspark';
 
 const ROUTES = [
   {
-    name: 'ListEvent',
+    name: 'ListEventPage',
     // Component: ListEvent,
     path: `${prefix}`,
     isPrivate: false,
   },
   {
-    name: 'DetailEvent',
+    name: 'DetailEventPage',
     // Component: DetailEvent,
     path: `${prefix}/content/:id`,
     isPrivate: false,
@@ -27,9 +27,14 @@ const ROUTES = [
     isPrivate: false,
   },
   {
-    name: 'Login',
+    name: 'LoginPage',
     // Component: Login,
     path: `${prefix}/login`,
+    isPrivate: false,
+  },
+  {
+    name: 'DashboardPage',
+    path: `${prefix}/dashboard`,
     isPrivate: false,
   },
 ];

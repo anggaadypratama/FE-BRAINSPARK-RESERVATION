@@ -21,14 +21,13 @@ import RoomIcon from '@material-ui/icons/Room';
 import CardStyle from './style';
 
 const CardItem = ({
-  className, src, status, title, desc, time, cardButton, editable,
+  className, src, status, title, desc, time, cardButton, canEdit,
 }) => {
   const isMobileCard = GetScreenSize({ isMax: true, size: 600 });
 
   const classes = CardStyle();
 
   const cardClassnames = classNames(classes.card, className);
-  // const brainsparkClassnames = classNames(classes.brainspark, classes.brainsparkText);
   const contentWrapperClassnames = classNames(
     classes.contentWrapper, isMobileCard && classes.flexColumn,
   );
@@ -66,7 +65,7 @@ const CardItem = ({
   );
 
   const CardWithContent = () => (
-    <Card className={cardClassnames}>
+    <Card className={cardClassnames} elevation={3}>
 
       <img
         src={cardStyle}
@@ -98,16 +97,14 @@ const CardItem = ({
                 </ListWithIcon>
               </div>
               <div>
-                {!cardButton && <Button type="primary">View</Button>}
+                {!cardButton && !canEdit && <Button type="primary">View</Button>}
               </div>
             </div>
-
             {
-              editable && (
+              canEdit && (
                 <EditableMenu />
               )
             }
-
           </div>
 
         </CardContent>
@@ -137,7 +134,7 @@ CardItem.propTypes = {
   desc: PropTypes.string,
   time: PropTypes.string,
   cardButton: PropTypes.bool,
-  editable: PropTypes.bool,
+  canEdit: PropTypes.bool,
 };
 
 CardItem.defaultProps = {
@@ -148,7 +145,7 @@ CardItem.defaultProps = {
   desc: '',
   time: '',
   cardButton: false,
-  editable: false,
+  canEdit: false,
 };
 
 export default CardItem;
