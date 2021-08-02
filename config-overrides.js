@@ -42,6 +42,9 @@ const addCustomize = () => (config) => {
   if (process.env.NODE_ENV === 'production') {
     config.devtool = false;
     config.plugins.push(...customizePlugin);
+    config.devServer = {
+      historyApiFallback: true,
+    };
     config.output = {
       ...config.output,
       filename: '[name].[chunkhash].js',
@@ -55,9 +58,22 @@ const addCustomize = () => (config) => {
         ],
       },
     };
+  } else if (process.env.NODE_ENV === 'development') {
+    config.devServer = {
+      ...config,
+      port: 8080,
+      historyApiFallback: true,
+    };
   }
+
   return config;
 };
+
+const devServerConfig = () => (config) => ({
+  ...config,
+  port: 8080,
+  historyApiFallback: true,
+});
 
 module.exports = {
   webpack: override(
@@ -69,6 +85,7 @@ module.exports = {
       '@page': path.resolve(__dirname, 'src/page/'),
       '@routes': path.resolve(__dirname, 'src/routes/'),
       '@assets': path.resolve(__dirname, 'src/assets/'),
+      '@services': path.resolve(__dirname, 'src/services'),
     }),
     addBabelPreset(
       [
@@ -80,7 +97,7 @@ module.exports = {
     ),
   ),
   jest: (config) => config,
-  devServer: overrideDevServer(watchAll()),
+  devServer: overrideDevServer(devServerConfig()),
   paths: (paths, env) => paths,
 
 };

@@ -10,7 +10,8 @@ import {
   GetScreenSize,
 } from '@assets';
 import {
-  Info, Header,
+  Info,
+  Header,
 } from '@components';
 
 import { PropTypes } from 'prop-types';
@@ -27,7 +28,7 @@ const EventTemplate = ({ children }) => {
   return (
     <>
       <GeneralUserTemplate>
-        <Container maxWidth="lg" className={classes.containerContent}>
+        <Container maxWidth="md" className={classes.containerContent}>
           <Card elevation={0} className={classes.content}>
             <Typography variant={heading} className={classes.contentTitle}>
               SOLID Rest API for Web Development

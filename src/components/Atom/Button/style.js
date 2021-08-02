@@ -26,6 +26,13 @@ const buttonStyle = makeStyles((theme) => ({
   fullWidth: {
     width: '100%',
   },
+  linkButton: {
+    textDecoration: 'none',
+
+    '&:hover': {
+      textDecoration: 'none',
+    },
+  },
 
 }));
 

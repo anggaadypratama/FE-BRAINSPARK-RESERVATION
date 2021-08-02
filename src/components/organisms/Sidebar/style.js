@@ -11,7 +11,7 @@ const SidebarStyle = makeStyles(({
     flexDirection: 'column',
     background: 'white',
     boxShadow: '0 0 4px rgba(0,0,0,0.25)',
-    zIndex: 1,
+    zIndex: 3,
     top: 0,
     left: 0,
     justifyContent: 'space-between',

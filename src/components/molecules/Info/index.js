@@ -70,7 +70,7 @@ const Info = ({ position }) => {
           </div>
         </div>
 
-        <Button type="primary" isFullWidth>Register</Button>
+        <Button color="primary" isFullWidth>Register</Button>
       </Card>
 
     </aside>

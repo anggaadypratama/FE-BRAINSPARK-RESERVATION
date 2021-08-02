@@ -1,24 +1,24 @@
 import { Sidebar } from '@components';
-import { Card, Container, Typography } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
 import DashboardStyle from './style';
 
-const DashboardTemplate = ({ children }) => {
+const DashboardTemplate = ({
+  children, sidebarList,
+}) => {
   const classes = DashboardStyle();
 
   return (
     <div className={classes.root}>
-      <Sidebar />
+      <Sidebar list={sidebarList} />
       <div className={classes.content}>
         <Container>
           <div className={classes.contentWrapper}>
-            <Typography variant="h4" className={classes.titleContent}>Judul gan</Typography>
-            <Card elevation={3} className={classes.cardContent}>
-              <Container>
-                {children}
-              </Container>
-            </Card>
+            {
+              children
+            }
+            <div className={classes.marginBottom} />
           </div>
 
         </Container>
@@ -29,10 +29,14 @@ const DashboardTemplate = ({ children }) => {
 
 DashboardTemplate.propTypes = {
   children: PropTypes.node,
+  sidebarList: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])),
+
 };
 
 DashboardTemplate.defaultProps = {
   children: '',
+  sidebarList: [],
+
 };
 
 export default DashboardTemplate;

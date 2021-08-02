@@ -5,6 +5,7 @@ import { Button } from '@components/';
 import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { nanoid } from 'nanoid';
 import FilterStyle from './style';
 
 const Filter = ({ data, onChange }) => {
@@ -12,7 +13,7 @@ const Filter = ({ data, onChange }) => {
 
   const [active, isActive] = useState(0);
 
-  const dataMap = data.map((name) => ({
+  const dataMap = data?.map((name) => ({
     name,
     status: false,
   }));
@@ -27,6 +28,7 @@ const Filter = ({ data, onChange }) => {
       {
         dataMap.map((val, index) => (
           <Button
+            key={nanoid()}
             variant={active === index ? 'contained' : 'outlined'}
             onClick={() => handleOnclick(index)}
             className={

@@ -11,14 +11,11 @@ import { withRouter } from 'react-router-dom';
 import { GeneralUserTemplate } from '@/components';
 import ListEventStyle from './style';
 
-// eslint-disable-next-line react/prop-types
-const ListEventPage = ({ history }) => {
+const ListEventPage = () => {
   const screenSize = GetScreenSize({ isMax: true, size: 768 });
   const classes = ListEventStyle(screenSize);
   const backdropClassNames = classNames(classes.waveBackdrop);
   const waveJumbotronClassNames = classNames(classes.waveJumbotron);
-
-  console.log(history);
 
   const dataFilter = [
     'All Events',

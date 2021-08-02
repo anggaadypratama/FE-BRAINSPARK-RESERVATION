@@ -12,7 +12,7 @@ const InputStyle = makeStyles(({ color }) => ({
   },
   checked: {},
   label: {
-    fontSize: 13,
+    fontSize: 14,
     marginBottom: 10,
     '&.Mui-focused': {
       color: color.dustyOrange,
@@ -25,7 +25,7 @@ const InputStyle = makeStyles(({ color }) => ({
     marginLeft: 5,
   },
   textEditor: {
-    border: '2px solid #949494',
+    border: '1px solid #C4C4C4',
     borderRadius: 5,
     '&$focused': {
       border: `2px solid ${color.primary}`,
@@ -35,6 +35,12 @@ const InputStyle = makeStyles(({ color }) => ({
     padding: 20,
     background: color.primary,
     color: 'white',
+  },
+  toolbarEditor: {
+    marginTop: 14,
+    padding: 20,
+    boxShadow: 'none',
+    background: color.primary,
   },
 }));
 

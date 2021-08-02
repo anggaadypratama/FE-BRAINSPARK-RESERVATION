@@ -10,7 +10,7 @@ const DetailEventStyle = makeStyles(({
   containerContent: {
     marginTop: 50,
     display: 'flex',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     width: '100%',
     flexDirection: ({ isMedium }) => (isMedium ? 'column' : 'row'),
   },
@@ -23,7 +23,7 @@ const DetailEventStyle = makeStyles(({
     fontFamily: raleway,
     fontWeight: 800,
     color: color.primaryText,
-    padding: 20,
+    padding: '10px 0',
     paddingTop: 0,
   },
   avatarImage: {

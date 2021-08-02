@@ -76,7 +76,7 @@ const UserFormPage = () => {
             <Input
               label="Fakultas"
               data={data}
-              type="radio"
+              inputType="radio"
               InputLabelProps={{
                 shrink: true,
               }}
@@ -85,7 +85,7 @@ const UserFormPage = () => {
           </div>
           <div className={classes.buttonWrapper}>
             <Button variant="transparent" className={classes.button}>cancel</Button>
-            <Button type="primary" className={classes.button}>send</Button>
+            <Button color="primary" className={classes.button}>send</Button>
           </div>
         </form>
       </Card>
