@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  Container, Button, IconButton, List, ListItem,
+  Container, IconButton, List, ListItem,
   Popover, Typography, Toolbar, AppBar,
 } from '@material-ui/core';
 
@@ -12,6 +12,7 @@ import { nanoid } from 'nanoid';
 
 import GetScreenSize from '@assets/breakpoints';
 import { IconLogo } from '@assets/image';
+import { Button } from '@components';
 
 import NavbarStyle from './style';
 
@@ -32,21 +33,32 @@ const Navbar = ({ className, color }) => {
   const menu = [
     {
       name: 'home',
+      link: 'https://rplgdc.netlify.app/',
+      typebutton: 'link',
     },
     {
       name: 'brainspark',
+      link: '/brainspark',
+      typebutton: 'link-dom',
     },
     {
       name: 'division',
+      link: 'https://rplgdc.netlify.app/division',
+      typebutton: 'link',
     },
     {
       name: 'product',
+      link: 'https://rplgdc.netlify.app/product',
+      typebutton: 'link',
     },
     {
       name: 'blog',
+      link: 'https://medium.com/rplgdc-laboratory',
+      typebutton: 'link',
     },
     {
       name: 'status',
+      typebutton: '',
     },
   ];
 
@@ -75,8 +87,8 @@ const Navbar = ({ className, color }) => {
           </div>
           <div className={classes.content}>
             {!ScreenLarge
-                && menu?.filter(({ name }) => name !== 'status').map(({ name }) => (
-                  <Button key={nanoid()} className={buttonDefaultClassnames}>
+                && menu?.filter((val) => val.name !== 'status').map(({ name, ...rest }) => (
+                  <Button {...rest} key={nanoid()} className={buttonDefaultClassnames}>
                     {name}
                   </Button>
                 ))}

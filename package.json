@@ -16,6 +16,8 @@
     "classnames": "^2.3.1",
     "draft-js": "^0.11.7",
     "formik": "^2.2.9",
+    "formik-material-ui": "^3.0.1",
+    "formik-material-ui-pickers": "^0.0.12",
     "moment": "^2.29.1",
     "nanoid": "^3.1.23",
     "prop-types": "^15.7.2",
@@ -52,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-logical-assignment-operators": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
     "@loadable/babel-plugin": "^5.13.2",
     "babel-plugin-transform-imports": "^2.0.0",

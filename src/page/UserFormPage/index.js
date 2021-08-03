@@ -2,9 +2,11 @@ import { Card, Typography } from '@material-ui/core';
 import React from 'react';
 import { Input, Button, EventTemplate } from '@components';
 import UserFormStyle from './style';
+import GetScreenSize from '../../assets/breakpoints/index';
 
 const UserFormPage = () => {
-  const classes = UserFormStyle();
+  const isPhone = GetScreenSize({ isMax: true, size: 500 });
+  const classes = UserFormStyle({ isPhone });
 
   const data = [{
     value: 'Fakultas Ilmu Komunikasi',
@@ -34,7 +36,7 @@ const UserFormPage = () => {
 
   return (
     <EventTemplate>
-      <Card className={classes.root} elevation={3}>
+      <Card className={classes.root} elevation={isPhone ? 0 : 3}>
         <Typography variant="h6" className={classes.formTitle}>Form Registrasi</Typography>
         <form className={classes.formWrapper}>
           <div className={classes.inputWrapper}>
@@ -74,7 +76,7 @@ const UserFormPage = () => {
             <Input
               label="Fakultas"
               data={data}
-              type="radio"
+              inputType="radio"
               InputLabelProps={{
                 shrink: true,
               }}
@@ -83,7 +85,7 @@ const UserFormPage = () => {
           </div>
           <div className={classes.buttonWrapper}>
             <Button variant="transparent" className={classes.button}>cancel</Button>
-            <Button type="primary" className={classes.button}>send</Button>
+            <Button color="primary" className={classes.button}>send</Button>
           </div>
         </form>
       </Card>

@@ -88,6 +88,11 @@ const LoginStyle = makeStyles(({ color, font }) => ({
     fontSize: '14px',
     fontWeight: '800',
   },
+  wrapperlogo: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 }));
 
 export default LoginStyle;

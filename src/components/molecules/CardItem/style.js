@@ -4,17 +4,17 @@ const CardStyle = makeStyles(({ color, font }) => ({
   card: {
     background: 'linear-gradient(3.55deg, #FEE8D0 37.62%, #FFF8F1 95.02%)',
     minHeight: '250px',
-    borderRadius: 30,
+    borderRadius: 20,
     padding: 16,
     position: 'relative',
   },
   cardAction: {
-    borderRadius: 40,
+    borderRadius: 20,
   },
   imageNormal: {
     width: '100%',
     height: 'inherit',
-    borderRadius: 25,
+    borderRadius: 30,
     backgroundSize: 'cover',
   },
   contentWrapper: {

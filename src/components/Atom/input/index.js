@@ -14,10 +14,11 @@ import {
   DatePicker, KeyboardDatePicker, KeyboardTimePicker, MuiPickersUtilsProvider, TimePicker,
 } from '@material-ui/pickers';
 import { CheckBox } from '@material-ui/icons';
+import { Button } from '@components';
 import InputStyle from './style';
 
 const Input = ({
-  type, data, placeholder, label, TimeOrDateInput, ...rest
+  inputType, data, placeholder, label, TimeOrDateInput, accept, onChange, value, ...rest
 }) => {
   const classes = InputStyle();
 
@@ -27,12 +28,10 @@ const Input = ({
       className: classes.textEditor,
     },
     toolbar: {
-      style: {
-        padding: 20,
-      },
+      className: classes.toolbarEditor,
     },
   };
-  switch (type) {
+  switch (inputType) {
     case 'select':
       return (
         <FormControl className={classes.root}>
@@ -55,13 +54,17 @@ const Input = ({
               ? (
                 <KeyboardDatePicker
                   className={classes.root}
+                  value={value}
+                  onChange={onChange}
                   {...rest}
-                  labe={label}
+                  label={label}
                 />
               )
               : (
                 <DatePicker
                   className={classes.root}
+                  value={value}
+                  onChange={onChange}
                   {...rest}
                   label={label}
                 />
@@ -82,6 +85,8 @@ const Input = ({
                   mask="__:__ WIB"
                   {...rest}
                   label={label}
+                  value={value}
+                  onChange={onChange}
                 />
               )
               : (
@@ -90,6 +95,8 @@ const Input = ({
                   className={classes.root}
                   {...rest}
                   label={label}
+                  value={value}
+                  onChange={onChange}
                 />
               )
           }
@@ -98,7 +105,7 @@ const Input = ({
     case 'radio':
       return (
         <FormControl component="fieldset" className={classes.root}>
-          <FormLabel color="secondary" classes={{ root: classes.label, label: classes.label }}>{label}</FormLabel>
+          {label ?? <FormLabel color="secondary" classes={{ root: classes.label, label: classes.label }}>{label}</FormLabel>}
           <RadioGroup {...rest}>
             {
               data?.map((val) => (
@@ -107,7 +114,6 @@ const Input = ({
                   control={(
                     <Radio
                       classes={{ root: classes.input, checked: classes.checked }}
-
                     />
                     )}
                   label={val.name}
@@ -121,31 +127,67 @@ const Input = ({
       return (
         <FormGroup row>
           {
-            data?.map((val) => (
-              <FormControlLabel
-                classes={{ label: classes.checkboxLabel }}
-                control={(
-                  <CheckBox
-                    {...rest}
-                    name={val.value}
-                    color="primary"
-                  />
-            )}
-                label={val.name}
-              />
-            ))
+            data?.map((val) => {
+              (val.name ||= '');
+
+              return (
+                <FormControlLabel
+                  classes={{ label: classes.checkboxLabel }}
+                  control={(
+                    <CheckBox
+                      {...rest}
+                      name={val.name}
+                      color="primary"
+                    />
+                )}
+                  label={val.name}
+                />
+              );
+            })
           }
         </FormGroup>
 
       );
-    case 'rich-text-editor':
-      return <MUIEditor config={richEditorConfig} editorState={MUIEditorState.createEmpty()} />;
+    case 'editor': {
+      return (
+        <MUIEditor
+          onChange={onChange}
+          value={value}
+          config={richEditorConfig}
+          editorState={value || MUIEditorState.createEmpty(richEditorConfig)}
+          {...rest}
+        />
+      );
+    }
+
+    case 'input': {
+      return (
+        <>
+          <input
+            accept="image/*"
+            className={classes.input}
+            id="contained-button-file"
+            multiple
+            hidden
+            type="file"
+          />
+          <label htmlFor="contained-button-file">
+            <Button {...rest} component="span">
+              {label}
+            </Button>
+          </label>
+        </>
+      );
+    }
+
     default: return (
       <TextField
         className={classes.root}
         placeholder={placeholder}
         label={label}
-        type={type}
+        type={inputType}
+        value={value}
+        onChange={onChange}
         {...rest}
         color="primary"
       />
@@ -154,19 +196,31 @@ const Input = ({
 };
 
 Input.propTypes = {
-  type: PropTypes.string,
+  inputType: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.string])),
   TimeOrDateInput: PropTypes.bool,
   placeholder: PropTypes.string,
   label: PropTypes.string,
+  accept: PropTypes.string,
+  onChange: PropTypes.func,
+  value: PropTypes.oneOfType(
+    [
+      PropTypes.array,
+      PropTypes.object,
+      PropTypes.number,
+      PropTypes.string],
+  ),
 };
 
 Input.defaultProps = {
-  type: '',
+  inputType: '',
   data: [],
   TimeOrDateInput: false,
   placeholder: '',
   label: '',
+  accept: '',
+  onChange: () => {},
+  value: '',
 };
 
 export default Input;

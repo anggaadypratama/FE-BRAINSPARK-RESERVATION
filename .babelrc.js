@@ -1,4 +1,5 @@
 const plugins = [
+  "@babel/plugin-proposal-logical-assignment-operators",
   [
     'babel-plugin-transform-imports',
     {
@@ -11,7 +12,7 @@ const plugins = [
         'preventFullImport': true
       }
     },
-    "@loadable/babel-plugin"
+    "@loadable/babel-plugin",
   ]
 ];
 

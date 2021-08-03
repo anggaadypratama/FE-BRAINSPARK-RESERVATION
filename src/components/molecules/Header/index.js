@@ -12,7 +12,7 @@ const Header = () => {
     <CardHeader
       avatar={(
         <Avatar aria-label="recipe" className={classes.avatar}>
-          <div style={{ backgroundImage: `url("${'https://upload.wikimedia.org/wikipedia/commons/6/6b/Sundar_Pichai_WEF_2020.png'}")` }} className={classes.avatarImage} />
+          A
         </Avatar>
   )}
       action={(

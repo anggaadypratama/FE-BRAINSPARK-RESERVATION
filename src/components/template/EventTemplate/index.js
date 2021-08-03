@@ -10,11 +10,13 @@ import {
   GetScreenSize,
 } from '@assets';
 import {
-  Footer, Navbar, Info, Header,
+  Info,
+  Header,
 } from '@components';
 
 import { PropTypes } from 'prop-types';
 import DetailEventStyle from './style';
+import GeneralUserTemplate from '../GeneralUserTemplate';
 
 const EventTemplate = ({ children }) => {
   const isMedium = GetScreenSize({ isMax: true, size: 900 });
@@ -25,20 +27,20 @@ const EventTemplate = ({ children }) => {
 
   return (
     <>
-      <Navbar />
-      <Container maxWidth="lg" className={classes.containerContent}>
-        <Card elevation={0} className={classes.content}>
-          <Typography variant={heading} className={classes.contentTitle}>
-            SOLID Rest API for Web Development
-          </Typography>
-          <Header />
-          <div>
-            {children}
-          </div>
-        </Card>
-        <Info />
-      </Container>
-      <Footer />
+      <GeneralUserTemplate>
+        <Container maxWidth="md" className={classes.containerContent}>
+          <Card elevation={0} className={classes.content}>
+            <Typography variant={heading} className={classes.contentTitle}>
+              SOLID Rest API for Web Development
+            </Typography>
+            <Header />
+            <div>
+              {children}
+            </div>
+          </Card>
+          <Info />
+        </Container>
+      </GeneralUserTemplate>
     </>
   );
 };
