@@ -2,36 +2,67 @@ import {
   CardItem, Filter,
 
 } from '@/components/molecules';
-import { Grid } from '@material-ui/core';
+import { Fade, Grid } from '@material-ui/core';
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
+import { GetScreenSize } from '@assets';
 import listCardStyle from './style';
 
-const ListCard = ({ dataFilter, className }) => {
-  const classes = listCardStyle();
+const ListCard = ({
+  dataFilter, cardData, hasFilter, className, canEdit, loading, onChange, filterState, ...rest
+}) => {
+  const mobileSize = GetScreenSize({ isMax: true, size: 1000 });
+  const classes = listCardStyle({ mobileSize });
   const listCardClassname = classNames(className, classes.content);
 
   return (
     <div className={listCardClassname}>
-      <div className={classes.filter}>
-        <span className={classes.totalItem}>Result : 4</span>
-        <Filter data={dataFilter} onChange={(e) => e} />
-      </div>
+      {
+        hasFilter && (
+        <div className={classes.filter}>
+          <span className={classes.totalItem}>
+            Result :
+            {' '}
+            {cardData.length}
+          </span>
+          <Filter filterState={filterState} data={dataFilter} onChange={(e) => onChange(e)} />
+        </div>
+        )
+      }
       <div className={classes.content}>
         <Grid container spacing={4}>
-          <Grid item lg={4} sm={12}>
-            <CardItem canEdit />
-          </Grid>
-          <Grid item lg={4} sm={12}>
-            <CardItem canEdit />
-          </Grid>
-          <Grid item lg={4} sm={12}>
-            <CardItem canEdit />
-          </Grid>
-          <Grid item lg={4} sm={12}>
-            <CardItem canEdit />
-          </Grid>
+          {
+           cardData ? cardData?.map(({
+             _id: id,
+             themeName:
+             title,
+             imagePoster,
+             location,
+             date,
+             eventStart,
+           }) => (
+             <Grid key={id} item {...rest}>
+               <Fade in={loading}>
+                 <CardItem
+                   id={id}
+                   title={title}
+                   img={imagePoster}
+                   canEdit={canEdit}
+                   location={location}
+                   date={date}
+                   time={eventStart}
+                   refetch={rest.refetch}
+                   {...canEdit}
+                 />
+               </Fade>
+             </Grid>
+
+           ))
+             : ''
+          }
         </Grid>
       </div>
     </div>
@@ -41,11 +72,23 @@ const ListCard = ({ dataFilter, className }) => {
 ListCard.propTypes = {
   dataFilter: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.string])),
   className: PropTypes.string,
+  hasFilter: PropTypes.bool,
+  cardData: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.string])),
+  canEdit: PropTypes.bool,
+  loading: PropTypes.bool,
+  onChange: PropTypes.func,
+  filterState: PropTypes.number,
 };
 
 ListCard.defaultProps = {
   dataFilter: [],
   className: '',
+  hasFilter: false,
+  cardData: [],
+  canEdit: false,
+  loading: false,
+  onChange: () => {},
+  filterState: 0,
 };
 
 export default ListCard;

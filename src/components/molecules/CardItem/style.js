@@ -90,10 +90,10 @@ const CardStyle = makeStyles(({ color, font }) => ({
   itemSection: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: ({ buttonSize }) => (buttonSize ? 'stretch' : 'center'),
     marginTop: 10,
-
     padding: '10px 0',
+    flexDirection: ({ buttonSize }) => (buttonSize ? 'column' : 'row'),
   },
   itemContent: {
     marginLeft: 8,
@@ -127,6 +127,9 @@ const CardStyle = makeStyles(({ color, font }) => ({
   },
   buttonEditableText: {
     marginLeft: 6,
+  },
+  buttonView: {
+    marginTop: ({ buttonSize }) => (buttonSize ? 18 : 0),
   },
 
 }));

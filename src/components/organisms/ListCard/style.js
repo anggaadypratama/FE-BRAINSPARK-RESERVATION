@@ -8,8 +8,10 @@ const listCardStyle = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: ({ mobileSize }) => (mobileSize ? 'column' : 'row'),
   },
   totalItem: {
+    marginBottom: ({ mobileSize }) => (mobileSize ? 20 : 0),
     marginRight: 30,
   },
 }));

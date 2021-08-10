@@ -22,14 +22,16 @@ const infoStyle = makeStyles((
   cardInfo: {
     position: ({ position }) => (position ? 'sticky' : 'relative'),
     width: ({ isMedium }) => (isMedium ? 600 : '100%'),
-    top: 20,
+    top: 30,
     maxWidth: '100%',
+    minWidth: 220,
 
     boxShadow: 'none',
     fontSize: '1.25rem',
   },
   textInfo: {
     fontFamily: robotoCon,
+    padding: '2px 0px',
     fontWeight: 400,
   },
   titleInfo: {

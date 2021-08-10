@@ -10,7 +10,7 @@ const DetailEventStyle = makeStyles(({
 }) => ({
   contentBanner: {
     width: '100%',
-    marginTop: 20,
+    // marginTop: 20,
   },
   contentDescWrapper: {
     marginTop: 30,

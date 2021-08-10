@@ -1,48 +1,82 @@
 import {
   RplGdcLogo,
 } from '@components';
-import React from 'react';
-// import ListIcon from '@material-ui/icons/List';
+import React, { useState } from 'react';
 import {
-  // ButtonBase,
+  ButtonBase,
   Card, Typography,
 } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { ModalApp } from '@/components/molecules';
+import { useHistory } from 'react-router';
 import SidebarStyle from './style';
 import SidebarMenu from '../SidebarMenu';
 
 const Sidebar = ({ list }) => {
+  const [logoutConfirm, setLogoutConfirm] = useState(false);
   const classes = SidebarStyle();
+  const classButtonWrapper = classNames(classes.buttonLogout, classes.buttonWrapper);
+  const payload = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
 
-  return (
-    <div className={classes.root}>
-      <div>
-        <div className={classes.listWrapper}>
-          <RplGdcLogo className={classes.logo} />
+  const history = useHistory();
 
-        </div>
-        <SidebarMenu data={list} />
-      </div>
+  const closeModalLogout = () => {
+    setLogoutConfirm(false);
+  };
 
-      {/* <ButtonBase> */}
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    history.push('/dashboard');
+  };
+
+  const LogoutButton = () => {
+    const displayName = payload.username.length > 6 ? payload.role : payload.username;
+
+    return (
       <Card elevation={0} className={classes.logoutButton}>
-
-        <div className={classes.buttonWrapper}>
+        <ButtonBase
+          focusRipple
+          onClick={() => setLogoutConfirm(true)}
+          className={classButtonWrapper}
+          focusVisibleClassName={classes.focusVisible}
+        >
           <div className={classes.wrapperProfile}>
-            <div className={classes.image}>A</div>
-            <Typography className={classes.userRole}>Admin</Typography>
+            <div className={classes.image}>{displayName[0]}</div>
+            <Typography className={classes.userRole}>{displayName}</Typography>
           </div>
-
           <ExitToAppIcon className={classes.exitIcon} />
 
-        </div>
-
+        </ButtonBase>
       </Card>
-      {/* </ButtonBase> */}
+    );
+  };
 
-    </div>
+  return (
+    <>
+      <ModalApp
+        isActive={logoutConfirm}
+        handleClose={closeModalLogout}
+        title="Logout Confirmation"
+        hasActionButton
+        actionButtonName="Logout"
+        actionButtonClick={handleLogout}
+      >
+        Do you really want to logout
+      </ModalApp>
+      <div className={classes.root}>
+        <div>
+          <div className={classes.listWrapper}>
+            <RplGdcLogo className={classes.logo} />
+
+          </div>
+          <SidebarMenu data={list} />
+        </div>
+        <LogoutButton />
+      </div>
+    </>
   );
 };
 

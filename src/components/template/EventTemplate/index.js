@@ -14,11 +14,11 @@ import {
   Header,
 } from '@components';
 
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import DetailEventStyle from './style';
 import GeneralUserTemplate from '../GeneralUserTemplate';
 
-const EventTemplate = ({ children }) => {
+const EventTemplate = ({ children, dataContent }) => {
   const isMedium = GetScreenSize({ isMax: true, size: 900 });
   const isPhone = GetScreenSize({ isMax: true, size: 400 });
   const classes = DetailEventStyle({ isMedium, isPhone });
@@ -31,14 +31,14 @@ const EventTemplate = ({ children }) => {
         <Container maxWidth="md" className={classes.containerContent}>
           <Card elevation={0} className={classes.content}>
             <Typography variant={heading} className={classes.contentTitle}>
-              SOLID Rest API for Web Development
+              {dataContent?.themeName}
             </Typography>
-            <Header />
-            <div>
+            <Header speaker={dataContent?.speakerName} />
+            <section>
               {children}
-            </div>
+            </section>
           </Card>
-          <Info />
+          <Info position="sticky" dataContent={dataContent} />
         </Container>
       </GeneralUserTemplate>
     </>
@@ -47,10 +47,12 @@ const EventTemplate = ({ children }) => {
 
 EventTemplate.propTypes = {
   children: PropTypes.node,
+  dataContent: PropTypes.objectOf(PropTypes.object),
 };
 
 EventTemplate.defaultProps = {
   children: '',
+  dataContent: {},
 };
 
 export default EventTemplate;

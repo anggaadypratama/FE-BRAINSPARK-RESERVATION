@@ -8,35 +8,38 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 import { nanoid } from 'nanoid';
 // import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectedIndex } from '@/services/redux/slices/sidebar';
 import SidebarMenuStyle from './style';
 
 const SidebarMenu = ({ data }) => {
   const classes = SidebarMenuStyle();
+  const dispatch = useDispatch();
 
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const sidebarListIndex = useSelector((state) => state.sidebar.selectedIndexMenu);
 
   const history = useHistory();
 
   const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
+    dispatch(selectedIndex(index));
   };
 
   useEffect(() => {
-    const link = data[selectedIndex].path;
+    const link = data[sidebarListIndex].path;
     history.push(`${link}`);
-  }, [selectedIndex]);
+  }, [sidebarListIndex]);
 
   return (
     <div className={classes}>
       <Typography className={classes.titleMenu}>MAIN</Typography>
       <List component="nav" aria-label="page">
         {
-          data?.map(({ name, Icon }, i) => (
+          data?.filter((val) => val.path !== '/edit/:id')?.map(({ name, Icon }, i) => (
             <ListItem
               key={nanoid()}
               classes={{ root: classes.listItem }}
               button
-              selected={selectedIndex === i}
+              selected={sidebarListIndex === i}
               onClick={(event) => handleListItemClick(event, i)}
             >
               <div className={classes.item}>
