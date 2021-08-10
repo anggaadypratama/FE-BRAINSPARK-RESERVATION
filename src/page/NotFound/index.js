@@ -21,7 +21,7 @@ const NotFound = () => {
           {' '}
           <span className={classes.newDescription}>let&apos;s go back again!!!</span>
         </Typography>
-        <Link to="/brainspark" className={classes.link}>
+        <Link to="/" className={classes.link}>
           <Button color="primary">go back!!!</Button>
         </Link>
 

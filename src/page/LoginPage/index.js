@@ -12,6 +12,7 @@ import { useMutation } from 'react-query';
 import { Redirect } from 'react-router';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { loginValidation } from '@config/yup';
+import { nanoid } from 'nanoid';
 import LoginStyle from './style';
 
 // eslint-disable-next-line no-unused-vars
@@ -67,7 +68,7 @@ const LoginPage = () => {
       {
         'token' in localStorage
         && !isLoading
-        && <Redirect to="/brainspark/dashboard" />
+        && <Redirect to="/dashboard" />
       }
       <div className={classes.root}>
         <div className={classes.wave}>
@@ -107,15 +108,37 @@ const LoginPage = () => {
                 (errorForm || errorData) && (
                 <Alert classes={{ root: classes.alert }} severity="error" variant="filled">
                   <AlertTitle>Error</AlertTitle>
-                  {
-                    errorForm?.map((val) => <Typography>{val}</Typography>)
+                  <ul>
+                    {
+                    errorForm?.map((val) => (
+                      <li>
+                        <Typography key={nanoid()}>{val}</Typography>
+                      </li>
+                    ))
                   }
-                  {
-                    errorData?.message?.username
+                    {
+                    errorData && (
+                    <>
+                      {
+                      errorData?.message?.username && (
+                      <li>
+                        { errorData?.message?.username}
+                      </li>
+                      )
+                    }
+                      {
+                      errorData?.message?.password && (
+                      <li>
+                        { errorData?.message?.password}
+                      </li>
+                      )
+                    }
+
+                    </>
+                    )
                   }
-                  {
-                  errorData?.message?.password
-                  }
+
+                  </ul>
                 </Alert>
                 )
               }

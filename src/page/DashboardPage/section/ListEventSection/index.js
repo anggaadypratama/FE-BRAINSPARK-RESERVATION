@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ListCard, EmptyEvent, Loading } from '@components';
 import { useQuery } from 'react-query';
 import { getAllEventWithAuth } from '@services/index';
 
+import { useDispatch } from 'react-redux';
+import { setRefetch } from '@services/redux/slices/contentPage';
 import ListDataEventStyle from './style';
 
 const ListEvent = () => {
   const classes = ListDataEventStyle();
+  const dispatch = useDispatch();
 
   const [isFinished, setFinished] = useState(0);
 
@@ -21,6 +24,10 @@ const ListEvent = () => {
   } = useQuery(['event', params], () => getAllEventWithAuth(params), {
     refetchOnWindowFocus: false,
   });
+
+  useEffect(() => {
+    dispatch(setRefetch(refetch));
+  }, [refetch]);
 
   const dataFilter = dataEvent?.data;
 

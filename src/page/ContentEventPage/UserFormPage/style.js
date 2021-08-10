@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const UserFormStyle = makeStyles(({ color }) => ({
+const UserFormStyle = makeStyles(({ color, spacing }) => ({
   root: {
     padding: ({ isPhone }) => (isPhone ? '0' : '30px 33px'),
     margin: ({ isPhone }) => (isPhone ? '50px 0px 0' : '50px 10px 0'),
@@ -24,6 +24,9 @@ const UserFormStyle = makeStyles(({ color }) => ({
   },
   button: {
     margin: '0 12px',
+  },
+  alert: {
+    margin: spacing(2, 0),
   },
 }));
 

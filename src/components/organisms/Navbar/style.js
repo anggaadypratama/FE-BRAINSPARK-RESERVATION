@@ -6,6 +6,7 @@ const NavbarStyle = makeStyles(({
   },
   color: {
     dustyOrange,
+    primaryText,
   },
 }) => ({
   navText: {
@@ -73,6 +74,13 @@ const NavbarStyle = makeStyles(({
     textTransform: 'uppercase',
     minHeight: 48,
     padding: '0 16px',
+    textDecoration: 'none',
+    color: primaryText,
+    fontWeight: 500,
+
+    '&:hover': {
+      textDecoration: 'none',
+    },
   },
 
 }));

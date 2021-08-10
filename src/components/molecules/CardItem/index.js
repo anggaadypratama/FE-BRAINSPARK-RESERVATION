@@ -85,7 +85,14 @@ const CardItem = ({
       actionButtonName="Delete"
       actionButtonClick={handleDelete}
     >
-      are you sure you want to delete this event
+      are you sure you want to delete
+      {' '}
+      <b>
+        {title}
+      </b>
+
+      {' '}
+      event
     </ModalApp>
   );
 
@@ -145,7 +152,7 @@ const CardItem = ({
                   fullWidth={buttonSize}
                   typebutton="link-dom"
                   link={{
-                    pathname: `/brainspark/post/${removeSpaceTitle}`,
+                    pathname: `/post/${removeSpaceTitle}`,
                     state: { id },
                   }}
                   color="primary"

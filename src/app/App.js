@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { Redirect, Route } from 'react-router';
+// import { Redirect, Route } from 'react-router';
 import { nanoid } from 'nanoid';
 import { GlobalRoute, ProtectedRoute } from '@routes';
 import ROUTES from '@routes/routeList';
@@ -22,10 +22,9 @@ function App() {
           ?.filter(({ isPrivate }) => isPrivate)
           .map((val) => <ProtectedRoute Component={val.Component} key={nanoid()} {...val} />)
       }
-
-      <Route path="/" render={() => <Redirect to="/brainspark" />} exact />
-      {/* <Route path="/brainspark/404" component={NotFound} />
-      <Redirect from="*" to="/brainspark/404" /> */}
+      {/*
+      <Route path="/404" component={NotFound} />
+      <Redirect to="/404" /> */}
 
     </AppWrapper>
 

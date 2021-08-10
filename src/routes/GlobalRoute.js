@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route } from 'react-router';
 import { PropTypes } from 'prop-types';
 
-const GlobalRoute = ({ isPrivate, Component, ...rest }) => (
+const GlobalRoute = ({ Component, isPrivate, ...rest }) => (
   <Route
     {...rest}
     render={(props) => (isPrivate

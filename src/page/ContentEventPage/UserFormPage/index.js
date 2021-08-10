@@ -4,18 +4,24 @@ import React, { useState, useCallback } from 'react';
 import { Input, Button, Note } from '@components';
 import GetScreenSize from '@assets/breakpoints/index';
 import PropTypes from 'prop-types';
+import { participantValidation } from '@config/yup';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import { nanoid } from 'nanoid';
+import { useHistory } from 'react-router';
 import UserFormStyle from './style';
 import data from './faculty';
 
 const UserFormPage = ({ dataContent }) => {
   const isPhone = GetScreenSize({ isMax: true, size: 500 });
   const classes = UserFormStyle({ isPhone });
+  const history = useHistory();
 
-  const isTelkomOnly = dataContent?.isOnlyTelkom;
+  const [errorForm, setErrorForm] = useState(null);
 
   const [form, setForm] = useState({
     name: '',
     email: '',
+    isTelkomOnly: dataContent?.isOnlyTelkom,
     nim: 0,
     Status: '',
     fakultas: '',
@@ -23,13 +29,33 @@ const UserFormPage = ({ dataContent }) => {
     line: '',
   });
 
-  // eslint-disable-next-line no-unused-vars
   const handleInputChange = useCallback((val) => (e) => {
     setForm({ ...form, [val]: e.target.value });
+
+    if (e.target.value?.length) {
+      setErrorForm(null);
+    }
   }, [form]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const validationResult = await participantValidation
+      .validate(form, { abortEarly: false })
+      .catch(({ errors }) => {
+        setErrorForm(errors);
+      });
+
+    if (validationResult) {
+      const {
+        isTelkomOnly,
+        ...dataResult
+      } = validationResult;
+      console.log(dataResult);
+    }
+  };
+
+  const handleCancel = () => {
+    history.push('/');
   };
 
   return (
@@ -39,6 +65,7 @@ const UserFormPage = ({ dataContent }) => {
       <form className={classes.formWrapper} onSubmit={handleSubmit}>
         <div className={classes.inputWrapper}>
           <Input
+            error={errorForm !== null}
             label="Nama Lengkap"
             fullWidth
             placeholder="isi dengan benar"
@@ -52,7 +79,9 @@ const UserFormPage = ({ dataContent }) => {
         </div>
         <div className={classes.inputWrapper}>
           <Input
+            error={errorForm !== null}
             label="Email"
+            inputType="email"
             fullWidth
             placeholder="isi dengan benar"
             InputLabelProps={{
@@ -64,10 +93,11 @@ const UserFormPage = ({ dataContent }) => {
           />
         </div>
         {
-          isTelkomOnly ? (
+          form.isTelkomOnly ? (
             <>
               <div className={classes.inputWrapper}>
                 <Input
+                  error={errorForm !== null}
                   label="NIM"
                   fullWidth
                   placeholder="isi dengan benar"
@@ -82,6 +112,7 @@ const UserFormPage = ({ dataContent }) => {
               </div>
               <div className={classes.inputWrapper}>
                 <Input
+                  error={errorForm !== null}
                   label="Fakultas"
                   data={data}
                   inputType="radio"
@@ -97,7 +128,8 @@ const UserFormPage = ({ dataContent }) => {
           ) : (
             <div className={classes.inputWrapper}>
               <Input
-                label="Status (mahasiswa/kerja)"
+                error={errorForm !== null}
+                label="Status/lokasi (mahasiswa/kerja)"
                 fullWidth
                 placeholder="isi dengan benar"
                 InputLabelProps={{
@@ -140,10 +172,20 @@ const UserFormPage = ({ dataContent }) => {
         <Note>
           <div dangerouslySetInnerHTML={{ __html: dataContent?.note }} />
         </Note>
+        {
+                (errorForm) && (
+                <Alert classes={{ root: classes.alert }} severity="error" variant="filled">
+                  <AlertTitle>Error</AlertTitle>
+                  {
+                    errorForm?.map((val) => <Typography key={nanoid()}>{val}</Typography>)
+                  }
+                </Alert>
+                )
+              }
 
         <div className={classes.buttonWrapper}>
-          <Button variant="transparent" className={classes.button}>cancel</Button>
-          <Button color="primary" className={classes.button}>send</Button>
+          <Button variant="transparent" className={classes.button} onClick={handleCancel}>cancel</Button>
+          <Button color="primary" className={classes.button} typebutton="submit">send</Button>
         </div>
       </form>
     </Card>

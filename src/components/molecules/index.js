@@ -1,3 +1,4 @@
+import { Snackbar } from '@material-ui/core';
 import Note from './Note';
 import CardItem from './CardItem';
 import Header from './Header';
@@ -22,4 +23,5 @@ export {
   ModalApp,
   Note,
   EmptyEvent,
+  Snackbar,
 };
