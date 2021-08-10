@@ -1,10 +1,9 @@
 import loadable from '@loadable/component';
 
 const ListEventPage = loadable(() => import(/* webpackPrefetch: true */ '@page/ListEventPage'));
-const DetailEventPage = loadable(() => import(/* webpackPrefetch: true */ '@page/DetailEventPage'));
-const UserFormPage = loadable(() => import(/* webpackPrefetch: true */ '@page/UserFormPage'));
 const LoginPage = loadable(() => import(/* webpackPrefetch: true */ '@page/LoginPage'));
 const DashboardListPage = loadable(() => import(/* webpackPrefetch: true */ '@page/DashboardPage'));
+const ContentEventPage = loadable(() => import(/* webpackPrefetch: true */ '@page/ContentEventPage'));
 
 const prefix = '/brainspark';
 const dashboardPrefix = `${prefix}/dashboard`;
@@ -18,16 +17,9 @@ const ROUTES = [
     exact: true,
   },
   {
-    name: 'DetailEventPage',
-    Component: DetailEventPage,
-    path: `${prefix}/content/:id`,
-    isPrivate: false,
-    exact: true,
-  },
-  {
-    name: 'UserFormPage',
-    Component: UserFormPage,
-    path: `${prefix}/content/:id/form`,
+    name: 'ContentEventPage',
+    Component: ContentEventPage,
+    path: `${prefix}/post/:id`,
     isPrivate: false,
     exact: true,
   },
@@ -42,7 +34,7 @@ const ROUTES = [
     name: 'DashboardPage',
     Component: DashboardListPage,
     path: `${dashboardPrefix}`,
-    isPrivate: false,
+    isPrivate: true,
     exact: false,
 
   },

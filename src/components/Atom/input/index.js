@@ -18,7 +18,7 @@ import { Button } from '@components';
 import InputStyle from './style';
 
 const Input = ({
-  inputType, data, placeholder, label, TimeOrDateInput, accept, onChange, value, ...rest
+  inputType, data, placeholder, label, TimeOrDateInput, accept, onChange, value, checked, ...rest
 }) => {
   const classes = InputStyle();
 
@@ -81,8 +81,8 @@ const Input = ({
                 <KeyboardTimePicker
                   className={classes.root}
                   ampm={false}
-                  placeholder="08:00 WIB"
-                  mask="__:__ WIB"
+                  placeholder="08:00"
+                  mask="__:__"
                   {...rest}
                   label={label}
                   value={value}
@@ -110,9 +110,11 @@ const Input = ({
             {
               data?.map((val) => (
                 <FormControlLabel
+                  key={nanoid()}
                   value={val.value}
                   control={(
                     <Radio
+                      onChange={onChange}
                       classes={{ root: classes.input, checked: classes.checked }}
                     />
                     )}
@@ -132,6 +134,7 @@ const Input = ({
 
               return (
                 <FormControlLabel
+                  key={nanoid()}
                   classes={{ label: classes.checkboxLabel }}
                   control={(
                     <CheckBox
@@ -160,15 +163,16 @@ const Input = ({
       );
     }
 
-    case 'input': {
+    case 'file': {
       return (
         <>
           <input
-            accept="image/*"
-            className={classes.input}
+            accept={accept}
+            className={classes.file}
             id="contained-button-file"
             multiple
             hidden
+            onChange={onChange}
             type="file"
           />
           <label htmlFor="contained-button-file">
@@ -203,6 +207,7 @@ Input.propTypes = {
   label: PropTypes.string,
   accept: PropTypes.string,
   onChange: PropTypes.func,
+  checked: PropTypes.string,
   value: PropTypes.oneOfType(
     [
       PropTypes.array,
@@ -218,9 +223,10 @@ Input.defaultProps = {
   TimeOrDateInput: false,
   placeholder: '',
   label: '',
-  accept: '',
+  accept: 'image/*',
   onChange: () => {},
   value: '',
+  checked: '',
 };
 
 export default Input;

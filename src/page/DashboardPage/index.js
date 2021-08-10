@@ -2,7 +2,7 @@ import { DashboardTemplate, DashboardContent } from '@components';
 
 import React from 'react';
 import {
-  HashRouter, Route, Switch,
+  HashRouter as Router, Route, Switch,
 } from 'react-router-dom';
 
 import PeopleAltRoundedIcon from '@material-ui/icons/PeopleAltRounded';
@@ -15,6 +15,7 @@ import { nanoid } from 'nanoid';
 const ListEventSection = loadable(() => import('./section/ListEventSection'));
 const DataRespondersSection = loadable(() => import('./section/DataRespondersSection'));
 const CreateEventSection = loadable(() => import('./section/CreateEventSection'));
+const EditEventSection = loadable(() => import('./section/EditEventSection'));
 
 const DashboardPage = () => {
   const routes = [
@@ -39,10 +40,17 @@ const DashboardPage = () => {
       responders: true,
       path: '/responders',
     },
+    {
+      name: 'Edit Event',
+      Component: EditEventSection,
+      Icon: PeopleAltRoundedIcon,
+      responders: false,
+      path: '/edit/:id',
+    },
   ];
 
   return (
-    <HashRouter basename="/">
+    <Router basename="/">
       <DashboardTemplate sidebarList={routes}>
         <Switch>
           {
@@ -53,17 +61,26 @@ const DashboardPage = () => {
                 key={nanoid()}
                 path={path}
                 exact
-                render={() => (
+                render={(props) => (
                   <DashboardContent name={name} responders={responders}>
-                    <Component />
+                    <Component {...props} />
                   </DashboardContent>
                 )}
               />
             ))
           }
+          <Route
+            path="/edit/:id"
+            exact
+            render={() => {
+              <DashboardContent name="Edit Event" responders={false}>
+                <EditEventSection />
+              </DashboardContent>;
+            }}
+          />
         </Switch>
       </DashboardTemplate>
-    </HashRouter>
+    </Router>
 
   );
 };

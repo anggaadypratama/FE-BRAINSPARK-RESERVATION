@@ -8,6 +8,9 @@ const HeaderStyle = makeStyles(() => ({
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
   },
+  avatar: {
+    textTransform: 'uppercase',
+  },
 }));
 
 export default HeaderStyle;

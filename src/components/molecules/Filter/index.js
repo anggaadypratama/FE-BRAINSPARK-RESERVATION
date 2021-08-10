@@ -8,10 +8,10 @@ import classNames from 'classnames';
 import { nanoid } from 'nanoid';
 import FilterStyle from './style';
 
-const Filter = ({ data, onChange }) => {
+const Filter = ({ data, onChange, filterState }) => {
   const classes = FilterStyle();
 
-  const [active, isActive] = useState(0);
+  const [active, isActive] = useState(filterState);
 
   const dataMap = data?.map((name) => ({
     name,
@@ -55,6 +55,7 @@ const Filter = ({ data, onChange }) => {
 Filter.propTypes = {
   data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.string])).isRequired,
   onChange: PropTypes.func.isRequired,
+  filterState: PropTypes.number.isRequired,
 };
 
 export default Filter;

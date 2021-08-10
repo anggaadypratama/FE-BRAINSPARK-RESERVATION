@@ -5,9 +5,9 @@ import { PropTypes } from 'prop-types';
 const GlobalRoute = ({ isPrivate, Component, ...rest }) => (
   <Route
     {...rest}
-    render={() => (isPrivate
+    render={(props) => (isPrivate
       ? <Redirect to="/dashboard" />
-      : <Component {...rest} />)}
+      : <Component {...rest} {...props} />)}
   />
 );
 

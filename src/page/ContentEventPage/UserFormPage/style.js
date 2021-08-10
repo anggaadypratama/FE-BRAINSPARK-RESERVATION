@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const UserFormStyle = makeStyles(({ color }) => ({
   root: {
     padding: ({ isPhone }) => (isPhone ? '0' : '30px 33px'),
-    margin: ({ isPhone }) => (isPhone ? '0' : '30px 10px 0'),
+    margin: ({ isPhone }) => (isPhone ? '50px 0px 0' : '50px 10px 0'),
     borderRadius: 20,
   },
   formWrapper: {

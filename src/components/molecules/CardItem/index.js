@@ -1,36 +1,58 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-vars */
-import React, { memo } from 'react';
+import React, { useState } from 'react';
 import {
-  Card, CardContent, Typography, CardActionArea, CardActions, Divider,
+  Card, CardContent, Typography, CardActionArea, CardActions, Divider, Modal,
 } from '@material-ui/core';
 
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {
-  GetScreenSize, cardStyle, ContentImage,
+  GetScreenSize, cardStyle,
 } from '@assets';
 
-import { Button } from '@components';
+import { Button, ModalApp, NetworkImage } from '@components';
+
+import { ImageNotFound } from '@assets/image';
 
 import EventRoundedIcon from '@material-ui/icons/EventRounded';
 import CreateRoundedIcon from '@material-ui/icons/CreateRounded';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import RoomIcon from '@material-ui/icons/Room';
 
+import CONFIG from '@config';
+
+import moment from 'moment';
+import { useMutation, useQueryClient } from 'react-query';
+import { deleteDetailEventById } from '@/services';
+import { useHistory } from 'react-router';
 import CardStyle from './style';
 
 const CardItem = ({
-  className, src, status, title, desc, time, cardButton, canEdit,
+  className, status, title, date, location, time, cardButton, canEdit, img, id, ...rest
 }) => {
   const isMobileCard = GetScreenSize({ isMax: true, size: 600 });
+  const buttonSize = GetScreenSize({ isMax: true, size: 1200 });
 
-  const classes = CardStyle();
+  const classes = CardStyle({ buttonSize });
 
   const cardClassnames = classNames(classes.card, className);
   const contentWrapperClassnames = classNames(
     classes.contentWrapper, isMobileCard && classes.flexColumn,
   );
+
+  const dateConverted = moment(date).format('ll');
+  const timeConverted = moment(time).format('HH:mm');
+  const removeSpaceTitle = title.replaceAll(' ', '-');
+
+  const history = useHistory();
+
+  const queryClient = useQueryClient();
+
+  const [modalDeleteActive, isModalDeleteActive] = useState(false);
+  const mutation = useMutation((props) => deleteDetailEventById(props), {
+    onSuccess: () => queryClient.invalidateQueries('event'),
+  });
 
   const ListWithIcon = ({ children, content }) => (
     <div className={classes.item}>
@@ -48,15 +70,34 @@ const CardItem = ({
     content: PropTypes.string.isRequired,
   };
 
+  const handleDelete = () => {
+    mutation.mutate(id);
+    isModalDeleteActive(false);
+    rest.refetch();
+  };
+
+  const AlertDelete = () => (
+    <ModalApp
+      isActive={modalDeleteActive}
+      handleClose={() => isModalDeleteActive(false)}
+      title="Delete Event"
+      hasActionButton
+      actionButtonName="Delete"
+      actionButtonClick={handleDelete}
+    >
+      are you sure you want to delete this event
+    </ModalApp>
+  );
+
   const EditableMenu = () => (
     <>
       <Divider />
       <CardActions className={classes.editable}>
-        <Button className={classes.buttonEditable}>
+        <Button className={classes.buttonEditable} onClick={() => history.push(`/edit/${id}`)}>
           <CreateRoundedIcon />
           <span className={classes.buttonEditableText}>Edit</span>
         </Button>
-        <Button className={classes.buttonEditable}>
+        <Button className={classes.buttonEditable} onClick={() => isModalDeleteActive(true)}>
           <DeleteRoundedIcon />
           <span className={classes.buttonEditableText}>Delete</span>
         </Button>
@@ -73,10 +114,11 @@ const CardItem = ({
         alt="card style"
       />
       <div className={contentWrapperClassnames}>
-        <img
-          src={ContentImage}
+        <NetworkImage
+          src={`${CONFIG.API_URL}/${img}`}
           className={classes.imageNormal}
-          alt="ea"
+          onErrorImage={ImageNotFound}
+          alt={title}
         />
         <CardContent className={classes.content}>
           <div>
@@ -84,20 +126,33 @@ const CardItem = ({
               Coming Up
             </Typography>
             <Typography variant="h6" className={classes.title}>
-              SOLID Rest API for Web Development
+              {title}
             </Typography>
 
             <div className={classes.itemSection}>
               <div className={classes.itemWrapper}>
-                <ListWithIcon content="Google Meets">
+                <ListWithIcon content={location}>
                   <RoomIcon className={classes.itemIcon} />
                 </ListWithIcon>
-                <ListWithIcon content="23 Jan 20, at 10:00 WIB">
+                <ListWithIcon content={`${dateConverted}, at ${timeConverted} WIB`}>
                   <EventRoundedIcon className={classes.itemIcon} />
                 </ListWithIcon>
               </div>
               <div>
-                {!cardButton && !canEdit && <Button type="primary">View</Button>}
+                {!cardButton && !canEdit && (
+                <Button
+                  className={classes.buttonView}
+                  fullWidth={buttonSize}
+                  typebutton="link-dom"
+                  link={{
+                    pathname: `/brainspark/post/${removeSpaceTitle}`,
+                    state: { id },
+                  }}
+                  color="primary"
+                >
+                  View
+                </Button>
+                )}
               </div>
             </div>
             {
@@ -115,6 +170,7 @@ const CardItem = ({
 
   return (
     <>
+      <AlertDelete />
       {
       cardButton ? (
         <CardActionArea>
@@ -127,25 +183,29 @@ const CardItem = ({
 };
 
 CardItem.propTypes = {
+  id: PropTypes.string,
   className: PropTypes.string,
-  src: PropTypes.string,
   status: PropTypes.bool,
   title: PropTypes.string,
-  desc: PropTypes.string,
+  location: PropTypes.string,
   time: PropTypes.string,
   cardButton: PropTypes.bool,
   canEdit: PropTypes.bool,
+  img: PropTypes.string,
+  date: PropTypes.string,
 };
 
 CardItem.defaultProps = {
+  id: '',
   className: '',
-  src: '',
   status: false,
   title: '',
-  desc: '',
+  location: '',
   time: '',
   cardButton: false,
   canEdit: false,
+  img: '',
+  date: '',
 };
 
 export default CardItem;

@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const SidebarStyle = makeStyles(({
-  spacing, font, color, transitions,
+  spacing, font, color, transitions, breakpoints,
 }) => ({
   root: {
     width: 270,
@@ -24,15 +24,14 @@ const SidebarStyle = makeStyles(({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    padding: spacing(2),
     borderRadius: 10,
-    height: 40,
+    height: 75,
     color: color.primaryText,
     margin: spacing(3),
     font: font.raleway,
     background: 'white',
     transition: transitions.create(['color', 'background'], {
-      duration: 500,
+      duration: 200,
     }),
 
     '&:hover': {
@@ -47,7 +46,7 @@ const SidebarStyle = makeStyles(({
   userRole: {
     fontWeight: 700,
     marginLeft: 14,
-
+    textTransform: 'uppercase',
   },
   logoutText: {
     fontWeight: 800,
@@ -65,6 +64,7 @@ const SidebarStyle = makeStyles(({
     background: color.primary,
     display: 'grid',
     placeItems: 'center',
+    textTransform: 'uppercase',
   },
   buttonWrapper: {
     display: 'flex',
@@ -82,6 +82,29 @@ const SidebarStyle = makeStyles(({
     }),
     '&:hover': {
       color: 'white',
+    },
+  },
+  focusVisible: {},
+  buttonLogout: {
+    position: 'relative',
+    height: 75,
+    padding: spacing(2),
+
+    [breakpoints.down('xs')]: {
+      width: '100% !important', // Overrides inline-style
+
+    },
+    '&:hover, &$focusVisible': {
+      zIndex: 1,
+      '& $imageBackdrop': {
+        opacity: 0.15,
+      },
+      '& $imageMarked': {
+        opacity: 0,
+      },
+      '& $imageTitle': {
+        border: '4px solid currentColor',
+      },
     },
   },
 }));

@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const LoginStyle = makeStyles(({ color, font }) => ({
+const LoginStyle = makeStyles(({ color, font, spacing }) => ({
   root: {
     width: '100%',
     height: '100vh',
@@ -92,6 +92,9 @@ const LoginStyle = makeStyles(({ color, font }) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  alert: {
+    marginBottom: spacing(2),
   },
 }));
 

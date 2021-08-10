@@ -1,5 +1,5 @@
 import { Input } from '@components/Atom';
-import { Typography } from '@material-ui/core';
+import { Typography, Paper } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -14,7 +14,15 @@ const InputFormAdmin = ({
   return (
     <div className={classInputWrapper}>
       <Typography>{title}</Typography>
-      <Input variant="outlined" type={type} {...rest} />
+      {
+        type === 'file' ? (
+          <Paper variant="outlined" className={classes.inputFileWrapper}>
+            <Input variant="outlined" inputType={type} {...rest} />
+            <Typography className={classes.nameFile}>{rest.value?.name || 'File Not Found' }</Typography>
+          </Paper>
+        ) : <Input variant="outlined" inputType={type} {...rest} />
+      }
+
     </div>
   );
 };

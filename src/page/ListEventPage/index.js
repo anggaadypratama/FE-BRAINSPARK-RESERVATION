@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable import/no-unresolved */
 import React from 'react';
 import classNames from 'classnames';
@@ -5,10 +6,16 @@ import classNames from 'classnames';
 import { Container, Typography } from '@material-ui/core';
 import {
   ListCard,
+  GeneralUserTemplate,
+  Loading,
+  EmptyEvent,
 } from '@components';
 import GetScreenSize from '@assets/breakpoints';
 import { withRouter } from 'react-router-dom';
-import { GeneralUserTemplate } from '@/components';
+
+import { useQuery } from 'react-query';
+
+import { getAllEvent } from '@services';
 import ListEventStyle from './style';
 
 const ListEventPage = () => {
@@ -17,11 +24,9 @@ const ListEventPage = () => {
   const backdropClassNames = classNames(classes.waveBackdrop);
   const waveJumbotronClassNames = classNames(classes.waveJumbotron);
 
-  const dataFilter = [
-    'All Events',
-    'In This Month',
-    'In This Week',
-  ];
+  // eslint-disable-next-line no-console
+
+  const { data, isLoading } = useQuery('event', getAllEvent);
 
   return (
     <>
@@ -35,7 +40,22 @@ const ListEventPage = () => {
           <div className={waveJumbotronClassNames} />
         </div>
         <Container maxWidth="lg">
-          <ListCard dataFilter={dataFilter} />
+          <Typography variant="h5" className={classes.titleEvent}>Upcoming Event</Typography>
+          {
+            isLoading ? (
+              <Loading />
+            )
+              : data?.data?.length > 0 ? (
+                <ListCard
+                  loading={!isLoading}
+                  cardData={data?.data}
+                  md={4}
+                  sm={6}
+                  xs={12}
+                />
+              ) : <EmptyEvent message="Oops, it looks like there is no event for now" />
+          }
+
         </Container>
       </GeneralUserTemplate>
     </>
