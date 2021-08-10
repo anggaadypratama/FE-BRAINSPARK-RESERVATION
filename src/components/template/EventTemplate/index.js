@@ -47,7 +47,7 @@ const EventTemplate = ({ children, dataContent }) => {
 
 EventTemplate.propTypes = {
   children: PropTypes.node,
-  dataContent: PropTypes.objectOf(PropTypes.object),
+  dataContent: PropTypes.oneOfType([PropTypes.objectOf(PropTypes.object), PropTypes.string]),
 };
 
 EventTemplate.defaultProps = {

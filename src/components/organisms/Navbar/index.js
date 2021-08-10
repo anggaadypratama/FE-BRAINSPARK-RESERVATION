@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
   Container, IconButton, List, ListItem,
-  Popover, Typography, Toolbar, AppBar,
+  Popover, Typography, Toolbar, AppBar, Link as LinkMaterial,
 } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
@@ -14,6 +14,7 @@ import GetScreenSize from '@assets/breakpoints';
 import { IconLogo } from '@assets/image';
 import { Button } from '@components';
 
+import { Link } from 'react-router-dom';
 import NavbarStyle from './style';
 
 const Navbar = ({ className, color }) => {
@@ -24,7 +25,6 @@ const Navbar = ({ className, color }) => {
   const appbarClassnames = classNames(
     className,
     classes.navbar,
-    color.length === 0 && classes.antiWave,
   );
   const buttonContainedClassnames = classNames(classes.button, classes.contained);
   const buttonDefaultClassnames = classNames(classes.button, classes.default);
@@ -38,7 +38,7 @@ const Navbar = ({ className, color }) => {
     },
     {
       name: 'brainspark',
-      link: '/brainspark',
+      link: '/',
       typebutton: 'link-dom',
     },
     {
@@ -76,7 +76,13 @@ const Navbar = ({ className, color }) => {
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <AppBar elevation={0} color={color} position="absolute" className={appbarClassnames}>
+    <AppBar
+      elevation={0}
+      color={color}
+      classes={{ colorDefault: color === 'default' && classes.antiWave }}
+      position={color === 'default' ? 'static' : 'absolute'}
+      className={appbarClassnames}
+    >
       <Container maxWidth="lg">
         <Toolbar className={classes.toolbar}>
           <div className={classes.content}>
@@ -115,15 +121,30 @@ const Navbar = ({ className, color }) => {
                 >
                   <List component="nav">
                     {
-                            menu?.filter(({ name }) => (!ScreenPhone ? (name !== 'status') : name)).map(({ name }) => (
-                              <ListItem
-                                key={nanoid()}
-                                button
-                                className={classes.dropdownItem}
-                              >
-                                {name}
-                              </ListItem>
-                            ))
+                            menu?.filter(({ name }) => (!ScreenPhone ? (name !== 'status') : name)).map(({ name, link, typebutton }) => {
+                              if (typebutton === 'link-dom') {
+                                return (
+                                  <Link key={nanoid()} to={link}>
+                                    <ListItem
+                                      button
+                                      className={classes.dropdownItem}
+                                    >
+                                      {name}
+                                    </ListItem>
+                                  </Link>
+                                );
+                              }
+                              return (
+                                <LinkMaterial key={nanoid()} href={link}>
+                                  <ListItem
+                                    button
+                                    className={classes.dropdownItem}
+                                  >
+                                    {name}
+                                  </ListItem>
+                                </LinkMaterial>
+                              );
+                            })
                           }
                   </List>
                 </Popover>
@@ -145,7 +166,7 @@ Navbar.propTypes = {
 
 Navbar.defaultProps = {
   className: '',
-  color: '',
+  color: 'default',
 };
 
 export default Navbar;

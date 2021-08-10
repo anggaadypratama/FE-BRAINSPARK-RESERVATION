@@ -8,7 +8,7 @@ const ProtectedRoute = ({ Component, isPrivate, ...rest }) => (
     {...rest}
     render={(props) => (isPrivate && localStorage.token
       ? <Component {...props} />
-      : <Redirect to="/brainspark" />)}
+      : <Redirect to="/" />)}
   />
 );
 

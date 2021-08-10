@@ -1,65 +1,78 @@
 import * as yup from 'yup';
+import { toHTML } from 'react-mui-draft-wysiwyg';
+import moment from 'moment';
+
+const date = new Date(Date.now() - 86400000);
 
 const crudValidation = yup.object().shape({
   themeName: yup
     .string()
-    .isRequired(),
+    .required('Nama tema wajib diisi'),
   imagePoster: yup
     .mixed()
-    .isRequired()
-    .test('typeFile', 'File harus jpeg/jpg/png', (value) => ['image/jpeg', 'image/jpg', 'image/png'].includes(value.type))
-    .test('fileSize', 'File terlalu besar', (value) => {
-      if (!value.length) return true; // attachment is optional
-      return value.size <= 1024 ** 2;
-    }),
-  description: yup.mixed().required(),
+    .required('File tidak boleh kosong')
+    .test('fileSize', 'Gambar Tidak boleh Kosong', (value) => (value.length !== 0))
+    .test('fileSize', 'Gambar maksimal 1MB', (value) => (value.length !== 0) && value.size <= 1024 ** 2)
+    .test('typeFile', 'Gambar harus jpeg/jpg/png', (value) => ['image/jpeg', 'image/jpg', 'image/png'].includes(value.type)),
+  description: yup
+    .mixed()
+    .test('description', 'Deskripsi tidak boleh kosong', (value) => {
+      let data = toHTML(value.getCurrentContent());
+      data = data.replace(/<\/?[^>]+(>|$)/g, '');
+      return data.length;
+    }).required(),
   date: yup
     .date()
-    .min(new Date()
-      .setHours(0, 0, 0, 0), 'Tanggal tidak boleh kurang dari hari ini'),
+    .min(date)
+    .default(() => moment()),
   eventStart: yup
-    .date()
-    .min(new Date().setHours(0, 0, 0, 0), 'Tanggal tidak boleh kurang dari hari ini'),
+    .date(),
   eventEnd: yup
     .date()
-    .min(new Date().setHours(0, 0, 0, 0), 'Tanggal tidak boleh kurang dari hari ini'),
+    .min(
+      yup.ref('eventStart'),
+      'Event selesai tidak boleh kurang dari event dimulai',
+    ),
   speakerName: yup
     .string()
-    .isRequired(),
+    .required('Pembawa materi wajib diisi'),
+  isLinkLocation: yup
+    .boolean()
+    .required(),
   location: yup
     .string()
-    .isRequired(),
+    .required('Lokasi tidak boleh kosong'),
   linkLocation: yup
-    .string().url(),
+    .string()
+    .when('isLinkLocation', {
+      is: true,
+      then: yup
+        .string()
+        .url()
+        .required('Link tidak boleh kosong'),
+    })
+    .url(),
+  isOnlyTelkom: yup
+    .mixed()
+    .required('kategori partisipan wajib dipilih'),
   endRegistration: yup
     .date()
-    .min(new Date().setHours(0, 0, 0, 0), 'Tanggal tidak boleh kurang dari hari ini'),
-  isOnlyTelkom: yup
-    .string()
-    .isRequired(),
+    .min(
+      yup.ref('eventStart'),
+      'Event tidak boleh kurang dari event dimulai',
+    ),
   ticketLimit: yup
     .number()
-    .min(5, 'Minimal tiket 5 orang')
-    .max(100, 'Maksimal tiket 100 orang').positive(),
+    .positive()
+    .min(5, 'Tiket minimal 5')
+    .max(100, 'Tiket maksimal 100'),
   note: yup
     .mixed()
-    .required(),
+    .test('note', 'Note tidak boleh kosong', (value) => {
+      let data = toHTML(value.getCurrentContent());
+      data = data.replace(/<\/?[^>]+(>|$)/g, '');
+      return data.length;
+    }),
 });
 
 export default crudValidation;
-
-// const dummyForm = {
-//     themeName: '',
-//     imagePoster: '',
-//     description: MUIEditorState.createEmpty(editorConfig),
-//     date: moment().format(),
-//     eventStart: moment().format(),
-//     eventEnd: moment().format(),
-//     speakerName: '',
-//     location: '',
-//     linkLocation: '',
-//     endRegistration: moment().format(),
-//     isOnlyTelkom: null,
-//     ticketLimit: '',
-//     note: MUIEditorState.createEmpty(editorConfig),
-//   };

@@ -21,9 +21,7 @@ const DetailEventPage = ({ description, contentImage }) => {
     <>
       <NetworkImage src={`${CONFIG.API_URL}/${contentImage}`} className={classes.contentBanner} alt="content" />
       <div className={classes.contentDescWrapper}>
-        <Typography className={classes.contentDesc}>
-          <div dangerouslySetInnerHTML={{ __html: description }} />
-        </Typography>
+        <Typography className={classes.contentDesc} dangerouslySetInnerHTML={{ __html: description }} />
       </div>
 
     </>

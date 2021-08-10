@@ -5,13 +5,14 @@ import React, { useState } from 'react';
 import { useMutation } from 'react-query';
 import { ModalApp } from '@/components';
 import { useHistory } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectedIndex } from '@services/redux/slices/sidebar';
 import CreateEventStyle from './style';
 
 const CreateEventSection = () => {
   const classes = CreateEventStyle();
   const dispatch = useDispatch();
+  const refetch = useSelector(({ contentPage }) => contentPage.refetch);
 
   const mutation = useMutation((props) => postNewEvent(props, {
     'Content-Type': 'multipart/form-data',
@@ -25,6 +26,7 @@ const CreateEventSection = () => {
   const handleCloseModalSuccess = () => {
     setSuccessModal(false);
     history.push('/');
+    refetch();
     dispatch(selectedIndex(0));
   };
 

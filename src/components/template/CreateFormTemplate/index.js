@@ -5,9 +5,13 @@ import { InputFormAdmin, Button } from '@components';
 import { MUIEditorState, toHTML } from 'react-mui-draft-wysiwyg';
 import moment from 'moment';
 import PropTypes from 'prop-types';
+import { crudValidation } from '@config/yup';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import { nanoid } from 'nanoid';
 import CreateFormStyle from './style';
 import { participantCategory, locationType } from './data';
 
+// eslint-disable-next-line no-unused-vars
 const CreateFormTemplate = ({ handleSubmitForm }) => {
   const classes = CreateFormStyle();
 
@@ -21,8 +25,6 @@ const CreateFormTemplate = ({ handleSubmitForm }) => {
     },
   };
 
-  const [location, setLocation] = useState(null);
-
   const dummyForm = {
     themeName: '',
     imagePoster: '',
@@ -30,6 +32,7 @@ const CreateFormTemplate = ({ handleSubmitForm }) => {
     date: moment().format(),
     eventStart: moment().format(),
     eventEnd: moment().format(),
+    isLinkLocation: null,
     speakerName: '',
     location: '',
     linkLocation: '',
@@ -38,10 +41,11 @@ const CreateFormTemplate = ({ handleSubmitForm }) => {
     ticketLimit: '',
     note: MUIEditorState.createEmpty(editorConfig),
   };
-
+  const [errorForm, setErrorForm] = useState(null);
   const [form, setForm] = useState(dummyForm);
 
   const handleInputChange = useCallback((val, type) => (e) => {
+    setErrorForm(null);
     if (['checkbox', 'radio', 'text'].includes(type)) {
       if (val === 'isOnlyTelkom') {
         setForm({
@@ -49,6 +53,11 @@ const CreateFormTemplate = ({ handleSubmitForm }) => {
           isOnlyTelkom: {
             isOnlyTelkom: e.target.value === 'telyu',
           },
+        });
+      } else if (val === 'isLinkLocation') {
+        setForm({
+          ...form,
+          isLinkLocation: e.target.value === 'online',
         });
       } else {
         setForm({ ...form, [val]: e.target.value });
@@ -60,103 +69,118 @@ const CreateFormTemplate = ({ handleSubmitForm }) => {
     }
   }, [form]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    Object.keys(form).forEach((key) => {
-      const data = ['description', 'note'].includes(key)
-        ? toHTML(form[key].getCurrentContent()) : key === 'isOnlyTelkom'
-          ? JSON.stringify(form[key]) : form[key];
-      return formData.append(key, data);
-    });
+    const resultCheck = await crudValidation
+      .validate(form, { abortEarly: false })
+      .catch(({ errors }) => {
+        setErrorForm(errors);
+      });
 
-    handleSubmitForm(formData);
+    if (resultCheck) {
+      const {
+        isLinkLocation, ...resultData
+      } = resultCheck;
+      console.log(resultData);
+
+      const formData = new FormData();
+      Object.keys(resultData).forEach((key) => {
+        const data = ['description', 'note'].includes(key)
+          ? toHTML(form[key].getCurrentContent()) : key === 'isOnlyTelkom'
+            ? JSON.stringify(form[key]) : form[key];
+        return formData.append(key, data);
+      });
+
+      setErrorForm(null);
+      handleSubmitForm(formData);
+    }
   };
 
   return (
-    <div className={classes.root}>
-      <form onSubmit={handleSubmit}>
-        <div className={classes.formWrapper}>
-          <Typography variant="h6">Event Information</Typography>
-          <InputFormAdmin
-            title="1. Input event theme"
-            fullWidth
-            multiline
-            id="theme"
-            name="themeName"
-            value={form.themeName}
-            onChange={handleInputChange('themeName', 'text')}
-          />
-          <InputFormAdmin
-            title="2. Input event description"
-            type="file"
-            color="primary"
-            variant="contained"
-            size="small"
-            value={form.imagePoster}
-            onChange={handleInputChange('imagePoster', 'file')}
-            label="upload"
-          />
+    <>
+      <div className={classes.root}>
+        <form onSubmit={handleSubmit}>
+          <div className={classes.formWrapper}>
+            <Typography variant="h6">Event Information</Typography>
+            <InputFormAdmin
+              title="1. Input event theme"
+              fullWidth
+              multiline
+              id="theme"
+              name="themeName"
+              value={form.themeName}
+              onChange={handleInputChange('themeName', 'text')}
+            />
+            <InputFormAdmin
+              title="2. Input event description"
+              type="file"
+              color="primary"
+              variant="contained"
+              size="small"
+              value={form.imagePoster}
+              onChange={handleInputChange('imagePoster', 'file')}
+              label="upload"
+            />
 
-          <InputFormAdmin
-            title="3. Input event description"
-            type="editor"
-            value={form.description}
-            onChange={handleInputChange('description')}
-          />
-          <Typography variant="h6">Event Information Details</Typography>
-          <InputFormAdmin
-            title="4. Input event date"
-            variant="inline"
-            type="date"
-            id="date"
-            name="date"
-            TimeOrDateInput
-            format="DD/MM/yyyy"
-            inputVariant="outlined"
-            value={form.date}
-            onChange={handleInputChange('date')}
-          />
-          <div className={classes.time}>
-            <Typography>5. Input event time</Typography>
-            <div className={classes.timeWrapper}>
-              <InputFormAdmin
-                className={classes.timeInput}
-                variant="inline"
-                title="Event start"
-                type="time"
-                TimeOrDateInput
-                inputVariant="outlined"
-                value={form.eventStart}
-                onChange={handleInputChange('eventStart')}
-              />
-              <InputFormAdmin
-                className={classes.timeInput}
-                variant="inline"
-                title="Event end"
-                type="time"
-                TimeOrDateInput
-                inputVariant="outlined"
-                value={form.eventEnd}
-                onChange={handleInputChange('eventEnd')}
-              />
+            <InputFormAdmin
+              title="3. Input event description"
+              type="editor"
+              value={form.description}
+              onChange={handleInputChange('description')}
+            />
+            <Typography variant="h6">Event Information Details</Typography>
+            <InputFormAdmin
+              title="4. Input event date"
+              variant="inline"
+              type="date"
+              id="date"
+              name="date"
+              TimeOrDateInput
+              format="DD/MM/yyyy"
+              inputVariant="outlined"
+              value={form.date}
+              onChange={handleInputChange('date')}
+            />
+            <div className={classes.time}>
+              <Typography>5. Input event time</Typography>
+              <div className={classes.timeWrapper}>
+                <InputFormAdmin
+                  className={classes.timeInput}
+                  variant="inline"
+                  title="Event start"
+                  type="time"
+                  TimeOrDateInput
+                  inputVariant="outlined"
+                  value={form.eventStart}
+                  onChange={handleInputChange('eventStart')}
+                />
+                <InputFormAdmin
+                  className={classes.timeInput}
+                  variant="inline"
+                  title="Event end"
+                  type="time"
+                  TimeOrDateInput
+                  inputVariant="outlined"
+                  value={form.eventEnd}
+                  onChange={handleInputChange('eventEnd')}
+                />
+              </div>
             </div>
-          </div>
-          <InputFormAdmin
-            label="6. Event location"
-            data={locationType}
-            type="radio"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            id="standard-full-width"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-          <div className={classes.locationWrapper}>
-            {
-              (location === 'outsite' || location === 'online') && (
+            <InputFormAdmin
+              label="6. Event location"
+              data={locationType}
+              type="radio"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="standard-full-width"
+              value={form.isLinkLocation}
+              onChange={handleInputChange('isLinkLocation', 'radio')}
+            />
+            <div className={classes.locationWrapper}>
+              {
+              (form.isLinkLocation === true || form.isLinkLocation === false) && (
               <InputFormAdmin
                 title="Place"
                 placeholder="Gedung Arwana..."
@@ -166,8 +190,8 @@ const CreateFormTemplate = ({ handleSubmitForm }) => {
               />
               )
             }
-            {
-              location === 'online' && (
+              {
+              form.isLinkLocation === true && (
               <InputFormAdmin
                 title="Link"
                 placeholder="www.meet.google.com..."
@@ -177,60 +201,75 @@ const CreateFormTemplate = ({ handleSubmitForm }) => {
               />
               )
             }
+            </div>
+            <InputFormAdmin
+              title="7. Input speaker name"
+              fullWidth
+              value={form.speakerName}
+              onChange={handleInputChange('speakerName', 'text')}
+            />
+            <InputFormAdmin
+              label="8. Select participant category"
+              data={participantCategory}
+              type="radio"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="standard-full-width"
+              value={form.isOnlyTelkom}
+              onChange={handleInputChange('isOnlyTelkom', 'radio')}
+            />
+            <InputFormAdmin
+              title="9. Registration Deadline"
+              variant="inline"
+              type="date"
+              TimeOrDateInput
+              format="DD/MM/yyyy"
+              inputVariant="outlined"
+              value={form.endRegistration}
+              onChange={handleInputChange('endRegistration')}
+            />
+            <InputFormAdmin
+              title="10. Ticket registration limit"
+              fullWidth
+              inputType="number"
+              value={form.ticketLimit}
+              onChange={handleInputChange('ticketLimit', 'text')}
+            />
+            <InputFormAdmin
+              title="11. Note To Participant"
+              type="editor"
+              value={form.note}
+              onChange={handleInputChange('note')}
+            />
+            {
+                (errorForm) && (
+                <Alert classes={{ root: classes.alert }} severity="error" variant="filled">
+                  <AlertTitle>Error</AlertTitle>
+                  <ul>
+                    {
+                    errorForm?.map((val) => <li><Typography key={nanoid()}>{val}</Typography></li>)
+                  }
+                  </ul>
+
+                </Alert>
+                )
+              }
           </div>
-          <InputFormAdmin
-            title="7. Input speaker name"
-            fullWidth
-            value={form.speakerName}
-            onChange={handleInputChange('speakerName', 'text')}
-          />
-          <InputFormAdmin
-            label="8. Select participant category"
-            data={participantCategory}
-            type="radio"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            id="standard-full-width"
-            value={form.isOnlyTelkom}
-            onChange={handleInputChange('isOnlyTelkom', 'radio')}
-          />
-          <InputFormAdmin
-            title="9. Registration Deadline"
-            variant="inline"
-            type="date"
-            TimeOrDateInput
-            format="DD/MM/yyyy"
-            inputVariant="outlined"
-            value={form.endRegistration}
-            onChange={handleInputChange('endRegistration')}
-          />
-          <InputFormAdmin
-            title="10. Ticket registration limit"
-            fullWidth
-            inputType="number"
-            value={form.ticketLimit}
-            onChange={handleInputChange('ticketLimit', 'text')}
-          />
-          <InputFormAdmin
-            title="11. Note To Participant"
-            type="editor"
-            value={form.note}
-            onChange={handleInputChange('note')}
-          />
-        </div>
-        <div className={classes.buttonWrapper}>
-          <Button
-            color="primary"
-            type="submit"
-          >
-            Upload
 
-          </Button>
-        </div>
+          <div className={classes.buttonWrapper}>
+            <Button
+              color="primary"
+              type="submit"
+            >
+              Upload
 
-      </form>
-    </div>
+            </Button>
+          </div>
+
+        </form>
+      </div>
+    </>
   );
 };
 

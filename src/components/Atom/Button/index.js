@@ -82,7 +82,7 @@ Button.propTypes = {
   typebutton: PropTypes.string,
   isFullWidth: PropTypes.bool,
   size: PropTypes.string,
-  link: PropTypes.string,
+  link: PropTypes.oneOfType([PropTypes.string, PropTypes.objectOf(PropTypes.object)]),
   color: PropTypes.string,
 };
 
@@ -98,7 +98,7 @@ Button.defaultProps = {
   typebutton: '',
   isFullWidth: false,
   size: 'medium',
-  link: null,
+  link: '',
   color: '',
 };
 

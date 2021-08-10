@@ -112,7 +112,11 @@ const Info = ({ position, dataContent }) => {
 
 Info.propTypes = {
   position: PropTypes.string,
-  dataContent: PropTypes.objectOf(PropTypes.object).isRequired,
+  dataContent: PropTypes
+    .oneOfType([
+      PropTypes.objectOf(PropTypes.object),
+      PropTypes.string])
+    .isRequired,
 };
 
 Info.defaultProps = {
