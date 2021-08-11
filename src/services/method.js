@@ -132,7 +132,7 @@ const getWithSlug = (api) => async (slug, params, timemout = true) => {
   return response.data;
 };
 
-const patchWithSlug = (api) => (slug, data, timeout = true) => {
+const patchWithSlug = (api) => (slug, data, header, timeout = true) => {
   const tokens = localStorage.getItem('token');
   const tokenBearer = `Bearer ${tokens}`;
   return axios.patch(
@@ -140,6 +140,7 @@ const patchWithSlug = (api) => (slug, data, timeout = true) => {
     data,
     {
       headers: {
+        ...header,
         authorization: tokenBearer,
       },
     },

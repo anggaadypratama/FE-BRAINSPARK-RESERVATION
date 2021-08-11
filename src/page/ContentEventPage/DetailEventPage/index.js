@@ -14,12 +14,13 @@ import { NetworkImage } from '@components';
 
 import DetailEventStyle from './style';
 
-const DetailEventPage = ({ description, contentImage }) => {
+const DetailEventPage = ({ dataContent }) => {
   const classes = DetailEventStyle();
+  const { description, imagePoster } = dataContent;
 
   return (
     <>
-      <NetworkImage src={`${CONFIG.API_URL}/${contentImage}`} className={classes.contentBanner} alt="content" />
+      <NetworkImage src={`${CONFIG.API_URL}/${imagePoster}`} className={classes.contentBanner} alt="content" />
       <div className={classes.contentDescWrapper}>
         <Typography className={classes.contentDesc} dangerouslySetInnerHTML={{ __html: description }} />
       </div>

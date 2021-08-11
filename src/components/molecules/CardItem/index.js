@@ -152,7 +152,7 @@ const CardItem = ({
                   fullWidth={buttonSize}
                   typebutton="link-dom"
                   link={{
-                    pathname: `/post/${removeSpaceTitle}`,
+                    pathname: `/p/${removeSpaceTitle}`,
                     state: { id },
                   }}
                   color="primary"

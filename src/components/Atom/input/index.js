@@ -18,7 +18,8 @@ import { Button } from '@components';
 import InputStyle from './style';
 
 const Input = ({
-  inputType, data, placeholder, label, TimeOrDateInput, accept, onChange, value, checked, ...rest
+  inputType, error,
+  data, placeholder, label, TimeOrDateInput, accept, onChange, value, checked, ...rest
 }) => {
   const classes = InputStyle();
 
@@ -104,9 +105,9 @@ const Input = ({
       );
     case 'radio':
       return (
-        <FormControl component="fieldset" className={classes.root}>
+        <FormControl error={error} component="fieldset" className={classes.root}>
           {label ?? <FormLabel color="secondary" classes={{ root: classes.label, label: classes.label }}>{label}</FormLabel>}
-          <RadioGroup {...rest}>
+          <RadioGroup value={checked} onChange={onChange} {...rest}>
             {
               data?.map((val) => (
                 <FormControlLabel
@@ -200,6 +201,7 @@ const Input = ({
 };
 
 Input.propTypes = {
+  error: PropTypes.bool,
   inputType: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.string])),
   TimeOrDateInput: PropTypes.bool,
@@ -218,6 +220,7 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
+  error: false,
   inputType: '',
   data: [],
   TimeOrDateInput: false,

@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Typography, Card, Divider,
 } from '@material-ui/core';
+import Fade from 'react-reveal/Fade';
 import classNames from 'classnames';
 import { Button } from '@components';
 import GetScreenSize from '@assets/breakpoints';
@@ -74,32 +75,29 @@ const Info = ({ position, dataContent }) => {
         <Divider />
 
         <div className={classes.registerInfo}>
-          {
-            !page && (
-            <>
-              <div>
-                <Typography className={classes.registerTitle}>
-                  Ticket
-                  {' '}
-                  <span className={classes.registerTextInfo}>
-                    0/
-                    {dataContent?.ticketLimit}
 
-                  </span>
-                </Typography>
+          <Fade bottom cascade collapse when={!page}>
+            <div>
+              <Typography className={classes.registerTitle}>
+                Ticket
+                {' '}
+                <span className={classes.registerTextInfo}>
+                  0/
+                  {dataContent?.ticketLimit}
 
-              </div>
-              <div className={classes.registerUntil}>
-                <Typography className={classes.registerTitle}>
-                  Registration Until
-                </Typography>
-                <Typography className={classes.registerTextInfo}>
-                  {moment(dataContent?.endRegistration).format('D MMMM YYYY')}
-                </Typography>
-              </div>
-            </>
-            )
-          }
+                </span>
+              </Typography>
+
+            </div>
+            <div className={classes.registerUntil}>
+              <Typography className={classes.registerTitle}>
+                Registration Until
+              </Typography>
+              <Typography className={classes.registerTextInfo}>
+                {moment(dataContent?.endRegistration).format('D MMMM YYYY')}
+              </Typography>
+            </div>
+          </Fade>
 
         </div>
 
