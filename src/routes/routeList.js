@@ -4,6 +4,7 @@ const ListEventPage = loadable(() => import(/* webpackPrefetch: true */ '@page/L
 const LoginPage = loadable(() => import(/* webpackPrefetch: true */ '@page/LoginPage'));
 const DashboardListPage = loadable(() => import(/* webpackPrefetch: true */ '@page/DashboardPage'));
 const ContentEventPage = loadable(() => import(/* webpackPrefetch: true */ '@page/ContentEventPage'));
+const AttendancePage = loadable(() => import(/* webpackPrefetch: true */ '@page/Attendance'));
 
 const ROUTES = [
   {
@@ -16,7 +17,7 @@ const ROUTES = [
   {
     name: 'ContentEventPage',
     Component: ContentEventPage,
-    path: '/post/:id',
+    path: '/p/:id',
     isPrivate: false,
     exact: true,
   },
@@ -33,7 +34,13 @@ const ROUTES = [
     path: '/dashboard',
     isPrivate: true,
     exact: false,
-
+  },
+  {
+    name: 'AttendancePage',
+    Component: AttendancePage,
+    path: '/attendance',
+    isPrivate: false,
+    exact: true,
   },
 ];
 

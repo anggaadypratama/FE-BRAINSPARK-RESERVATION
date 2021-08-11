@@ -28,7 +28,7 @@ const InputFormAdmin = ({
 };
 
 InputFormAdmin.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.node,
   type: PropTypes.string,
   className: PropTypes.string,
 };

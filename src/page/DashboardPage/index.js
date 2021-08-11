@@ -12,10 +12,10 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import loadable from '@loadable/component';
 import { nanoid } from 'nanoid';
 
-const ListEventSection = loadable(() => import('./section/ListEventSection'));
-const DataRespondersSection = loadable(() => import('./section/DataRespondersSection'));
-const CreateEventSection = loadable(() => import('./section/CreateEventSection'));
-const EditEventSection = loadable(() => import('./section/EditEventSection'));
+const ListEventSection = loadable(() => import(/* webpackPrefetch: true */ './section/ListEventSection'));
+const DataRespondersSection = loadable(() => import(/* webpackPrefetch: true */ './section/DataRespondersSection'));
+const CreateEventSection = loadable(() => import(/* webpackPrefetch: true */ './section/CreateEventSection'));
+const EditEventSection = loadable(() => import(/* webpackPrefetch: true */ './section/EditEventSection'));
 
 const DashboardPage = () => {
   const routes = [

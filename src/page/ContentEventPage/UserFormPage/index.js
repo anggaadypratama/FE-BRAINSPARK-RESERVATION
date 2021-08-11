@@ -120,7 +120,7 @@ const UserFormPage = ({ dataContent }) => {
                     shrink: true,
                   }}
                   id="standard-full-width"
-                  value={form.fakultas}
+                  checked={form.fakultas}
                   onChange={handleInputChange('fakultas')}
                 />
               </div>
@@ -176,9 +176,15 @@ const UserFormPage = ({ dataContent }) => {
                 (errorForm) && (
                 <Alert classes={{ root: classes.alert }} severity="error" variant="filled">
                   <AlertTitle>Error</AlertTitle>
-                  {
-                    errorForm?.map((val) => <Typography key={nanoid()}>{val}</Typography>)
+                  <ul>
+                    {
+                    errorForm?.map((val) => (
+                      <li>
+                        <Typography key={nanoid()}>{val}</Typography>
+                      </li>
+                    ))
                   }
+                  </ul>
                 </Alert>
                 )
               }

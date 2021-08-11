@@ -1,5 +1,5 @@
 import { Typography } from '@material-ui/core';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { InputFormAdmin, Button } from '@components';
 
 import { MUIEditorState, toHTML } from 'react-mui-draft-wysiwyg';
@@ -8,12 +8,15 @@ import PropTypes from 'prop-types';
 import { crudValidation } from '@config/yup';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { nanoid } from 'nanoid';
+import { ContentState, convertFromHTML, EditorState } from 'draft-js';
 import CreateFormStyle from './style';
 import { participantCategory, locationType } from './data';
 
 // eslint-disable-next-line no-unused-vars
-const CreateFormTemplate = ({ handleSubmitForm }) => {
+const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
   const classes = CreateFormStyle();
+
+  console.log(defaultData);
 
   const editorConfig = {
     editor: {
@@ -25,24 +28,66 @@ const CreateFormTemplate = ({ handleSubmitForm }) => {
     },
   };
 
-  const dummyForm = {
-    themeName: '',
-    imagePoster: '',
-    description: MUIEditorState.createEmpty(editorConfig),
-    date: moment().format(),
-    eventStart: moment().format(),
-    eventEnd: moment().format(),
-    isLinkLocation: null,
-    speakerName: '',
-    location: '',
-    linkLocation: '',
-    endRegistration: moment().format(),
-    isOnlyTelkom: null,
-    ticketLimit: '',
-    note: MUIEditorState.createEmpty(editorConfig),
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
+  const convertHTML = (data) => {
+    if (data) {
+      const blocksFromHTML = convertFromHTML(data);
+      const content = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap,
+      );
+
+      return EditorState.createWithContent(content);
+    }
+
+    return false;
   };
+
+  const descState = convertHTML(defaultData?.description);
+  const noteState = convertHTML(defaultData?.note);
+
   const [errorForm, setErrorForm] = useState(null);
-  const [form, setForm] = useState(dummyForm);
+  const [form, setForm] = useState({
+    themeName: defaultData
+      ? defaultData?.themeName
+      : '',
+    imagePoster: '',
+    description: defaultData
+      ? descState : MUIEditorState.createEmpty(editorConfig),
+    date: defaultData
+      ? moment(defaultData?.date).format()
+      : moment().format(),
+    eventStart: defaultData
+      ? moment(defaultData?.eventStart).format()
+      : moment().format(),
+    eventEnd: defaultData
+      ? moment(defaultData?.eventEnd).format()
+      : moment().format(),
+    isLinkLocation: null,
+    speakerName: defaultData
+      ? defaultData?.speakerName
+      : '',
+    location: defaultData
+      ? defaultData?.location
+      : '',
+    linkLocation: defaultData
+      ? defaultData?.linkLocation
+      : '',
+    endRegistration: defaultData
+      ? moment(defaultData?.endRegistration).format()
+      : moment().format(),
+    isOnlyTelkom: defaultData
+      ? (defaultData?.isOnlyTelkom ? 'telyu' : 'gp')
+      : null,
+    ticketLimit: defaultData
+      ? defaultData?.ticketLimit
+      : '',
+    note: defaultData
+      ? noteState : MUIEditorState.createEmpty(editorConfig),
+  });
 
   const handleInputChange = useCallback((val, type) => (e) => {
     setErrorForm(null);
@@ -69,6 +114,8 @@ const CreateFormTemplate = ({ handleSubmitForm }) => {
     }
   }, [form]);
 
+  console.log(form.isOnlyTelkom);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -82,7 +129,6 @@ const CreateFormTemplate = ({ handleSubmitForm }) => {
       const {
         isLinkLocation, ...resultData
       } = resultCheck;
-      console.log(resultData);
 
       const formData = new FormData();
       Object.keys(resultData).forEach((key) => {
@@ -175,7 +221,7 @@ const CreateFormTemplate = ({ handleSubmitForm }) => {
                 shrink: true,
               }}
               id="standard-full-width"
-              value={form.isLinkLocation}
+              checked={form.isLinkLocation ? 'online' : 'outsite'}
               onChange={handleInputChange('isLinkLocation', 'radio')}
             />
             <div className={classes.locationWrapper}>
@@ -216,7 +262,7 @@ const CreateFormTemplate = ({ handleSubmitForm }) => {
                 shrink: true,
               }}
               id="standard-full-width"
-              value={form.isOnlyTelkom}
+              checked={form.isOnlyTelkom.isOnlyTelkom ? 'telyu' : 'gp'}
               onChange={handleInputChange('isOnlyTelkom', 'radio')}
             />
             <InputFormAdmin
@@ -274,12 +320,14 @@ const CreateFormTemplate = ({ handleSubmitForm }) => {
 };
 
 CreateFormTemplate.propTypes = {
-  // defaultData: PropTypes.objectOf(PropTypes.object),
+  defaultData: PropTypes.objectOf(PropTypes.object),
   handleSubmitForm: PropTypes.func.isRequired,
+  refetch: PropTypes.func,
 };
 
 CreateFormTemplate.defaultProps = {
-  // defaultData: {},
+  defaultData: {},
+  refetch: () => {},
 };
 
 export default CreateFormTemplate;

@@ -28,6 +28,12 @@ const CreateFormStyle = makeStyles(({ color, spacing }) => ({
   locationWrapper: {
     margin: spacing(0, 2),
   },
+  errorAlert: {
+    marginBottom: 400,
+  },
+  disableErrorAlert: {
+    marginBottom: 0,
+  },
 }));
 
 export default CreateFormStyle;

@@ -1,8 +1,9 @@
 import {
   CardItem, Filter,
 
-} from '@/components/molecules';
-import { Fade, Grid } from '@material-ui/core';
+} from '@components/molecules';
+import { Grid } from '@material-ui/core';
+import Fade from 'react-reveal/Fade';
 import React from 'react';
 
 import PropTypes from 'prop-types';
@@ -45,7 +46,7 @@ const ListCard = ({
              eventStart,
            }) => (
              <Grid key={id} item {...rest}>
-               <Fade in={loading}>
+               <Fade bottom>
                  <CardItem
                    id={id}
                    title={title}

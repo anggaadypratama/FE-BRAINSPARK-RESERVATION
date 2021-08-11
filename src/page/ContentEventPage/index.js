@@ -37,8 +37,7 @@ const ContentEventPage = ({ location }) => {
         <EventTemplate dataContent={data?.data}>
           {page ? <UserFormPage dataContent={data?.data} /> : (
             <DetailEventPage
-              description={data?.data?.description}
-              contentImage={data?.data?.imagePoster}
+              dataContent={data?.data}
             />
           )}
         </EventTemplate>
