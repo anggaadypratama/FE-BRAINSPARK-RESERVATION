@@ -32,6 +32,7 @@ const Input = ({
       className: classes.toolbarEditor,
     },
   };
+
   switch (inputType) {
     case 'select':
       return (
@@ -187,6 +188,7 @@ const Input = ({
 
     default: return (
       <TextField
+        error={error}
         className={classes.root}
         placeholder={placeholder}
         label={label}

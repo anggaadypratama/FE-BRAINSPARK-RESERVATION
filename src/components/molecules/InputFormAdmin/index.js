@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import InputFormAdminStyle from './style';
 
 const InputFormAdmin = ({
-  title, type, className, ...rest
+  title, type, className, error, ...rest
 }) => {
   const classes = InputFormAdminStyle();
   const classInputWrapper = classNames(className, classes.root);
@@ -17,10 +17,10 @@ const InputFormAdmin = ({
       {
         type === 'file' ? (
           <Paper variant="outlined" className={classes.inputFileWrapper}>
-            <Input variant="outlined" inputType={type} {...rest} />
+            <Input variant="outlined" error={error} inputType={type} {...rest} />
             <Typography className={classes.nameFile}>{rest.value?.name || 'File Not Found' }</Typography>
           </Paper>
-        ) : <Input variant="outlined" inputType={type} {...rest} />
+        ) : <Input variant="outlined" error={error} inputType={type} {...rest} />
       }
 
     </div>
@@ -31,12 +31,14 @@ InputFormAdmin.propTypes = {
   title: PropTypes.node,
   type: PropTypes.string,
   className: PropTypes.string,
+  error: PropTypes.bool,
 };
 
 InputFormAdmin.defaultProps = {
   title: '',
   type: '',
   className: '',
+  error: false,
 };
 
 export default InputFormAdmin;

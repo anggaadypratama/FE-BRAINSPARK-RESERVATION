@@ -18,25 +18,44 @@ const AttendanceStyle = makeStyles(({ spacing, font }) => ({
     right: 0,
     zIndex: 1,
   },
+  waveRightCard: {
+    position: 'absolute',
+    top: 0,
+    right: -70,
+    zIndex: 0,
+    height: 200,
+  },
   waveLeft: {
     position: 'absolute',
     width: '100%',
     height: 'inherit',
-    bottom: 0,
+    bottom: ({ screenL, screenS }) => (screenL ? -200 : screenS ? 0 : 0),
+    left: 0,
+    zIndex: 0,
+  },
+  waveLeftCard: {
+    position: 'absolute',
+    width: '100%',
+    height: 'inherit',
+    bottom: -140,
     left: 0,
     zIndex: 0,
   },
   content: {
+    width: ({ screenS }) => (screenS && '100%'),
     position: 'absolute',
     zIndex: 1,
   },
   cardContent: {
     padding: '21px 27px',
-    width: 508,
-    borderRadius: spacing(1),
+    width: ({ screenS }) => (screenS ? '100%' : 508),
+    borderRadius: ({ screenS }) => (screenS ? spacing(0) : spacing(1)),
+    minHeight: ({ screenS }) => (screenS ? '100vh' : 200),
   },
   header: {
+    marginTop: ({ screenS }) => (screenS ? 120 : 0),
     display: 'flex',
+    justifyContent: ({ screenS }) => (screenS ? 'center' : 'flex-start'),
     alignItems: 'center',
   },
   titleWrapper: {
@@ -57,7 +76,7 @@ const AttendanceStyle = makeStyles(({ spacing, font }) => ({
     height: 45,
   },
   mainContent: {
-    marginTop: spacing(3),
+    marginTop: ({ screenS }) => (screenS ? spacing(6) : spacing(3)),
   },
   titleFormWrapper: {
     display: 'flex',
@@ -82,6 +101,36 @@ const AttendanceStyle = makeStyles(({ spacing, font }) => ({
     fontSize: 12,
     font: 'oblique',
     lineHeight: 1,
+  },
+  greetingWrapper: {
+    display: 'flex',
+
+    alignItems: 'center',
+    flexDirection: 'column',
+    width: '100%',
+  },
+  logoWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: spacing(11),
+  },
+  logoSecond: {
+    height: 30,
+    width: 30,
+  },
+  titleLogo: {
+    marginLeft: spacing(2),
+    fontFamily: font.robotoCon,
+    fontWeight: 900,
+    fontSize: 21,
+  },
+  message: {
+    fontFamily: font.raleway,
+    fontWeight: 700,
+    padding: spacing(6),
+    background: ' -webkit-linear-gradient(68.21deg, #FC6D21 12.88%, #EE3B52 74.92%, #DD2476 98.79%), -webkit-linear-gradient(0deg, #000000, #000000)',
+    '-webkit-background-clip': 'text',
+    '-webkit-text-fill-color': 'transparent',
   },
 }));
 

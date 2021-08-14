@@ -6,6 +6,7 @@ import {
   getWithSlug,
   patchWithSlug,
   deleteWithSlug,
+  putWithSlug,
 } from './method';
 
 export const login = post('users/login/');
@@ -19,6 +20,8 @@ export const getAllEvent = get('event/');
 export const patchDetailEventById = patchWithSlug('event/');
 export const deleteDetailEventById = deleteWithSlug('event/');
 
+export const putEventParticipant = putWithSlug('event/');
+
 const API = {
   getAllEvent,
   getDetailEventById,
@@ -26,6 +29,7 @@ const API = {
   deleteDetailEventById,
   getDetailEventByIdWithAuth,
   getAllEventWithAuth,
+  putEventParticipant,
 };
 
 export default API;

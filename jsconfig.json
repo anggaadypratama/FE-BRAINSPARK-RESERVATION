@@ -9,7 +9,8 @@
         "@routes/*": ["./routes/*"],
         "@assets/*": ["./assets/*"],
         "@services/*": ["./services/*"],
-        "@config/*": ["./config/*"]
+        "@config/*": ["./config/*"],
+        "@helpers/*": ["./helpers/*"]
       }
     },
     "exclude": ["node_modules","dist","node_modules/*"]

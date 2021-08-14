@@ -87,6 +87,7 @@ module.exports = {
       '@assets': path.resolve(__dirname, 'src/assets/'),
       '@services': path.resolve(__dirname, 'src/services'),
       '@config': path.resolve(__dirname, 'src/config'),
+      '@helpers': path.resolve(__dirname, 'src/helpers'),
     }),
     addBabelPreset(
       [

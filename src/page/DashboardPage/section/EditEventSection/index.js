@@ -26,14 +26,15 @@ const EditEventSection = ({ match }) => {
     'Content-Type': 'multipart/form-data',
   }));
 
-  // const id = match?.params?.id;
-
   const [successModal, setSuccessModal] = useState(true);
-  // const [failedModal, setFailedModal] = useState(mutation.isError);
 
   useEffect(() => {
     dispatch(selectedIndex(0));
   }, []);
+
+  // const { _id: id } = data?.data;
+
+  // console.log(id === match?.params?.id);
 
   const history = useHistory();
 
