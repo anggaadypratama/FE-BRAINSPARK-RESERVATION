@@ -5,7 +5,7 @@ import { InputFormAdmin, Button } from '@components';
 import { MUIEditorState, toHTML } from 'react-mui-draft-wysiwyg';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import { crudValidation } from '@config/yup';
+import { crudValidation } from '@helpers/yup';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { nanoid } from 'nanoid';
 import { ContentState, convertFromHTML, EditorState } from 'draft-js';
@@ -15,8 +15,6 @@ import { participantCategory, locationType } from './data';
 // eslint-disable-next-line no-unused-vars
 const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
   const classes = CreateFormStyle();
-
-  console.log(defaultData);
 
   const editorConfig = {
     editor: {
@@ -113,8 +111,6 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
       setForm({ ...form, [val]: e });
     }
   }, [form]);
-
-  console.log(form.isOnlyTelkom);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -15,8 +15,8 @@ import { selectedContentIndex } from '@services/redux/slices/contentPage';
 
 // import DetailEventStyle from './style';
 
-const DetailEventPage = loadable(() => import('./DetailEventPage'));
-const UserFormPage = loadable(() => import('./UserFormPage'));
+const DetailEventPage = loadable(() => import(/* webpackPrefetch: true */ './DetailEventPage'));
+const UserFormPage = loadable(() => import(/* webpackPrefetch: true */ './UserFormPage'));
 
 const ContentEventPage = ({ location }) => {
   const dispatch = useDispatch();

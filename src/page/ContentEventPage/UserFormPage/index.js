@@ -1,13 +1,19 @@
 /* eslint-disable react/no-danger */
 import { Card, Typography } from '@material-ui/core';
 import React, { useState, useCallback } from 'react';
-import { Input, Button, Note } from '@components';
+import {
+  Input, Button, Note, Loading,
+  ModalApp,
+} from '@components';
 import GetScreenSize from '@assets/breakpoints/index';
 import PropTypes from 'prop-types';
-import { participantValidation } from '@config/yup';
+import { participantValidation } from '@helpers/yup';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { nanoid } from 'nanoid';
 import { useHistory } from 'react-router';
+import { useMutation } from 'react-query';
+import { putEventParticipant } from '@services';
+
 import UserFormStyle from './style';
 import data from './faculty';
 
@@ -15,8 +21,12 @@ const UserFormPage = ({ dataContent }) => {
   const isPhone = GetScreenSize({ isMax: true, size: 500 });
   const classes = UserFormStyle({ isPhone });
   const history = useHistory();
+  const eventID = history?.location?.state?.id;
+
+  const mutation = useMutation((props) => putEventParticipant(`${eventID}/participant`, props));
 
   const [errorForm, setErrorForm] = useState(null);
+  const [modal, setModal] = useState(true);
 
   const [form, setForm] = useState({
     name: '',
@@ -50,7 +60,7 @@ const UserFormPage = ({ dataContent }) => {
         isTelkomOnly,
         ...dataResult
       } = validationResult;
-      console.log(dataResult);
+      mutation.mutate(dataResult);
     }
   };
 
@@ -58,41 +68,61 @@ const UserFormPage = ({ dataContent }) => {
     history.push('/');
   };
 
-  return (
+  const handleCloseModal = () => {
+    setModal(false);
+    history.push('/');
+  };
 
-    <Card className={classes.root} elevation={isPhone ? 0 : 3}>
-      <Typography variant="h6" className={classes.formTitle}>Form Registrasi Peserta Brainspark</Typography>
-      <form className={classes.formWrapper} onSubmit={handleSubmit}>
-        <div className={classes.inputWrapper}>
-          <Input
-            error={errorForm !== null}
-            label="Nama Lengkap"
-            fullWidth
-            placeholder="isi dengan benar"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            id="standard-full-width"
-            value={form.name}
-            onChange={handleInputChange('name')}
-          />
-        </div>
-        <div className={classes.inputWrapper}>
-          <Input
-            error={errorForm !== null}
-            label="Email"
-            inputType="email"
-            fullWidth
-            placeholder="isi dengan benar"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            id="standard-full-width"
-            value={form.email}
-            onChange={handleInputChange('email')}
-          />
-        </div>
-        {
+  return (
+    <>
+      <Loading
+        hasBackdrop
+        isActive={mutation.isLoading}
+      />
+      {
+        mutation.isSuccess && (
+        <ModalApp
+          isActive={modal}
+          title="Register berhasil"
+          handleClose={handleCloseModal}
+        >
+          You have successfully registered
+        </ModalApp>
+        )
+      }
+      <Card className={classes.root} elevation={isPhone ? 0 : 3}>
+        <Typography variant="h6" className={classes.formTitle}>Form Registrasi Peserta Brainspark</Typography>
+        <form className={classes.formWrapper} onSubmit={handleSubmit}>
+          <div className={classes.inputWrapper}>
+            <Input
+              error={errorForm !== null}
+              label="Nama Lengkap"
+              fullWidth
+              placeholder="isi dengan benar"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="standard-full-width"
+              value={form.name}
+              onChange={handleInputChange('name')}
+            />
+          </div>
+          <div className={classes.inputWrapper}>
+            <Input
+              error={errorForm !== null || !mutation?.error?.response?.data?.success}
+              label="Email"
+              inputType="email"
+              fullWidth
+              placeholder="isi dengan benar"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="standard-full-width"
+              value={form.email}
+              onChange={handleInputChange('email')}
+            />
+          </div>
+          {
           form.isTelkomOnly ? (
             <>
               <div className={classes.inputWrapper}>
@@ -142,59 +172,67 @@ const UserFormPage = ({ dataContent }) => {
             </div>
           )
         }
-        <div className={classes.inputWrapper}>
-          <Input
-            label="Whatsapp Number"
-            fullWidth
-            placeholder="isi dengan benar"
-            inputType="number"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            id="standard-full-width"
-            value={form.whatsapp}
-            onChange={handleInputChange('whatsapp')}
-          />
-        </div>
-        <div className={classes.inputWrapper}>
-          <Input
-            label="Line ID"
-            fullWidth
-            placeholder="isi dengan benar"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            id="standard-full-width"
-            value={form.line}
-            onChange={handleInputChange('line')}
-          />
-        </div>
-        <Note>
-          <div dangerouslySetInnerHTML={{ __html: dataContent?.note }} />
-        </Note>
-        {
-                (errorForm) && (
+          <div className={classes.inputWrapper}>
+            <Input
+              label="Whatsapp Number"
+              fullWidth
+              placeholder="isi dengan benar"
+              inputType="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="standard-full-width"
+              value={form.whatsapp}
+              onChange={handleInputChange('whatsapp')}
+            />
+          </div>
+          <div className={classes.inputWrapper}>
+            <Input
+              label="Line ID"
+              fullWidth
+              placeholder="isi dengan benar"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              id="standard-full-width"
+              value={form.line}
+              onChange={handleInputChange('line')}
+            />
+          </div>
+          <Note>
+            <div dangerouslySetInnerHTML={{ __html: dataContent?.note }} />
+          </Note>
+          {
+                (errorForm || mutation?.isError) && (
                 <Alert classes={{ root: classes.alert }} severity="error" variant="filled">
                   <AlertTitle>Error</AlertTitle>
                   <ul>
                     {
-                    errorForm?.map((val) => (
+                    errorForm && errorForm?.map((val) => (
                       <li>
                         <Typography key={nanoid()}>{val}</Typography>
                       </li>
                     ))
                   }
+                    {mutation?.isError && (
+                    <li>
+                      <Typography>
+                        {mutation?.error?.response?.data?.message?.email}
+                      </Typography>
+                    </li>
+                    )}
                   </ul>
                 </Alert>
                 )
               }
 
-        <div className={classes.buttonWrapper}>
-          <Button variant="transparent" className={classes.button} onClick={handleCancel}>cancel</Button>
-          <Button color="primary" className={classes.button} typebutton="submit">send</Button>
-        </div>
-      </form>
-    </Card>
+          <div className={classes.buttonWrapper}>
+            <Button variant="transparent" className={classes.button} onClick={handleCancel}>cancel</Button>
+            <Button color="primary" className={classes.button} typebutton="submit">send</Button>
+          </div>
+        </form>
+      </Card>
+    </>
   );
 };
 

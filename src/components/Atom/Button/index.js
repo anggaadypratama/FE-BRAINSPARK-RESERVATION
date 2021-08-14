@@ -32,6 +32,7 @@ const Button = ({
   const buttonClassnames = classNames(className, root, buttonColor, {
     [`${fullWidth}`]: isFullWidth,
     [`${transparent}`]: variant === 'transparent',
+    [`${disabled}`]: disabled,
   });
   const props = {
     variant,

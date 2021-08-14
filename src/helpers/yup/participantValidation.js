@@ -3,8 +3,8 @@ import * as yup from 'yup';
 const participantValidation = yup.object().shape({
   name: yup
     .string()
-    .required('Username tidak boleh kosong')
-    .label('username'),
+    .required('Nama tidak boleh kosong')
+    .label('Nama'),
   email: yup
     .string()
     .email('Harus berupa email valid')
@@ -17,6 +17,7 @@ const participantValidation = yup.object().shape({
       is: true,
       then: yup
         .number()
+        .min(5)
         .positive('Nim tidak boleh bilangan negatif')
         .integer()
         .required('Nim tidak boleh kosong'),

@@ -148,6 +148,22 @@ const patchWithSlug = (api) => (slug, data, header, timeout = true) => {
   );
 };
 
+const putWithSlug = (api) => (slug, data, header, timeout = true) => {
+  const tokens = localStorage.getItem('token');
+  const tokenBearer = `Bearer ${tokens}`;
+  return axios.put(
+    `${fullURL(api)}${slug}/`,
+    data,
+    {
+      headers: {
+        ...header,
+        authorization: tokenBearer,
+      },
+    },
+    timeout,
+  );
+};
+
 const deleteWithSlug = (api) => (slug, timeout = true) => {
   const tokens = localStorage.getItem('token');
   const tokenBearer = `Bearer ${tokens}`;
@@ -170,4 +186,5 @@ export {
   getWithSlug,
   patchWithSlug,
   deleteWithSlug,
+  putWithSlug,
 };
