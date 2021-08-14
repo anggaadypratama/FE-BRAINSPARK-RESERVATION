@@ -26,7 +26,7 @@ const ListEventPage = () => {
 
   // eslint-disable-next-line no-console
 
-  const { data, isLoading } = useQuery('event', getAllEvent);
+  const { data, isLoading } = useQuery('event', () => getAllEvent({ isFinished: 2 }));
 
   return (
     <>
