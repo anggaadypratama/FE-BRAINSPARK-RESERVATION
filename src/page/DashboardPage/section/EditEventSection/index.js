@@ -1,12 +1,10 @@
 import { getDetailEventById, patchDetailEventById } from '@services';
 import { CreateFormTemplate, Loading } from '@components';
 import { Divider, Typography } from '@material-ui/core';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { ModalApp } from '@/components';
 import { useHistory } from 'react-router';
-import { useDispatch } from 'react-redux';
-import { selectedIndex } from '@services/redux/slices/sidebar';
 import PropTypes from 'prop-types';
 
 import EditEventStyle from './style';
@@ -14,7 +12,7 @@ import EditEventStyle from './style';
 // eslint-disable-next-line react/prop-types
 const EditEventSection = ({ match }) => {
   const classes = EditEventStyle();
-  const dispatch = useDispatch();
+  const [successModal, setSuccessModal] = useState(true);
 
   const {
     data,
@@ -22,27 +20,16 @@ const EditEventSection = ({ match }) => {
     refetch,
   } = useQuery('detail', () => getDetailEventById(match?.params?.id));
 
-  const mutation = useMutation((props) => patchDetailEventById(match?.params?.id, props, {
-    'Content-Type': 'multipart/form-data',
-  }));
-
-  const [successModal, setSuccessModal] = useState(true);
-
-  useEffect(() => {
-    dispatch(selectedIndex(0));
-  }, []);
-
-  // const { _id: id } = data?.data;
-
-  // console.log(id === match?.params?.id);
-
   const history = useHistory();
 
   const handleCloseModalSuccess = () => {
     setSuccessModal(false);
     history.push('/');
-    dispatch(selectedIndex(0));
   };
+
+  const mutation = useMutation((props) => patchDetailEventById(match?.params?.id, props, {
+    'Content-Type': 'multipart/form-data',
+  }));
 
   return (
     <>

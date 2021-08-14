@@ -8,7 +8,6 @@ import {
   ListCard,
   GeneralUserTemplate,
   Loading,
-  EmptyEvent,
 } from '@components';
 import GetScreenSize from '@assets/breakpoints';
 import { withRouter } from 'react-router-dom';
@@ -25,7 +24,6 @@ const ListEventPage = () => {
   const waveJumbotronClassNames = classNames(classes.waveJumbotron);
 
   // eslint-disable-next-line no-console
-
   const { data, isLoading } = useQuery('event', () => getAllEvent({ isFinished: 2 }));
 
   return (
@@ -45,7 +43,7 @@ const ListEventPage = () => {
             isLoading ? (
               <Loading />
             )
-              : data?.data?.length > 0 ? (
+              : (
                 <ListCard
                   loading={!isLoading}
                   cardData={data?.data}
@@ -53,7 +51,8 @@ const ListEventPage = () => {
                   sm={6}
                   xs={12}
                 />
-              ) : <EmptyEvent message="Oops, it looks like there is no event for now" />
+              )
+
           }
 
         </Container>

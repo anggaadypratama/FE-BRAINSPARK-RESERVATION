@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ListCard, EmptyEvent, Loading } from '@components';
+import { ListCard, Loading } from '@components';
 import { useQuery } from 'react-query';
 import { getAllEventWithAuth } from '@services/index';
 
@@ -42,7 +42,7 @@ const ListEvent = () => {
 
   return isLoading ? (
     <Loading />
-  ) : dataFilter?.length > 0 ? (
+  ) : (
     <ListCard
       dataFilter={data}
       cardData={dataFilter}
@@ -56,7 +56,7 @@ const ListEvent = () => {
       sm={12}
       refetch={refetch}
     />
-  ) : <EmptyEvent message="Oops, it looks like there is no event for now" />;
+  );
 };
 
 export default ListEvent;

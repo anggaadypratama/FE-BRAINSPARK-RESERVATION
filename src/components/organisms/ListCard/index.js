@@ -1,5 +1,5 @@
 import {
-  CardItem, Filter,
+  CardItem, EmptyEvent, Filter,
 
 } from '@components/molecules';
 import { Grid } from '@material-ui/core';
@@ -36,7 +36,7 @@ const ListCard = ({
       <div className={classes.content}>
         <Grid container spacing={4}>
           {
-           cardData ? cardData?.map(({
+           cardData.length ? cardData?.map(({
              _id: id,
              themeName:
              title,
@@ -62,7 +62,7 @@ const ListCard = ({
              </Grid>
 
            ))
-             : ''
+             : <EmptyEvent message="Oops, it looks like there is no event for now" />
           }
         </Grid>
       </div>
