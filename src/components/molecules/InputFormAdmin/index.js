@@ -11,6 +11,12 @@ const InputFormAdmin = ({
   const classes = InputFormAdminStyle();
   const classInputWrapper = classNames(className, classes.root);
 
+  const fileName = (
+    rest.value?.name?.length > 15
+      ? `${rest.value?.name?.substring(0, 15)}... ${rest.value?.name?.substring(rest.value?.name?.length - 4, rest.value?.name?.length)}`
+      : rest.value?.name
+  );
+
   return (
     <div className={classInputWrapper}>
       <Typography>{title}</Typography>
@@ -18,7 +24,13 @@ const InputFormAdmin = ({
         type === 'file' ? (
           <Paper variant="outlined" className={classes.inputFileWrapper}>
             <Input variant="outlined" error={error} inputType={type} {...rest} />
-            <Typography className={classes.nameFile}>{rest.value?.name || 'File Not Found' }</Typography>
+            <Typography className={classes.nameFile}>
+              {
+            fileName
+            || 'File Not Found'
+}
+
+            </Typography>
           </Paper>
         ) : <Input variant="outlined" error={error} inputType={type} {...rest} />
       }

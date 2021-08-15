@@ -44,6 +44,7 @@ const ListCard = ({
              location,
              date,
              eventStart,
+             isEventDone,
            }) => (
              <Grid key={id} item {...rest}>
                <Fade bottom>
@@ -56,6 +57,7 @@ const ListCard = ({
                    date={date}
                    time={eventStart}
                    refetch={rest.refetch}
+                   status={isEventDone}
                    {...canEdit}
                  />
                </Fade>

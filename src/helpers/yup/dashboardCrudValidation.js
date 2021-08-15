@@ -54,9 +54,11 @@ const crudValidation = yup.object().shape({
   endRegistration: yup
     .date()
     .min(
-      yup.ref('eventStart'),
-      'Event tidak boleh kurang dari event dimulai',
-    ),
+      new Date(),
+      'Registrasi tidak boleh kurang dari tanggal hari ini',
+    )
+    .max(yup.ref('eventStart'),
+      'Registrasi tidak boleh lebih dari event dimulai'),
   ticketLimit: yup
     .number()
     .positive()

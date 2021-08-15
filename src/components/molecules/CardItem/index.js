@@ -130,7 +130,7 @@ const CardItem = ({
         <CardContent className={classes.content}>
           <div>
             <Typography variant="h6" className={classes.status}>
-              Coming Up
+              {status ? 'Done' : 'Coming Up'}
             </Typography>
             <Typography variant="h6" className={classes.title}>
               {title}

@@ -32,6 +32,9 @@ const Info = ({ position, dataContent }) => {
     ? 'Telkom Student'
     : 'Public';
 
+  const isRegistrationClosed = ((dataContent?.totalParticipant < dataContent?.ticketLimit)
+    && (!(moment(dataContent?.endRegistration).format() <= moment().format())));
+
   const time = (value) => moment(value).format('HH:mm');
 
   return (
@@ -75,33 +78,44 @@ const Info = ({ position, dataContent }) => {
         <Divider />
 
         <div className={classes.registerInfo}>
+          {
+            isRegistrationClosed ? (
+              <Fade bottom cascade collapse when={!page}>
+                <div>
+                  <Typography className={classes.registerTitle}>
+                    Ticket
+                    {' '}
+                    <span className={classes.registerTextInfo}>
+                      {dataContent?.totalParticipant}
+                      /
+                      {dataContent?.ticketLimit}
 
-          <Fade bottom cascade collapse when={!page}>
-            <div>
+                    </span>
+                  </Typography>
+
+                </div>
+                <div className={classes.registerUntil}>
+                  <Typography className={classes.registerTitle}>
+                    Registration Until
+                  </Typography>
+                  <Typography className={classes.registerTextInfo}>
+                    {moment(dataContent?.endRegistration).format('D MMMM YYYY')}
+                  </Typography>
+                </div>
+              </Fade>
+            ) : (
               <Typography className={classes.registerTitle}>
-                Ticket
-                {' '}
-                <span className={classes.registerTextInfo}>
-                  0/
-                  {dataContent?.ticketLimit}
-
-                </span>
+                Registration Closed
               </Typography>
-
-            </div>
-            <div className={classes.registerUntil}>
-              <Typography className={classes.registerTitle}>
-                Registration Until
-              </Typography>
-              <Typography className={classes.registerTextInfo}>
-                {moment(dataContent?.endRegistration).format('D MMMM YYYY')}
-              </Typography>
-            </div>
-          </Fade>
+            )
+          }
 
         </div>
 
-        <Button color="primary" onClick={handleButton} isFullWidth>{!page ? 'Register' : 'Kembali'}</Button>
+        {
+          isRegistrationClosed && <Button color="primary" onClick={handleButton} isFullWidth>{!page ? 'Register' : 'Kembali'}</Button>
+        }
+
       </Card>
 
     </aside>
