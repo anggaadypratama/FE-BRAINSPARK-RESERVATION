@@ -11,16 +11,12 @@ const crudValidation = yup.object().shape({
   imagePoster: yup
     .mixed()
     .required('File tidak boleh kosong')
-    .test('fileSize', 'Gambar Tidak boleh Kosong', (value) => (value.length !== 0))
-    .test('fileSize', 'Gambar maksimal 1MB', (value) => (value.length !== 0) && value.size <= 1024 ** 2)
-    .test('typeFile', 'Gambar harus jpeg/jpg/png', (value) => ['image/jpeg', 'image/jpg', 'image/png'].includes(value.type)),
-  description: yup
-    .mixed()
-    .test('description', 'Deskripsi tidak boleh kosong', (value) => {
-      let data = toHTML(value.getCurrentContent());
-      data = data.replace(/<\/?[^>]+(>|$)/g, '');
-      return data.length;
-    }).required(),
+    .test('fileSize', 'Gambar Tidak boleh Kosong',
+      (value) => (value.length !== 0))
+    .test('fileSize', 'Gambar maksimal 1MB',
+      (value) => (value.length !== 0) && value.size <= 1024 ** 2)
+    .test('typeFile', 'Gambar harus jpeg/jpg/png',
+      (value) => ['image/jpeg', 'image/jpg', 'image/png'].includes(value.type)),
   date: yup
     .date()
     .min(date)
@@ -58,9 +54,11 @@ const crudValidation = yup.object().shape({
   endRegistration: yup
     .date()
     .min(
-      yup.ref('eventStart'),
-      'Event tidak boleh kurang dari event dimulai',
-    ),
+      new Date(),
+      'Registrasi tidak boleh kurang dari tanggal hari ini',
+    )
+    .max(yup.ref('eventStart'),
+      'Registrasi tidak boleh lebih dari event dimulai'),
   ticketLimit: yup
     .number()
     .positive()
@@ -69,10 +67,25 @@ const crudValidation = yup.object().shape({
   note: yup
     .mixed()
     .test('note', 'Note tidak boleh kosong', (value) => {
-      let data = toHTML(value.getCurrentContent());
-      data = data.replace(/<\/?[^>]+(>|$)/g, '');
-      return data.length;
+      if (value.length) {
+        let data = toHTML(value.getCurrentContent());
+        data = data.replace(/<\/?[^>]+(>|$)/g, '');
+        return data.length;
+      }
+
+      return value;
     }),
+  description: yup
+    .mixed()
+    .test('description', 'Deskripsi tidak boleh kosong', (value) => {
+      if (value.length) {
+        let data = toHTML(value.getCurrentContent());
+        data = data.replace(/<\/?[^>]+(>|$)/g, '');
+        return data.length;
+      }
+
+      return value;
+    }).required(),
 });
 
 export default crudValidation;

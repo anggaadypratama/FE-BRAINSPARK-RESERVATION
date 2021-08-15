@@ -3,7 +3,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { InputFormAdmin, Button } from '@components';
 
 import { MUIEditorState, toHTML } from 'react-mui-draft-wysiwyg';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import { crudValidation } from '@helpers/yup';
 import { Alert, AlertTitle } from '@material-ui/lab';
@@ -115,22 +115,44 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const {
+      eventEnd: end,
+      eventStart: start,
+      date,
+      endRegistration: endReg,
+      ...dataForm
+    } = form;
+
+    const dateS = moment(date).tz('Asia/Jakarta').format().split('T');
+    const eventE = moment(end).tz('Asia/Jakarta').format().split('T');
+    const eventS = moment(start).tz('Asia/Jakarta').format().split('T');
+    const endR = moment(endReg).tz('Asia/Jakarta').format().split('T');
+
+    const eventStart = new Date(`${dateS[0]}T${eventS[1]}`);
+    const eventEnd = new Date(`${dateS[0]}T${eventE[1]}`);
+    const endRegistration = new Date(`${endR[0]}T${eventS[1]}`);
+
+    const datas = {
+      eventEnd, eventStart, date, endRegistration, ...dataForm,
+    };
+
     const resultCheck = await crudValidation
-      .validate(form, { abortEarly: false })
+      .validate(datas, { abortEarly: false })
       .catch(({ errors }) => {
         setErrorForm(errors);
       });
 
     if (resultCheck) {
       const {
-        isLinkLocation, ...resultData
+        isLinkLocation,
+        ...resultData
       } = resultCheck;
 
       const formData = new FormData();
       Object.keys(resultData).forEach((key) => {
         const data = ['description', 'note'].includes(key)
-          ? toHTML(form[key].getCurrentContent()) : key === 'isOnlyTelkom'
-            ? JSON.stringify(form[key]) : form[key];
+          ? toHTML(resultData[key].getCurrentContent()) : key === 'isOnlyTelkom'
+            ? JSON.stringify(resultData[key]) : resultData[key];
         return formData.append(key, data);
       });
 
@@ -290,7 +312,11 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
                   <AlertTitle>Error</AlertTitle>
                   <ul>
                     {
-                    errorForm?.map((val) => <li><Typography key={nanoid()}>{val}</Typography></li>)
+                    errorForm?.map((val) => (
+                      <li key={nanoid()}>
+                        <Typography key={nanoid()}>{val}</Typography>
+                      </li>
+                    ))
                   }
                   </ul>
 

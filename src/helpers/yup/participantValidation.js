@@ -30,7 +30,7 @@ const participantValidation = yup.object().shape({
         .string()
         .required('Fakultas wajib dipilih'),
     }),
-  status: yup
+  Status: yup
     .string()
     .when('isTelkomOnly', {
       is: false,

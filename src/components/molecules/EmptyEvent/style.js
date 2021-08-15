@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const EmptyEventStyle = makeStyles(({ font, color }) => ({
+const EmptyEventStyle = makeStyles(({ font }) => ({
   root: {
     width: '100%',
     height: '100vh',
@@ -16,7 +16,9 @@ const EmptyEventStyle = makeStyles(({ font, color }) => ({
   title: {
     marginTop: ({ isMobile }) => (isMobile ? 0 : -50),
     textAlign: 'center',
-    color: color.dustyOrange,
+    background: ' -webkit-linear-gradient(68.21deg, #FC6D21 12.88%, #EE3B52 74.92%, #DD2476 98.79%), -webkit-linear-gradient(0deg, #000000, #000000)',
+    '-webkit-background-clip': 'text',
+    '-webkit-text-fill-color': 'transparent',
     fontWeight: 800,
 
   },

@@ -20,7 +20,6 @@ const DashboardTemplate = ({
             }
             <div className={classes.marginBottom} />
           </div>
-
         </Container>
       </div>
     </div>
