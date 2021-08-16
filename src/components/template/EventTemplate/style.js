@@ -18,6 +18,7 @@ const DetailEventStyle = makeStyles(({
     maxWidth: ({ isMedium }) => (isMedium ? '100%' : '70%'),
     padding: '24px 0',
     borderRadius: 20,
+    width: '100vh',
   },
   contentTitle: {
     fontFamily: raleway,

@@ -13,12 +13,16 @@ import EditEventStyle from './style';
 const EditEventSection = ({ match }) => {
   const classes = EditEventStyle();
   const [successModal, setSuccessModal] = useState(true);
+  const { id } = match?.params;
 
   const {
     data,
     isLoading: detailLoading,
     refetch,
-  } = useQuery('detail', () => getDetailEventById(match?.params?.id));
+  } = useQuery(['detail', id], async () => {
+    const dataFilter = await getDetailEventById(id);
+    return dataFilter?.data?.id === id && dataFilter;
+  });
 
   const history = useHistory();
 
@@ -27,7 +31,7 @@ const EditEventSection = ({ match }) => {
     history.push('/');
   };
 
-  const mutation = useMutation((props) => patchDetailEventById(match?.params?.id, props, {
+  const mutation = useMutation((props) => patchDetailEventById(id, props, {
     'Content-Type': 'multipart/form-data',
   }));
 
@@ -45,16 +49,21 @@ const EditEventSection = ({ match }) => {
 
       <Loading isActive={mutation.isLoading} hasBackdrop />
       <Loading isActive={detailLoading || data?.data?.length} hasBackdrop />
-      <div className={classes.root}>
-        <Typography className={classes.title}>Information</Typography>
-        <Divider />
-        <div className={classes.space} />
-        <CreateFormTemplate
-          defaultData={data?.data}
-          handleSubmitForm={(val) => mutation.mutate(val)}
-          refetch={refetch}
-        />
-      </div>
+      {
+        !mutation.isLoading && data?.status === 200 && (
+        <div className={classes.root}>
+          <Typography className={classes.title}>Information</Typography>
+          <Divider />
+          <div className={classes.space} />
+          <CreateFormTemplate
+            defaultData={data?.data}
+            handleSubmitForm={(val) => mutation.mutate(val)}
+            refetch={refetch}
+          />
+        </div>
+        )
+      }
+
     </>
   );
 };

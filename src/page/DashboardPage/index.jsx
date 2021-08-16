@@ -1,6 +1,6 @@
 import { DashboardTemplate, DashboardContent } from '@components';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   HashRouter as Router, Route, Switch,
 } from 'react-router-dom';
@@ -48,6 +48,18 @@ const DashboardPage = () => {
       path: '/edit/:id',
     },
   ];
+
+  useEffect(() => {
+    ListEventSection.preload();
+    CreateEventSection.preload();
+    DataRespondersSection.preload();
+    EditEventSection.preload();
+  }, [
+    ListEventSection,
+    CreateEventSection,
+    DataRespondersSection,
+    EditEventSection,
+  ]);
 
   return (
     <Router basename="/">

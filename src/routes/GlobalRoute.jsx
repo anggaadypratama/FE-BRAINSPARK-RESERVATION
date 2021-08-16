@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, Route } from 'react-router';
 import { PropTypes } from 'prop-types';
 
-const GlobalRoute = ({ Component, isPrivate, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => (isPrivate
-      ? <Redirect to="/dashboard" />
-      : <Component {...rest} {...props} />)}
-  />
-);
+const GlobalRoute = ({ Component, isPrivate, ...rest }) => {
+  useEffect(() => {
+    Component.preload();
+  }, [Component]);
+
+  return (
+    <Route
+      {...rest}
+      render={(props) => (isPrivate
+        ? <Redirect to="/dashboard" />
+        : <Component {...rest} {...props} />)}
+    />
+  );
+};
 
 GlobalRoute.propTypes = {
   Component: PropTypes.node.isRequired,

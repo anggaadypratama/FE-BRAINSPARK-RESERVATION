@@ -1,7 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable react/no-unescaped-entities */
-
 import React, { useEffect, useState } from 'react';
 
 import { EventTemplate, Loading, ModalApp } from '@components';
@@ -13,26 +9,29 @@ import loadable from '@loadable/component';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectedContentIndex } from '@services/redux/slices/contentPage';
 import { useHistory } from 'react-router';
-
-// import DetailEventStyle from './style';
+import PropTypes from 'prop-types';
 
 const DetailEventPage = loadable(() => import(/* webpackPrefetch: true */ './DetailEventPage'));
 const UserFormPage = loadable(() => import(/* webpackPrefetch: true */ './UserFormPage'));
 
-const ContentEventPage = ({ location }) => {
+const ContentEventPage = ({ match }) => {
   const dispatch = useDispatch();
+  const { id } = match?.params;
   const page = useSelector(({ contentPage }) => contentPage.contentPageIndex);
   const [isDone, setIsDone] = useState(true);
 
   const history = useHistory();
 
-  //   const classes = DetailEventStyle();
-
-  const { data, isLoading } = useQuery('detail', () => getDetailEventById(location.state.id));
+  const { data, isLoading } = useQuery(['detail', id], async () => {
+    const dataFetch = await getDetailEventById(id);
+    return dataFetch?.data?.id === id && dataFetch;
+  });
 
   useEffect(() => {
     dispatch(selectedContentIndex(false));
-  }, [selectedContentIndex]);
+    DetailEventPage.preload();
+    UserFormPage.preload();
+  }, [selectedContentIndex, DetailEventPage, UserFormPage]);
 
   const handleClose = () => {
     setIsDone(false);
@@ -63,4 +62,13 @@ const ContentEventPage = ({ location }) => {
     </>
   );
 };
+
+ContentEventPage.propTypes = {
+  match: PropTypes.objectOf(PropTypes.object),
+};
+
+ContentEventPage.defaultProps = {
+  match: {},
+};
+
 export default ContentEventPage;

@@ -34,11 +34,11 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "start": "NODE_ENV=development react-app-rewired start",
+    "build": "NODE_ENV=production react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "lint:fix": "eslint . --fix --ext .js,.jsx",
+    "lint:fix": "eslint src --fix --ext .js,.jsx",
     "lint": "eslint ."
   },
   "eslintConfig": {
