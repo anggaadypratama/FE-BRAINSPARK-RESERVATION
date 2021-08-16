@@ -5,7 +5,11 @@ import Zoom from 'react-reveal/Zoom';
 import FormRespondersStyle from './style';
 
 const FormResponders = ({
-  id, Title, handleNext, result, value,
+  // id,
+  Title,
+  handleNext,
+  result,
+  value,
 }) => {
   const classes = FormRespondersStyle();
 
@@ -17,7 +21,6 @@ const FormResponders = ({
     }
   };
 
-  console.log(id);
   return (
     <Zoom cascade collapse when={result !== undefined && value.length > 1}>
       <div className={classes.root}>
@@ -48,10 +51,10 @@ const FormResponders = ({
 };
 
 FormResponders.propTypes = {
-  id: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  // id: PropTypes.oneOfType([
+  //   PropTypes.string,
+  //   PropTypes.number,
+  // ]),
   result: PropTypes.oneOfType([
     PropTypes.objectOf(PropTypes.object),
     PropTypes.number,
@@ -62,7 +65,7 @@ FormResponders.propTypes = {
 };
 
 FormResponders.defaultProps = {
-  id: undefined,
+  // id: undefined,
   Title: '',
   result: undefined,
   value: '',

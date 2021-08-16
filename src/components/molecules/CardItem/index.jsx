@@ -23,6 +23,7 @@ import RoomIcon from '@material-ui/icons/Room';
 import CONFIG from '@config';
 
 import moment from 'moment';
+
 import { useMutation, useQueryClient } from 'react-query';
 import { deleteDetailEventById } from '@/services';
 import { useHistory } from 'react-router';
@@ -43,7 +44,6 @@ const CardItem = ({
 
   const dateConverted = moment(date).format('ll');
   const timeConverted = moment(time).format('HH:mm');
-  const removeSpaceTitle = title.replaceAll(' ', '-');
 
   const history = useHistory();
 
@@ -151,10 +151,7 @@ const CardItem = ({
                   className={classes.buttonView}
                   fullWidth={buttonSize}
                   typebutton="link-dom"
-                  link={{
-                    pathname: `/p/${removeSpaceTitle}`,
-                    state: { id },
-                  }}
+                  link={`/p/${id}`}
                   color="primary"
                 >
                   View
