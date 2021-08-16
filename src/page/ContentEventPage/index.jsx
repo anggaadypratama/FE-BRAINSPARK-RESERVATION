@@ -32,7 +32,9 @@ const ContentEventPage = ({ location }) => {
 
   useEffect(() => {
     dispatch(selectedContentIndex(false));
-  }, [selectedContentIndex]);
+    DetailEventPage.preload();
+    UserFormPage.preload();
+  }, [selectedContentIndex, DetailEventPage, UserFormPage]);
 
   const handleClose = () => {
     setIsDone(false);

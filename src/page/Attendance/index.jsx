@@ -6,8 +6,11 @@ import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { GetScreenSize } from '@assets';
+import loadable from '@loadable/component';
 import AttendanceStyle from './style';
-import { FormResponders, SearchEmail } from './section';
+
+const FormResponders = loadable(() => import(/* webpackPrefetch: true */ './section/FormResponders'));
+const SearchEmail = loadable(() => import(/* webpackPrefetch: true */ './section/SearchEmail'));
 
 const AttendancePage = () => {
   const screenL = GetScreenSize({ isMax: true, size: 950 });
@@ -25,6 +28,11 @@ const AttendancePage = () => {
   useEffect(() => {
     setResultSearch(dataFiltered);
   }, [dataFiltered]);
+
+  useEffect(() => {
+    FormResponders.preload();
+    SearchEmail.preload();
+  });
 
   const handleChange = (e) => {
     setSearchEmail(e.target.value);
