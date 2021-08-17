@@ -38,7 +38,7 @@ const ROUTES = [
   {
     name: 'AttendancePage',
     Component: AttendancePage,
-    path: '/attendance',
+    path: '/attendance/:id',
     isPrivate: false,
     exact: true,
   },

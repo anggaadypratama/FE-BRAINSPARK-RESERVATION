@@ -3,6 +3,7 @@ import {
   FormControlLabel,
   FormGroup,
   FormLabel,
+  Switch,
   InputLabel, MenuItem, Radio, RadioGroup, Select, TextField,
 } from '@material-ui/core';
 import MUIEditor, { MUIEditorState } from 'react-mui-draft-wysiwyg';
@@ -104,6 +105,24 @@ const Input = ({
           }
         </MuiPickersUtilsProvider>
       );
+
+    case 'switch': {
+      return (
+        <FormGroup>
+          <FormControlLabel
+            control={(
+              <Switch
+                checked={value}
+                onChange={onChange}
+                name={label}
+                color="primary"
+              />
+        )}
+            label={label}
+          />
+        </FormGroup>
+      );
+    }
     case 'radio':
       return (
         <FormControl error={error} component="fieldset" className={classes.root}>
@@ -185,7 +204,6 @@ const Input = ({
         </>
       );
     }
-
     default: return (
       <TextField
         error={error}
@@ -195,8 +213,8 @@ const Input = ({
         type={inputType}
         value={value}
         onChange={onChange}
-        {...rest}
         color="primary"
+        {...rest}
       />
     );
   }

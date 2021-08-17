@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { LoginBackgroundRight, LoginBackgroundLeft, IconLogo } from '@assets/image';
-import { Card, Typography } from '@material-ui/core';
+import { Card, CircularProgress, Typography } from '@material-ui/core';
 
 import PropTypes from 'prop-types';
-import { useQuery } from 'react-query';
-import axios from 'axios';
+import { useQuery, useMutation } from 'react-query';
 import { GetScreenSize } from '@assets';
 import loadable from '@loadable/component';
+import { useParams, useHistory } from 'react-router';
+import { getEventParticipantSearch, putEventParticipantAbsent, getDetailEventById } from '@services';
+import { ModalApp, Loading } from '@components';
 import AttendanceStyle from './style';
 
 const FormResponders = loadable(() => import(/* webpackPrefetch: true */ './section/FormResponders'));
@@ -18,16 +20,29 @@ const AttendancePage = () => {
 
   const classes = AttendanceStyle({ screenL, screenS });
 
+  const history = useHistory();
+
+  const { id } = useParams();
+
   const [searchEmail, setSearchEmail] = useState('');
   const [resultSearch, setResultSearch] = useState('');
   const [stepper, setStepper] = useState(0);
+  const [feedback, setFeedback] = useState('');
+  const [modal, setModal] = useState(true);
 
-  const { data } = useQuery('fetchUsername', () => axios('https://jsonplaceholder.typicode.com/users'));
-  const dataFiltered = searchEmail.length && data?.data?.find((val) => val.email === searchEmail);
+  const { data: absenPage, isSuccess: absenPageSuccess, isLoading } = useQuery(['detail', id], async () => {
+    const dataFetch = await getDetailEventById(id);
+    return dataFetch?.data?.id === id && dataFetch;
+  });
+
+  const isAbsent = absenPage?.data?.isAbsentActive;
+
+  const { data } = useQuery(['fetchUsername', searchEmail], () => getEventParticipantSearch(`${id}/absent/validate/`, { email: searchEmail }));
+  const mutation = useMutation((props) => putEventParticipantAbsent(`${id}/absent`, props));
 
   useEffect(() => {
-    setResultSearch(dataFiltered);
-  }, [dataFiltered]);
+    setResultSearch(data);
+  }, [data]);
 
   useEffect(() => {
     FormResponders.preload();
@@ -36,6 +51,11 @@ const AttendancePage = () => {
 
   const handleChange = (e) => {
     setSearchEmail(e.target.value);
+  };
+
+  const handleClose = () => {
+    setModal(false);
+    history.push('/');
   };
 
   const TitleForm = ({ title, subtitle, helperText }) => (
@@ -64,12 +84,17 @@ const AttendancePage = () => {
     helperText: '',
   };
 
-  const nextStep = () => setStepper((prev) => prev + 1);
+  const nextStep = () => {
+    mutation.mutate({ email: searchEmail, feedback });
+    setStepper((prev) => prev + 1);
+  };
 
-  return (
-    <div className={classes.root}>
-      <div className={classes.wave}>
-        {
+  return isLoading ? <Loading hasBackdrop isActive={isLoading} /> : (
+    <>
+      {absenPageSuccess && isAbsent && (
+        <div className={classes.root}>
+          <div className={classes.wave}>
+            {
           !screenS && (
           <>
             <img src={LoginBackgroundRight} className={classes.waveRight} alt="wave right" />
@@ -78,10 +103,10 @@ const AttendancePage = () => {
           )
         }
 
-      </div>
-      <div className={classes.content}>
-        <Card className={classes.cardContent} elevation={screenS ? 0 : 3}>
-          {
+          </div>
+          <div className={classes.content}>
+            <Card className={classes.cardContent} elevation={screenS ? 0 : 3}>
+              {
             stepper !== 1 && (
             <div className={classes.header}>
               <img className={classes.logo} src={IconLogo} alt="logo-rplgdc" />
@@ -95,31 +120,43 @@ const AttendancePage = () => {
             </div>
             )
           }
-          {
+              {
             stepper === 1 && (
-            <div className={classes.greetingWrapper}>
-              <div className={classes.logoWrapper}>
-                <img className={classes.logoSecond} src={IconLogo} alt="logo-rplgdc" />
-                <Typography className={classes.titleLogo}>RPL-GDC</Typography>
-              </div>
-              <Typography className={classes.message}>
-                “Terimakasih atas partisipasi anda mengikuti
-                acara Lab kami,  Kami sangat menghargai
-                pendapat anda”
-              </Typography>
-            </div>
+              <>
+                {
+                mutation.isLoading ? (
+                  <div className={classes.loadingWrapper}>
+                    <CircularProgress />
+                  </div>
+                ) : (
+                  <div className={classes.greetingWrapper}>
+                    <div className={classes.logoWrapper}>
+                      <img className={classes.logoSecond} src={IconLogo} alt="logo-rplgdc" />
+                      <Typography className={classes.titleLogo}>RPL-GDC</Typography>
+                    </div>
+                    <Typography className={classes.message}>
+                      {
+                        mutation.isError && mutation.error?.response?.status === 409
+                          ? 'Anda telah melakukan absensi sebelumnya'
+                          : '"Terimakasih atas partisipasi anda mengikuti acara Lab kami, kami sangat menghargai pendapat anda"'
+                      }
+                    </Typography>
+                  </div>
+                )
+              }
+
+              </>
             )
           }
 
-          <section className={classes.mainContent}>
-            {
+              <section className={classes.mainContent}>
+                {
               stepper === 0 ? (
                 <>
                   <SearchEmail
                     result={resultSearch}
                     handleChange={handleChange}
                     value={searchEmail}
-                    handleNext={nextStep}
                     Title={(
                       <TitleForm
                         title="Alamat Email"
@@ -132,6 +169,7 @@ const AttendancePage = () => {
                     result={resultSearch}
                     value={searchEmail}
                     handleNext={nextStep}
+                    messageResponse={(e) => setFeedback(e)}
                     Title={(
                       <TitleForm
                         title="Pesan & Kesan"
@@ -143,8 +181,8 @@ const AttendancePage = () => {
               )
                 : ''
             }
-          </section>
-          {
+              </section>
+              {
             screenS && (
             <>
               <img src={LoginBackgroundRight} className={classes.waveRightCard} alt="wave right" />
@@ -152,9 +190,22 @@ const AttendancePage = () => {
             </>
             )
           }
-        </Card>
-      </div>
-    </div>
+            </Card>
+          </div>
+        </div>
+      ) }
+
+      {
+          !isAbsent && (
+          <ModalApp
+            isActive={modal}
+            handleClose={handleClose}
+            title="Cannot access this page"
+          />
+          )
+      }
+
+    </>
   );
 };
 

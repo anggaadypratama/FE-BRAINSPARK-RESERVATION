@@ -21,6 +21,8 @@ export const patchDetailEventById = patchWithSlug('event/');
 export const deleteDetailEventById = deleteWithSlug('event/');
 
 export const putEventParticipant = putWithSlug('event/');
+export const putEventParticipantAbsent = putWithSlug('event/');
+export const getEventParticipantSearch = getWithSlug('event/');
 
 const API = {
   getAllEvent,
@@ -30,6 +32,8 @@ const API = {
   getDetailEventByIdWithAuth,
   getAllEventWithAuth,
   putEventParticipant,
+  putEventParticipantAbsent,
+  getEventParticipantSearch,
 };
 
 export default API;

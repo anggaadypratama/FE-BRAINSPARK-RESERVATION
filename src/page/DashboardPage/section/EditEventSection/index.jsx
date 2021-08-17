@@ -1,4 +1,4 @@
-import { getDetailEventById, patchDetailEventById } from '@services';
+import { patchDetailEventById, getDetailEventByIdWithAuth } from '@services';
 import { CreateFormTemplate, Loading } from '@components';
 import { Divider, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
@@ -18,9 +18,10 @@ const EditEventSection = ({ match }) => {
   const {
     data,
     isLoading: detailLoading,
+    error,
     refetch,
   } = useQuery(['detail', id], async () => {
-    const dataFilter = await getDetailEventById(id);
+    const dataFilter = await getDetailEventByIdWithAuth(id);
     return dataFilter?.data?.id === id && dataFilter;
   });
 
@@ -42,7 +43,16 @@ const EditEventSection = ({ match }) => {
       <ModalApp
         isActive={successModal}
         handleClose={handleCloseModalSuccess}
-        title="Upload Berhasil"
+        title="Update Berhasil"
+      />
+      )
+    }
+      {
+      !detailLoading && error?.response?.status === 404 && (
+      <ModalApp
+        isActive={successModal}
+        handleClose={handleCloseModalSuccess}
+        title="Event tidak ditemukan"
       />
       )
     }
@@ -50,7 +60,7 @@ const EditEventSection = ({ match }) => {
       <Loading isActive={mutation.isLoading} hasBackdrop />
       <Loading isActive={detailLoading || data?.data?.length} hasBackdrop />
       {
-        !mutation.isLoading && data?.status === 200 && (
+        !detailLoading && data?.status === 200 && (
         <div className={classes.root}>
           <Typography className={classes.title}>Information</Typography>
           <Divider />
@@ -69,7 +79,7 @@ const EditEventSection = ({ match }) => {
 };
 
 EditEventSection.propTypes = {
-  match: PropTypes.node,
+  match: PropTypes.oneOfType([PropTypes.objectOf(PropTypes.object), PropTypes.node]),
 };
 
 EditEventSection.defaultProps = {

@@ -1,15 +1,15 @@
 import React from 'react';
 import { Snackbar as Snack } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { Alert } from '@material-ui/lab';
+import { MuiAlert } from '@material-ui/lab';
 
 const Snackbar = ({
   handleClose, open, status, children,
 }) => (
   <Snack open={open} autoHideDuration={6000} onClose={handleClose}>
-    <Alert onClose={handleClose} severity={status}>
+    <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity={status}>
       {children}
-    </Alert>
+    </MuiAlert>
   </Snack>
 );
 

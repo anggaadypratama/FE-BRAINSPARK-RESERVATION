@@ -11,9 +11,9 @@ const SearchEmail = ({
   return (
     <div className={classes.root}>
       <InputFormAdmin
-        error={result === undefined}
+        error={value.length > 0 && result?.status !== 200}
         fullWidth
-        helperText={result === undefined && 'Email tidak ditemukan'}
+        helperText={(value.length > 0 && result?.status !== 200) && 'Email tidak ditemukan'}
         value={value}
         onChange={handleChange}
         title={Title}
