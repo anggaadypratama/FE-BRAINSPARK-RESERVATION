@@ -108,6 +108,13 @@ const AttendanceStyle = makeStyles(({ spacing, font }) => ({
     alignItems: 'center',
     flexDirection: 'column',
     width: '100%',
+    minHeight: ({ screenS }) => (screenS ? '100vh' : 200),
+  },
+  loadingWrapper: {
+    width: '100%',
+    minHeight: ({ screenS }) => (screenS ? '100vh' : 200),
+    display: 'grid',
+    placeItems: 'center',
   },
   logoWrapper: {
     display: 'flex',

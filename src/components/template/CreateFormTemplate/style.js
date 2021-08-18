@@ -34,6 +34,12 @@ const CreateFormStyle = makeStyles(({ color, spacing }) => ({
   disableErrorAlert: {
     marginBottom: 0,
   },
+  snackbar: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: spacing(2),
+    },
+  },
 }));
 
 export default CreateFormStyle;

@@ -93,9 +93,9 @@ const LoginPage = () => {
                 error={errorForm !== null || errorData?.message?.password}
                 variant="outlined"
                 inputProps={{
-                  autocomplete: 'new-password',
+                  autoComplete: 'new-password',
                   form: {
-                    autocomplete: 'off',
+                    autoComplete: 'off',
                   },
                 }}
                 inputType="password"

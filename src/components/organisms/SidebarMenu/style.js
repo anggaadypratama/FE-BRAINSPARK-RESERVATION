@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const SidebarMenuStyle = makeStyles(({ font, color }) => ({
   titleMenu: {
-    marginLeft: 38,
+    marginLeft: ({ size }) => (size ? 30 : 38),
     fontFamily: font.robotoCon,
     fontWeight: 700,
     color: color.primary,

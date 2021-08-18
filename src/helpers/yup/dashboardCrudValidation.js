@@ -12,7 +12,7 @@ const crudValidation = yup.object().shape({
     .mixed()
     .required('File tidak boleh kosong')
     .test('fileSize', 'Gambar Tidak boleh Kosong',
-      (value) => (value.length !== 0))
+      (value) => value !== null && (value.length !== 0))
     .test('fileSize', 'Gambar maksimal 1MB',
       (value) => (value.length !== 0) && value.size <= 1024 ** 2)
     .test('typeFile', 'Gambar harus jpeg/jpg/png',
@@ -86,6 +86,8 @@ const crudValidation = yup.object().shape({
 
       return value;
     }).required(),
+  isAbsentActive: yup.boolean(),
+
 });
 
 export default crudValidation;

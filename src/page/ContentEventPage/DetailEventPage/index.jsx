@@ -16,7 +16,7 @@ import DetailEventStyle from './style';
 
 const DetailEventPage = ({ dataContent }) => {
   const classes = DetailEventStyle();
-  const { description, imagePoster } = dataContent;
+  const { description = {}, imagePoster = '' } = dataContent;
 
   return (
     <>

@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { participantValidation } from '@helpers/yup';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { nanoid } from 'nanoid';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { useMutation } from 'react-query';
 import { putEventParticipant } from '@services';
 
@@ -20,10 +20,10 @@ import data from './faculty';
 const UserFormPage = ({ dataContent }) => {
   const isPhone = GetScreenSize({ isMax: true, size: 500 });
   const classes = UserFormStyle({ isPhone });
+  const { id } = useParams();
   const history = useHistory();
-  const eventID = history?.location?.state?.id;
 
-  const mutation = useMutation((props) => putEventParticipant(`${eventID}/participant`, props));
+  const mutation = useMutation((props) => putEventParticipant(`${id}/participant`, props));
 
   const [errorForm, setErrorForm] = useState(null);
   const [modal, setModal] = useState(true);
@@ -109,7 +109,7 @@ const UserFormPage = ({ dataContent }) => {
           </div>
           <div className={classes.inputWrapper}>
             <Input
-              error={errorForm !== null || !mutation?.error?.response?.data?.success}
+              error={errorForm !== null}
               label="Email"
               inputType="email"
               fullWidth

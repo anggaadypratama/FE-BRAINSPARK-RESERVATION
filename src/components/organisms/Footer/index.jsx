@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography, IconButton } from '@material-ui/core';
 import classNames from 'classnames';
 import { Instagram, Line } from '@assets/image';
+import { NetworkImage } from '@components';
 import FooterStyle from './style';
 
 const Footer = () => {
@@ -17,10 +18,10 @@ const Footer = () => {
           <Typography variant="h6" className={titleClassnames}>FOR MORE INFORMATION</Typography>
           <div className={contactClassnames}>
             <IconButton>
-              <img src={Instagram} alt="instagram" />
+              <NetworkImage src={Instagram} alt="instagram" />
             </IconButton>
             <IconButton>
-              <img src={Line} alt="instagram" />
+              <NetworkImage src={Line} alt="line" />
             </IconButton>
           </div>
           <Typography className={copyrightClassnames}>

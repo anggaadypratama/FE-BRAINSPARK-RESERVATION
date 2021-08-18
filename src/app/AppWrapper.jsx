@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 import { theme } from '@assets';
+import { Loading } from '@components';
 
 const queryClient = new QueryClient();
 
@@ -13,7 +14,7 @@ const AppWrapper = ({ children }) => (
   <ThemeProvider theme={theme}>
     <Router basename="/">
       <Switch>
-        <Suspense fallback={<div>Loading ....</div>}>
+        <Suspense fallback={<Loading />}>
           <QueryClientProvider client={queryClient}>
             {children}
             <ReactQueryDevtools initialIsOpen={false} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { InputFormAdmin, Button } from '@components';
 import Zoom from 'react-reveal/Zoom';
@@ -10,6 +10,7 @@ const FormResponders = ({
   handleNext,
   result,
   value,
+  messageResponse,
 }) => {
   const classes = FormRespondersStyle();
 
@@ -21,8 +22,12 @@ const FormResponders = ({
     }
   };
 
+  useEffect(() => {
+    messageResponse(message);
+  }, [message]);
+
   return (
-    <Zoom cascade collapse when={result !== undefined && value.length > 1}>
+    <Zoom cascade collapse when={result?.status === 200 && value.length > 1}>
       <div className={classes.root}>
         <InputFormAdmin
           error={message.length === 200}
@@ -62,6 +67,7 @@ FormResponders.propTypes = {
   value: PropTypes.string,
   Title: PropTypes.node,
   handleNext: PropTypes.func,
+  messageResponse: PropTypes.func,
 };
 
 FormResponders.defaultProps = {
@@ -70,6 +76,7 @@ FormResponders.defaultProps = {
   result: undefined,
   value: '',
   handleNext: () => {},
+  messageResponse: () => {},
 };
 
 export default FormResponders;

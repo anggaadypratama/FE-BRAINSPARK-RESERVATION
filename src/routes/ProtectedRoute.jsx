@@ -2,8 +2,13 @@
 import React, { useEffect } from 'react';
 import { Redirect, Route } from 'react-router';
 import { PropTypes } from 'prop-types';
+import { GetScreenSize } from '@assets';
+
+import NotFound from '@page/NotFound';
 
 const ProtectedRoute = ({ Component, isPrivate, ...rest }) => {
+  const underDesktop = GetScreenSize({ isMax: true, size: 762 });
+
   useEffect(() => {
     Component.preload();
   }, [Component]);
@@ -12,7 +17,9 @@ const ProtectedRoute = ({ Component, isPrivate, ...rest }) => {
     <Route
       {...rest}
       render={(props) => (isPrivate && localStorage.token
-        ? <Component {...props} />
+        ? underDesktop
+          ? <NotFound />
+          : <Component {...props} />
         : <Redirect to="/" />)}
     />
   );

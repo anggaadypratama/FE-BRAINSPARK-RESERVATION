@@ -11,7 +11,7 @@ const DashboardStyle = makeStyles(({ color, font }) => ({
     height: '100vh',
   },
   content: {
-    marginLeft: 300,
+    marginLeft: ({ size }) => (size ? 120 : 300),
     marginRight: 100,
     position: 'relative',
 

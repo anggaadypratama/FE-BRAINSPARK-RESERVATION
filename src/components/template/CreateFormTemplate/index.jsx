@@ -1,7 +1,11 @@
-import { Typography } from '@material-ui/core';
-import React, { useCallback, useState, useEffect } from 'react';
+import {
+  Divider, Typography,
+} from '@material-ui/core';
+import React, {
+  useCallback, useState, useEffect,
+} from 'react';
 import { InputFormAdmin, Button } from '@components';
-
+import Fade from 'react-reveal/Fade';
 import { MUIEditorState, toHTML } from 'react-mui-draft-wysiwyg';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
@@ -9,6 +13,7 @@ import { crudValidation } from '@helpers/yup';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { nanoid } from 'nanoid';
 import { ContentState, convertFromHTML, EditorState } from 'draft-js';
+import { ModalApp } from '@/components';
 import CreateFormStyle from './style';
 import { participantCategory, locationType } from './data';
 
@@ -48,11 +53,12 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
   const noteState = convertHTML(defaultData?.note);
 
   const [errorForm, setErrorForm] = useState(null);
+  const [isCopy, setCopy] = useState(false);
   const [form, setForm] = useState({
     themeName: defaultData
       ? defaultData?.themeName
       : '',
-    imagePoster: '',
+    imagePoster: {},
     description: defaultData
       ? descState : MUIEditorState.createEmpty(editorConfig),
     date: defaultData
@@ -64,7 +70,7 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
     eventEnd: defaultData
       ? moment(defaultData?.eventEnd).format()
       : moment().format(),
-    isLinkLocation: null,
+    isLinkLocation: !!defaultData?.linkLocation,
     speakerName: defaultData
       ? defaultData?.speakerName
       : '',
@@ -78,13 +84,14 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
       ? moment(defaultData?.endRegistration).format()
       : moment().format(),
     isOnlyTelkom: defaultData
-      ? (defaultData?.isOnlyTelkom ? 'telyu' : 'gp')
+      ? { isOnlyTelkom: !!defaultData?.isOnlyTelkom }
       : null,
     ticketLimit: defaultData
       ? defaultData?.ticketLimit
       : '',
     note: defaultData
       ? noteState : MUIEditorState.createEmpty(editorConfig),
+    isAbsentActive: defaultData && defaultData?.isAbsentActive,
   });
 
   const handleInputChange = useCallback((val, type) => (e) => {
@@ -107,6 +114,8 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
       }
     } else if (type === 'file') {
       setForm({ ...form, [val]: e.target.files[0] });
+    } else if (type === 'switch') {
+      setForm({ ...form, [val]: e.target.checked });
     } else {
       setForm({ ...form, [val]: e });
     }
@@ -161,8 +170,22 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
     }
   };
 
+  const handleCopy = (e) => {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(e.target.value).then(() => {
+        setCopy(true);
+      });
+    }
+    return false;
+  };
+
+  const handleCloseCopy = () => {
+    setCopy(false);
+  };
+
   return (
     <>
+      <ModalApp isActive={isCopy} handleClose={handleCloseCopy} title="Link Copied" />
       <div className={classes.root}>
         <form onSubmit={handleSubmit}>
           <div className={classes.formWrapper}>
@@ -307,6 +330,35 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
               onChange={handleInputChange('note')}
             />
             {
+             !(defaultData && Object.keys(defaultData).length === 0) && (
+             <>
+               <Divider />
+               <InputFormAdmin
+                 title="12. Absent"
+                 type="switch"
+                 value={form.isAbsentActive}
+                 onChange={handleInputChange('isAbsentActive', 'switch')}
+               />
+             </>
+             )
+            }
+            {
+              !(Object.keys(defaultData).length < 1) && (
+              <Fade collapse when={form.isAbsentActive}>
+                <InputFormAdmin
+                  fullWidth
+                  title="Attendance Link"
+                  value={`${window.location.protocol}//${window.location.host}/attendance/${defaultData?.id}`}
+                  onClick={handleCopy}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                />
+              </Fade>
+              )
+            }
+
+            {
                 (errorForm) && (
                 <Alert classes={{ root: classes.alert }} severity="error" variant="filled">
                   <AlertTitle>Error</AlertTitle>
@@ -330,8 +382,7 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
               color="primary"
               type="submit"
             >
-              Upload
-
+              {Object.keys(defaultData).length ? 'Update' : 'Upload'}
             </Button>
           </div>
 
