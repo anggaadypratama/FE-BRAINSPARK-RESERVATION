@@ -35,7 +35,8 @@ const customizePlugin = [
   }),
   // new webpack.optimize.AggressiveMergingPlugin(),
   new CleanWebpackPlugin(),
-
+  // eslint-disable-next-line no-useless-escape
+  new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(en|zh-tw)$/),
 ];
 
 const addCustomize = () => (config) => {

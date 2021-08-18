@@ -15,9 +15,9 @@ import { useHistory } from 'react-router';
 import SidebarStyle from './style';
 import SidebarMenu from '../SidebarMenu';
 
-const Sidebar = ({ list }) => {
+const Sidebar = ({ list, size }) => {
   const [logoutConfirm, setLogoutConfirm] = useState(false);
-  const classes = SidebarStyle();
+  const classes = SidebarStyle({ sizeLG: size });
   const classButtonWrapper = classNames(classes.buttonLogout, classes.buttonWrapper);
   const payload = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
 
@@ -43,10 +43,14 @@ const Sidebar = ({ list }) => {
           className={classButtonWrapper}
           focusVisibleClassName={classes.focusVisible}
         >
-          <div className={classes.wrapperProfile}>
-            <div className={classes.image}>{displayName[0]}</div>
-            <Typography className={classes.userRole}>{displayName}</Typography>
-          </div>
+          {
+            !size && (
+            <div className={classes.wrapperProfile}>
+              <div className={classes.image}>{displayName[0]}</div>
+              <Typography className={classes.userRole}>{displayName}</Typography>
+            </div>
+            )
+          }
           <ExitToAppIcon className={classes.exitIcon} />
 
         </ButtonBase>
@@ -67,12 +71,12 @@ const Sidebar = ({ list }) => {
         Do you really want to logout
       </ModalApp>
       <div className={classes.root}>
+
         <div>
           <div className={classes.listWrapper}>
-            <RplGdcLogo className={classes.logo} />
-
+            <RplGdcLogo className={classes.logo} size={size} />
           </div>
-          <SidebarMenu data={list} />
+          <SidebarMenu data={list} size={size} />
         </div>
         <LogoutButton />
       </div>
@@ -82,10 +86,12 @@ const Sidebar = ({ list }) => {
 
 Sidebar.propTypes = {
   list: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.string])),
+  size: PropTypes.bool,
 };
 
 Sidebar.defaultProps = {
   list: [],
+  size: false,
 };
 
 export default Sidebar;

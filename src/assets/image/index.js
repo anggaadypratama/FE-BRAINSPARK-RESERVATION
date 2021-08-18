@@ -1,4 +1,4 @@
-import IconLogo from './cbimage.png';
+import IconLogo from './icon.png';
 
 import cardStyle from './Vector 5.svg';
 import CalendarIcon from './CalendarX.svg';

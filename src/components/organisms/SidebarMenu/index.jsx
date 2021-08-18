@@ -9,13 +9,13 @@ import { nanoid } from 'nanoid';
 
 import SidebarMenuStyle from './style';
 
-const SidebarMenu = ({ data }) => {
-  const classes = SidebarMenuStyle();
+const SidebarMenu = ({ data, size }) => {
+  const classes = SidebarMenuStyle({ size });
 
   const history = useHistory();
 
   return (
-    <div className={classes}>
+    <div>
       <Typography className={classes.titleMenu}>MAIN</Typography>
       <List component="nav" aria-label="page">
         {
@@ -31,7 +31,10 @@ const SidebarMenu = ({ data }) => {
                 <ListItemIcon>
                   <Icon />
                 </ListItemIcon>
-                <ListItemText primary={name} />
+                {
+                  !size && <ListItemText primary={name} />
+                }
+
               </div>
             </ListItem>
           ))
@@ -42,11 +45,20 @@ const SidebarMenu = ({ data }) => {
 };
 
 SidebarMenu.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.string])),
+  data: PropTypes.arrayOf(
+    PropTypes.oneOfType(
+      [
+        PropTypes.object,
+        PropTypes.string,
+      ],
+    ),
+  ),
+  size: PropTypes.bool,
 };
 
 SidebarMenu.defaultProps = {
   data: [],
+  size: false,
 };
 
 export default SidebarMenu;

@@ -2,16 +2,18 @@ import { Sidebar } from '@components';
 import { Container } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { GetScreenSize } from '@assets';
 import DashboardStyle from './style';
 
 const DashboardTemplate = ({
   children, sidebarList,
 }) => {
-  const classes = DashboardStyle();
+  const size = GetScreenSize({ isMax: true, size: 1100 });
+  const classes = DashboardStyle({ size });
 
   return (
     <div className={classes.root}>
-      <Sidebar list={sidebarList} />
+      <Sidebar list={sidebarList} size={size} />
       <div className={classes.content}>
         <Container>
           <div className={classes.contentWrapper}>

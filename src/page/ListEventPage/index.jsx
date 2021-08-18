@@ -31,9 +31,19 @@ const ListEventPage = () => {
       <GeneralUserTemplate color="transparent">
         <div className={backdropClassNames}>
           <div className={classes.titlePosition}>
-            <Typography variant={screenSize ? 'h3' : 'h1'} className={classes.title}>
-              BRAINSPARK
-            </Typography>
+            {
+              screenSize ? (
+                <section>
+                  <Typography variant="h3" className={classes.title}>
+                    BRAINSPARK
+                  </Typography>
+                </section>
+              ) : (
+                <Typography variant="h1" className={classes.title}>
+                  BRAINSPARK
+                </Typography>
+              )
+            }
           </div>
           <div className={waveJumbotronClassNames} />
         </div>

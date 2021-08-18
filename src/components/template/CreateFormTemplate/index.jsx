@@ -5,7 +5,7 @@ import React, {
   useCallback, useState, useEffect,
 } from 'react';
 import { InputFormAdmin, Button } from '@components';
-
+import Fade from 'react-reveal/Fade';
 import { MUIEditorState, toHTML } from 'react-mui-draft-wysiwyg';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
@@ -343,18 +343,21 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
              )
             }
             {
-              form.isAbsentActive && (
-              <InputFormAdmin
-                fullWidth
-                title="Attendance Link"
-                value={`${process.env.REACT_APP_URL}/attendance/${defaultData?.id}`}
-                onClick={handleCopy}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
+              !(Object.keys(defaultData).length < 1) && (
+              <Fade collapse when={form.isAbsentActive}>
+                <InputFormAdmin
+                  fullWidth
+                  title="Attendance Link"
+                  value={`${window.location.protocol}//${window.location.host}/attendance/${defaultData?.id}`}
+                  onClick={handleCopy}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                />
+              </Fade>
               )
             }
+
             {
                 (errorForm) && (
                 <Alert classes={{ root: classes.alert }} severity="error" variant="filled">
@@ -379,8 +382,7 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
               color="primary"
               type="submit"
             >
-              Upload
-
+              {Object.keys(defaultData).length ? 'Update' : 'Upload'}
             </Button>
           </div>
 

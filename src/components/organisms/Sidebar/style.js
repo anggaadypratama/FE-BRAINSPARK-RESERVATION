@@ -4,7 +4,7 @@ const SidebarStyle = makeStyles(({
   spacing, font, color, transitions, breakpoints,
 }) => ({
   root: {
-    width: 270,
+    width: ({ sizeLG }) => (sizeLG ? 100 : 270),
     height: '100%',
     position: 'fixed',
     display: 'flex',
@@ -17,6 +17,8 @@ const SidebarStyle = makeStyles(({
     justifyContent: 'space-between',
   },
   listWrapper: {
+    display: 'flex',
+    justifyContent: ({ sizeLG }) => (sizeLG ? 'center' : 'flex-start'),
     padding: spacing(3),
   },
   logoutButton: {
@@ -25,9 +27,9 @@ const SidebarStyle = makeStyles(({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     borderRadius: 10,
-    height: 75,
+    height: ({ sizeLG }) => (sizeLG ? 60 : 75),
     color: color.primaryText,
-    margin: spacing(3),
+    margin: ({ sizeLG }) => (sizeLG ? spacing(2.7) : spacing(3)),
     font: font.raleway,
     background: 'white',
     transition: transitions.create(['color', 'background'], {
@@ -87,7 +89,7 @@ const SidebarStyle = makeStyles(({
   focusVisible: {},
   buttonLogout: {
     position: 'relative',
-    height: 75,
+    height: ({ sizeLG }) => (sizeLG ? 60 : 75),
     padding: spacing(2),
 
     [breakpoints.down('xs')]: {

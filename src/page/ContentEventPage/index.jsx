@@ -22,7 +22,7 @@ const ContentEventPage = ({ match }) => {
 
   const history = useHistory();
 
-  const { data, isLoading } = useQuery(['detail', id], async () => {
+  const { data, isLoading, error } = useQuery(['detail', id], async () => {
     const dataFetch = await getDetailEventById(id);
     return dataFetch?.data?.id === id && dataFetch;
   });
@@ -41,22 +41,25 @@ const ContentEventPage = ({ match }) => {
   return (
     <>
       {
-      isLoading ? <Loading hasBackdrop isActive={isLoading} />
-        : data?.data?.isEventDone ? (
-          <ModalApp
-            isActive={isDone}
-            handleClose={handleClose}
-            title="The Event Doesn't Exists"
-          />
-        ) : (
-          <EventTemplate dataContent={data?.data}>
-            {page ? <UserFormPage dataContent={data?.data} /> : (
-              <DetailEventPage
-                dataContent={data?.data}
-              />
-            )}
-          </EventTemplate>
-        )
+      isLoading
+        ? <Loading hasBackdrop isActive={isLoading} />
+        : (error?.response?.status === 404 || data?.data?.isEventDone)
+          ? (
+            <ModalApp
+              isActive={isDone}
+              handleClose={handleClose}
+              title="The Event Doesn't Exists"
+            />
+          )
+          : (
+            <EventTemplate dataContent={data?.data}>
+              {page ? <UserFormPage dataContent={data?.data} /> : (
+                <DetailEventPage
+                  dataContent={data?.data}
+                />
+              )}
+            </EventTemplate>
+          )
     }
 
     </>

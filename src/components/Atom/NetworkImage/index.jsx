@@ -14,6 +14,8 @@ const NetworkImage = ({
   return (
     <img
       loading="lazy"
+      width="100%"
+      height="auto"
       src={imageSrc || onErrorImage}
       alt={alt}
       className={imageClassname}
