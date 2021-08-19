@@ -8,15 +8,6 @@ const crudValidation = yup.object().shape({
   themeName: yup
     .string()
     .required('Nama tema wajib diisi'),
-  imagePoster: yup
-    .mixed()
-    .required('File tidak boleh kosong')
-    .test('fileSize', 'Gambar Tidak boleh Kosong',
-      (value) => value !== null && (value.length !== 0))
-    .test('fileSize', 'Gambar maksimal 1MB',
-      (value) => (value.length !== 0) && value.size <= 1024 ** 2)
-    .test('typeFile', 'Gambar harus jpeg/jpg/png',
-      (value) => ['image/jpeg', 'image/jpg', 'image/png'].includes(value.type)),
   date: yup
     .date()
     .min(date)
@@ -72,7 +63,6 @@ const crudValidation = yup.object().shape({
         data = data.replace(/<\/?[^>]+(>|$)/g, '');
         return data.length;
       }
-
       return value;
     }),
   description: yup
@@ -86,6 +76,17 @@ const crudValidation = yup.object().shape({
 
       return value;
     }).required(),
+  imagePoster: yup
+    .mixed()
+    .required('File tidak boleh kosong')
+    .test('fileSize', 'Gambar Tidak boleh Kosong',
+      (value) => (![null, undefined].includes(value)) && (value.length !== 0))
+    .test('fileSize', 'Gambar maksimal 1MB',
+      (value) => (![null, undefined].includes(value))
+      && (value.length !== 0)
+      && value.size <= 1024 ** 2)
+    .test('typeFile', 'Gambar harus jpeg/jpg/png',
+      (value) => (![null, undefined].includes(value)) && (value.length !== 0) && ['image/jpeg', 'image/jpg', 'image/png'].includes(value.type)),
   isAbsentActive: yup.boolean(),
 
 });

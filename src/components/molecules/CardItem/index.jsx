@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Card, CardContent, Typography, CardActionArea, CardActions, Divider, Modal,
 } from '@material-ui/core';
@@ -25,7 +25,7 @@ import CONFIG from '@config';
 import moment from 'moment';
 
 import { useMutation, useQueryClient } from 'react-query';
-import { deleteDetailEventById } from '@/services';
+import { deleteDetailEventById } from '@services';
 import { useHistory } from 'react-router';
 import CardStyle from './style';
 
@@ -73,8 +73,13 @@ const CardItem = ({
   const handleDelete = () => {
     mutation.mutate(id);
     isModalDeleteActive(false);
-    rest.refetch();
   };
+
+  useEffect(() => {
+    if (mutation.isSuccess) {
+      rest.refetch();
+    }
+  }, [mutation, rest]);
 
   const AlertDelete = () => (
     <ModalApp
