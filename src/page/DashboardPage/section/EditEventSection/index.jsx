@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 
 import EditEventStyle from './style';
 
-// eslint-disable-next-line react/prop-types
 const EditEventSection = ({ match }) => {
   const classes = EditEventStyle();
   const [successModal, setSuccessModal] = useState(true);
@@ -46,7 +45,8 @@ const EditEventSection = ({ match }) => {
       const file = await new File([blob], nameFile, { type: `image/${type[type.length - 1]}` });
       setImage(file);
     } catch (err) {
-      throw Error(err);
+      // eslint-disable-next-line no-console
+      console.log(err);
     }
   }, [poster, setImage]);
 
