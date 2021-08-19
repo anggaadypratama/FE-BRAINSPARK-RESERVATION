@@ -1,17 +1,18 @@
-import { Sidebar } from '@components';
-import { Container } from '@material-ui/core';
-import React from 'react';
-import PropTypes from 'prop-types';
-import { GetScreenSize } from '@assets';
-import { useHistory } from 'react-router';
-import DashboardStyle from './style';
+import { Sidebar } from "@components";
+import { Container } from "@material-ui/core";
+import React from "react";
+import PropTypes from "prop-types";
+import { useScreenSize } from "@assets";
+import { useHistory } from "react-router";
+import DashboardStyle from "./style";
 
-const DashboardTemplate = ({
-  children, sidebarList,
-}) => {
+const DashboardTemplate = ({ children, sidebarList }) => {
   const history = useHistory();
-  const size = GetScreenSize({ isMax: true, size: 1100 });
-  const classes = DashboardStyle({ size, responders: history.location.pathname === '/responders' });
+  const size = useScreenSize({ isMax: true, size: 1100 });
+  const classes = DashboardStyle({
+    size,
+    responders: history.location.pathname === "/responders",
+  });
 
   return (
     <div className={classes.root}>
@@ -19,9 +20,7 @@ const DashboardTemplate = ({
       <div className={classes.content}>
         <Container>
           <div className={classes.contentWrapper}>
-            {
-              children
-            }
+            {children}
             <div className={classes.marginBottom} />
           </div>
         </Container>
@@ -32,14 +31,14 @@ const DashboardTemplate = ({
 
 DashboardTemplate.propTypes = {
   children: PropTypes.node,
-  sidebarList: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])),
-
+  sidebarList: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+  ),
 };
 
 DashboardTemplate.defaultProps = {
-  children: '',
+  children: "",
   sidebarList: [],
-
 };
 
 export default DashboardTemplate;

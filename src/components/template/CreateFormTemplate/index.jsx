@@ -1,22 +1,18 @@
-import {
-  Divider, Typography,
-} from '@material-ui/core';
-import React, {
-  useCallback, useState, useEffect,
-} from 'react';
-import { InputFormAdmin, Button } from '@components';
-import Fade from 'react-reveal/Fade';
-import { MUIEditorState, toHTML } from 'react-mui-draft-wysiwyg';
-import moment from 'moment-timezone';
-import PropTypes from 'prop-types';
-import { crudValidation } from '@helpers/yup';
-import { Alert, AlertTitle } from '@material-ui/lab';
-import { nanoid } from 'nanoid';
-import { ContentState, convertFromHTML, EditorState } from 'draft-js';
-import { ModalApp } from '@/components';
-import CreateFormStyle from './style';
+import { Divider, Typography } from "@material-ui/core";
+import React, { useCallback, useState, useEffect } from "react";
+import { InputFormAdmin, Button } from "@components";
+import Fade from "react-reveal/Fade";
+import { MUIEditorState, toHTML } from "react-mui-draft-wysiwyg";
+import moment from "moment-timezone";
+import PropTypes from "prop-types";
+import { crudValidation } from "@helpers/yup";
+import { Alert, AlertTitle } from "@material-ui/lab";
+import { nanoid } from "nanoid";
+import { ContentState, convertFromHTML, EditorState } from "draft-js";
+import { ModalApp } from "@/components";
+import CreateFormStyle from "./style";
 
-import { participantCategory, locationType } from './data';
+import { participantCategory, locationType } from "./data";
 
 // eslint-disable-next-line no-unused-vars
 const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
@@ -24,7 +20,7 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
 
   const editorConfig = {
     editor: {
-      wrapperElement: 'div',
+      wrapperElement: "div",
       className: classes.textEditor,
     },
     toolbar: {
@@ -41,7 +37,7 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
       const blocksFromHTML = convertFromHTML(data);
       const content = ContentState.createFromBlockArray(
         blocksFromHTML.contentBlocks,
-        blocksFromHTML.entityMap,
+        blocksFromHTML.entityMap
       );
 
       return EditorState.createWithContent(content);
@@ -56,16 +52,15 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
   const [errorForm, setErrorForm] = useState(null);
   const [isCopy, setCopy] = useState(false);
   const [form, setForm] = useState({
-    themeName: defaultData
-      ? defaultData?.themeName
-      : '',
-    imagePoster: (defaultData && defaultData?.imagePoster !== null)
-      ? defaultData?.imagePoster : null,
+    themeName: defaultData ? defaultData?.themeName : "",
+    imagePoster:
+      defaultData && defaultData?.imagePoster !== null
+        ? defaultData?.imagePoster
+        : null,
     description: defaultData
-      ? descState : MUIEditorState.createEmpty(editorConfig),
-    date: defaultData
-      ? moment(defaultData?.date).format()
-      : moment().format(),
+      ? descState
+      : MUIEditorState.createEmpty(editorConfig),
+    date: defaultData ? moment(defaultData?.date).format() : moment().format(),
     eventStart: defaultData
       ? moment(defaultData?.eventStart).format()
       : moment().format(),
@@ -73,55 +68,49 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
       ? moment(defaultData?.eventEnd).format()
       : moment().format(),
     isLinkLocation: !!defaultData?.linkLocation,
-    speakerName: defaultData
-      ? defaultData?.speakerName
-      : '',
-    location: defaultData
-      ? defaultData?.location
-      : '',
-    linkLocation: defaultData
-      ? defaultData?.linkLocation
-      : '',
+    speakerName: defaultData ? defaultData?.speakerName : "",
+    location: defaultData ? defaultData?.location : "",
+    linkLocation: defaultData ? defaultData?.linkLocation : "",
     endRegistration: defaultData
       ? moment(defaultData?.endRegistration).format()
       : moment().format(),
     isOnlyTelkom: defaultData
       ? { isOnlyTelkom: !!defaultData?.isOnlyTelkom }
       : null,
-    ticketLimit: defaultData
-      ? defaultData?.ticketLimit
-      : '',
-    note: defaultData
-      ? noteState : MUIEditorState.createEmpty(editorConfig),
+    ticketLimit: defaultData ? defaultData?.ticketLimit : "",
+    note: defaultData ? noteState : MUIEditorState.createEmpty(editorConfig),
     isAbsentActive: defaultData && defaultData?.isAbsentActive,
   });
 
-  const handleInputChange = useCallback((val, type) => (e) => {
-    setErrorForm(null);
-    if (['checkbox', 'radio', 'text'].includes(type)) {
-      if (val === 'isOnlyTelkom') {
-        setForm({
-          ...form,
-          isOnlyTelkom: {
-            isOnlyTelkom: e.target.value === 'telyu',
-          },
-        });
-      } else if (val === 'isLinkLocation') {
-        setForm({
-          ...form,
-          isLinkLocation: e.target.value === 'online',
-        });
+  const handleInputChange = useCallback(
+    (val, type) => (e) => {
+      setErrorForm(null);
+      if (["checkbox", "radio", "text"].includes(type)) {
+        if (val === "isOnlyTelkom") {
+          setForm({
+            ...form,
+            isOnlyTelkom: {
+              isOnlyTelkom: e.target.value === "telyu",
+            },
+          });
+        } else if (val === "isLinkLocation") {
+          setForm({
+            ...form,
+            isLinkLocation: e.target.value === "online",
+          });
+        } else {
+          setForm({ ...form, [val]: e.target.value });
+        }
+      } else if (type === "file") {
+        setForm({ ...form, [val]: e.target.files[0] });
+      } else if (type === "switch") {
+        setForm({ ...form, [val]: e.target.checked });
       } else {
-        setForm({ ...form, [val]: e.target.value });
+        setForm({ ...form, [val]: e });
       }
-    } else if (type === 'file') {
-      setForm({ ...form, [val]: e.target.files[0] });
-    } else if (type === 'switch') {
-      setForm({ ...form, [val]: e.target.checked });
-    } else {
-      setForm({ ...form, [val]: e });
-    }
-  }, [form]);
+    },
+    [form]
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -134,17 +123,21 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
       ...dataForm
     } = form;
 
-    const dateS = moment(date).tz('Asia/Jakarta').format().split('T');
-    const eventE = moment(end).tz('Asia/Jakarta').format().split('T');
-    const eventS = moment(start).tz('Asia/Jakarta').format().split('T');
-    const endR = moment(endReg).tz('Asia/Jakarta').format().split('T');
+    const dateS = moment(date).tz("Asia/Jakarta").format().split("T");
+    const eventE = moment(end).tz("Asia/Jakarta").format().split("T");
+    const eventS = moment(start).tz("Asia/Jakarta").format().split("T");
+    const endR = moment(endReg).tz("Asia/Jakarta").format().split("T");
 
     const eventStart = new Date(`${dateS[0]}T${eventS[1]}`);
     const eventEnd = new Date(`${dateS[0]}T${eventE[1]}`);
     const endRegistration = new Date(`${endR[0]}T${eventS[1]}`);
 
     const datas = {
-      eventEnd, eventStart, date, endRegistration, ...dataForm,
+      eventEnd,
+      eventStart,
+      date,
+      endRegistration,
+      ...dataForm,
     };
 
     const resultCheck = await crudValidation
@@ -154,16 +147,15 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
       });
 
     if (resultCheck) {
-      const {
-        isLinkLocation,
-        ...resultData
-      } = resultCheck;
+      const { isLinkLocation, ...resultData } = resultCheck;
 
       const formData = new FormData();
       Object.keys(resultData).forEach((key) => {
-        const data = ['description', 'note'].includes(key)
-          ? toHTML(resultData[key].getCurrentContent()) : key === 'isOnlyTelkom'
-            ? JSON.stringify(resultData[key]) : resultData[key];
+        const data = ["description", "note"].includes(key)
+          ? toHTML(resultData[key].getCurrentContent())
+          : key === "isOnlyTelkom"
+          ? JSON.stringify(resultData[key])
+          : resultData[key];
         return formData.append(key, data);
       });
 
@@ -187,7 +179,11 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
 
   return (
     <>
-      <ModalApp isActive={isCopy} handleClose={handleCloseCopy} title="Link Copied" />
+      <ModalApp
+        isActive={isCopy}
+        handleClose={handleCloseCopy}
+        title="Link Copied"
+      />
       <div className={classes.root}>
         <form onSubmit={handleSubmit}>
           <div className={classes.formWrapper}>
@@ -199,7 +195,7 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
               id="theme"
               name="themeName"
               value={form.themeName}
-              onChange={handleInputChange('themeName', 'text')}
+              onChange={handleInputChange("themeName", "text")}
             />
             <InputFormAdmin
               title="2. Input event description"
@@ -208,7 +204,7 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
               variant="contained"
               size="small"
               value={form.imagePoster}
-              onChange={handleInputChange('imagePoster', 'file')}
+              onChange={handleInputChange("imagePoster", "file")}
               label="upload"
             />
 
@@ -216,7 +212,7 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
               title="3. Input event description"
               type="editor"
               value={form.description}
-              onChange={handleInputChange('description')}
+              onChange={handleInputChange("description")}
             />
             <Typography variant="h6">Event Information Details</Typography>
             <InputFormAdmin
@@ -229,7 +225,7 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
               format="DD/MM/yyyy"
               inputVariant="outlined"
               value={form.date}
-              onChange={handleInputChange('date')}
+              onChange={handleInputChange("date")}
             />
             <div className={classes.time}>
               <Typography>5. Input event time</Typography>
@@ -242,7 +238,7 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
                   TimeOrDateInput
                   inputVariant="outlined"
                   value={form.eventStart}
-                  onChange={handleInputChange('eventStart')}
+                  onChange={handleInputChange("eventStart")}
                 />
                 <InputFormAdmin
                   className={classes.timeInput}
@@ -252,7 +248,7 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
                   TimeOrDateInput
                   inputVariant="outlined"
                   value={form.eventEnd}
-                  onChange={handleInputChange('eventEnd')}
+                  onChange={handleInputChange("eventEnd")}
                 />
               </div>
             </div>
@@ -260,53 +256,50 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
               label="6. Event location"
               data={locationType}
               type="radio"
-              InputLabelProps={{
+              inputlabelprops={{
                 shrink: true,
               }}
               id="standard-full-width"
-              checked={form.isLinkLocation ? 'online' : 'outsite'}
-              onChange={handleInputChange('isLinkLocation', 'radio')}
+              checked={form.isLinkLocation ? "online" : "outsite"}
+              onChange={handleInputChange("isLinkLocation", "radio")}
             />
             <div className={classes.locationWrapper}>
-              {
-              (form.isLinkLocation === true || form.isLinkLocation === false) && (
-              <InputFormAdmin
-                title="Place"
-                placeholder="Gedung Arwana..."
-                fullWidth
-                value={form.location}
-                onChange={handleInputChange('location', 'text')}
-              />
-              )
-            }
-              {
-              form.isLinkLocation === true && (
-              <InputFormAdmin
-                title="Link"
-                placeholder="www.meet.google.com..."
-                fullWidth
-                value={form.linkLocation}
-                onChange={handleInputChange('linkLocation', 'text')}
-              />
-              )
-            }
+              {(form.isLinkLocation === true ||
+                form.isLinkLocation === false) && (
+                <InputFormAdmin
+                  title="Place"
+                  placeholder="Gedung Arwana..."
+                  fullWidth
+                  value={form.location}
+                  onChange={handleInputChange("location", "text")}
+                />
+              )}
+              {form.isLinkLocation === true && (
+                <InputFormAdmin
+                  title="Link"
+                  placeholder="www.meet.google.com..."
+                  fullWidth
+                  value={form.linkLocation}
+                  onChange={handleInputChange("linkLocation", "text")}
+                />
+              )}
             </div>
             <InputFormAdmin
               title="7. Input speaker name"
               fullWidth
               value={form.speakerName}
-              onChange={handleInputChange('speakerName', 'text')}
+              onChange={handleInputChange("speakerName", "text")}
             />
             <InputFormAdmin
               label="8. Select participant category"
               data={participantCategory}
               type="radio"
-              InputLabelProps={{
+              inputlabelprops={{
                 shrink: true,
               }}
               id="standard-full-width"
-              checked={form.isOnlyTelkom.isOnlyTelkom ? 'telyu' : 'gp'}
-              onChange={handleInputChange('isOnlyTelkom', 'radio')}
+              checked={form.isOnlyTelkom.isOnlyTelkom ? "telyu" : "gp"}
+              onChange={handleInputChange("isOnlyTelkom", "radio")}
             />
             <InputFormAdmin
               title="9. Registration Deadline"
@@ -316,36 +309,33 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
               format="DD/MM/yyyy"
               inputVariant="outlined"
               value={form.endRegistration}
-              onChange={handleInputChange('endRegistration')}
+              onChange={handleInputChange("endRegistration")}
             />
             <InputFormAdmin
               title="10. Ticket registration limit"
               fullWidth
               inputType="number"
               value={form.ticketLimit}
-              onChange={handleInputChange('ticketLimit', 'text')}
+              onChange={handleInputChange("ticketLimit", "text")}
             />
             <InputFormAdmin
               title="11. Note To Participant"
               type="editor"
               value={form.note}
-              onChange={handleInputChange('note')}
+              onChange={handleInputChange("note")}
             />
-            {
-             !(defaultData && Object.keys(defaultData).length === 0) && (
-             <>
-               <Divider />
-               <InputFormAdmin
-                 title="12. Absent"
-                 type="switch"
-                 value={form.isAbsentActive}
-                 onChange={handleInputChange('isAbsentActive', 'switch')}
-               />
-             </>
-             )
-            }
-            {
-              !(Object.keys(defaultData).length < 1) && (
+            {!(defaultData && Object.keys(defaultData).length === 0) && (
+              <>
+                <Divider />
+                <InputFormAdmin
+                  title="12. Absent"
+                  type="switch"
+                  value={form.isAbsentActive}
+                  onChange={handleInputChange("isAbsentActive", "switch")}
+                />
+              </>
+            )}
+            {!(Object.keys(defaultData).length < 1) && (
               <Fade collapse when={form.isAbsentActive}>
                 <InputFormAdmin
                   fullWidth
@@ -357,37 +347,31 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
                   }}
                 />
               </Fade>
-              )
-            }
+            )}
 
-            {
-                (errorForm) && (
-                <Alert classes={{ root: classes.alert }} severity="error" variant="filled">
-                  <AlertTitle>Error</AlertTitle>
-                  <ul>
-                    {
-                    errorForm?.map((val) => (
-                      <li key={nanoid()}>
-                        <Typography key={nanoid()}>{val}</Typography>
-                      </li>
-                    ))
-                  }
-                  </ul>
-
-                </Alert>
-                )
-              }
+            {errorForm && (
+              <Alert
+                classes={{ root: classes.alert }}
+                severity="error"
+                variant="filled"
+              >
+                <AlertTitle>Error</AlertTitle>
+                <ul>
+                  {errorForm?.map((val) => (
+                    <li key={nanoid()}>
+                      <Typography key={nanoid()}>{val}</Typography>
+                    </li>
+                  ))}
+                </ul>
+              </Alert>
+            )}
           </div>
 
           <div className={classes.buttonWrapper}>
-            <Button
-              color="primary"
-              type="submit"
-            >
-              {Object.keys(defaultData).length ? 'Update' : 'Upload'}
+            <Button color="primary" type="submit">
+              {Object.keys(defaultData).length ? "Update" : "Upload"}
             </Button>
           </div>
-
         </form>
       </div>
     </>

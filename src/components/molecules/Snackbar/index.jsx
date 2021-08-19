@@ -1,13 +1,16 @@
-import React from 'react';
-import { Snackbar as Snack } from '@material-ui/core';
-import PropTypes from 'prop-types';
-import { MuiAlert } from '@material-ui/lab';
+import React from "react";
+import { Snackbar as Snack } from "@material-ui/core";
+import PropTypes from "prop-types";
+import { MuiAlert } from "@material-ui/lab";
 
-const Snackbar = ({
-  handleClose, open, status, children,
-}) => (
+const Snackbar = ({ handleClose, open, status, children }) => (
   <Snack open={open} autoHideDuration={6000} onClose={handleClose}>
-    <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity={status}>
+    <MuiAlert
+      elevation={6}
+      variant="filled"
+      onClose={handleClose}
+      severity={status}
+    >
       {children}
     </MuiAlert>
   </Snack>
@@ -23,8 +26,8 @@ Snackbar.propTypes = {
 Snackbar.defaultProps = {
   handleClose: () => {},
   open: false,
-  status: 'success',
-  children: '',
+  status: "success",
+  children: "",
 };
 
 export default Snackbar;

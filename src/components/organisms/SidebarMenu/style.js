@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const SidebarMenuStyle = makeStyles(({ font, color }) => ({
   titleMenu: {
@@ -9,20 +9,20 @@ const SidebarMenuStyle = makeStyles(({ font, color }) => ({
     fontSize: 18,
   },
   item: {
-    display: 'flex',
-    padding: '5px 20px',
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    display: "flex",
+    padding: "5px 20px",
+    alignItems: "center",
+    justifyContent: "space-around",
   },
 
   listItem: {
     fontFamily: font.robotoCon,
 
-    '&.Mui-selected': {
+    "&.Mui-selected": {
       backgroundColor: `${color.primary}33`,
       color: color.brightOrange,
 
-      '& .MuiListItemIcon-root': {
+      "& .MuiListItemIcon-root": {
         color: color.brightOrange,
       },
     },

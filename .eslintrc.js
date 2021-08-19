@@ -5,34 +5,30 @@ module.exports = {
     jest: true,
   },
   extends: [
-    'plugin:react/recommended',
-    'airbnb',
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:prettier/recommended",
   ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
     ecmaVersion: 12,
-    sourceType: 'module',
+    sourceType: "module",
   },
-  plugins: [
-    'react',
-  ],
+  plugins: ["react"],
   rules: {
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    'no-nested-ternary': 0,
-    'no-param-reassign': [2, { props: false }],
-    'react/jsx-props-no-spreading': 'off',
-    'import/no-unresolved': [
-      0,
-      { caseSensitive: true },
-    ],
-    'no-restricted-imports': [
-      'error',
+    "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
+    "no-nested-ternary": 0,
+    "no-param-reassign": [2, { props: false }],
+    "react/jsx-props-no-spreading": "off",
+    "import/no-unresolved": [0, { caseSensitive: true }],
+    "no-restricted-imports": [
+      "error",
       {
-        patterns: ['@material-ui/*/*/*', '!@material-ui/core/test-utils/*'],
+        patterns: ["@material-ui/*/*/*", "!@material-ui/core/test-utils/*"],
       },
     ],
-    'template-curly-spacing': ['error', 'never'],
+    "template-curly-spacing": ["error", "never"],
   },
 };

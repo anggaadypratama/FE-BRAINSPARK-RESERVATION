@@ -1,11 +1,9 @@
-import React from 'react';
-import { InputFormAdmin } from '@components';
-import PropTypes from 'prop-types';
-import SearchEmailStyle from './style';
+import React from "react";
+import { InputFormAdmin } from "@components";
+import PropTypes from "prop-types";
+import SearchEmailStyle from "./style";
 
-const SearchEmail = ({
-  result, handleChange, value, Title,
-}) => {
+const SearchEmail = ({ result, handleChange, value, Title }) => {
   const classes = SearchEmailStyle();
 
   return (
@@ -13,7 +11,9 @@ const SearchEmail = ({
       <InputFormAdmin
         error={value.length > 0 && result?.status !== 200}
         fullWidth
-        helperText={(value.length > 0 && result?.status !== 200) && 'Email tidak ditemukan'}
+        helperText={
+          value.length > 0 && result?.status !== 200 && "Email tidak ditemukan"
+        }
         value={value}
         onChange={handleChange}
         title={Title}
@@ -26,18 +26,18 @@ SearchEmail.propTypes = {
   result: PropTypes.oneOfType([
     PropTypes.objectOf(PropTypes.object),
     PropTypes.number,
-    PropTypes.string]),
+    PropTypes.string,
+  ]),
   value: PropTypes.string,
   handleChange: PropTypes.func,
   Title: PropTypes.node,
-
 };
 
 SearchEmail.defaultProps = {
   result: undefined,
-  value: '',
+  value: "",
   handleChange: () => {},
-  Title: '',
+  Title: "",
 };
 
 export default SearchEmail;

@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { ImageNotFound } from '@assets/image';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { ImageNotFound } from "@assets/image";
 
-const NetworkImage = ({
-  src, alt, className, onErrorImage,
-}) => {
+const NetworkImage = ({ src, alt, className, onErrorImage }) => {
   const imageClassname = classNames(className);
   const [imageSrc, setImageSrc] = useState(src);
 
@@ -32,7 +30,7 @@ NetworkImage.propTypes = {
 };
 
 NetworkImage.defaultProps = {
-  className: '',
+  className: "",
   onErrorImage: ImageNotFound,
 };
 

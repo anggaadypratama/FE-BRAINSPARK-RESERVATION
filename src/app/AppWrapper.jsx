@@ -1,12 +1,12 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
-import { PropTypes } from 'prop-types';
-import { ThemeProvider } from '@material-ui/core/styles';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import React, { Suspense } from "react";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { PropTypes } from "prop-types";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
-import { theme } from '@assets';
-import { Loading } from '@components';
+import { theme } from "@assets";
+import { Loading } from "@components";
 
 const queryClient = new QueryClient();
 
@@ -30,7 +30,7 @@ AppWrapper.propTypes = {
 };
 
 AppWrapper.defaultProps = {
-  children: '',
+  children: "",
 };
 
 export default AppWrapper;

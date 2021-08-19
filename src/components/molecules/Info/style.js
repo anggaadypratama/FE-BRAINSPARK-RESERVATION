@@ -1,37 +1,28 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
-const infoStyle = makeStyles((
-  {
-    font: {
-      robotoCon,
-    },
-    color: {
-      primary,
-    },
-  },
-) => ({
+const infoStyle = makeStyles(({ font: { robotoCon }, color: { primary } }) => ({
   info: {
-    maxWidth: '100%',
+    maxWidth: "100%",
     marginLeft: ({ isMedium }) => (isMedium ? 0 : 20),
-    display: 'block',
+    display: "block",
   },
   infoMobile: {
-    display: 'flex',
-    justifyContent: 'center',
+    display: "flex",
+    justifyContent: "center",
   },
   cardInfo: {
-    position: ({ position }) => (position ? 'sticky' : 'relative'),
-    width: ({ isMedium }) => (isMedium ? 600 : '100%'),
+    position: ({ position }) => (position ? "sticky" : "relative"),
+    width: ({ isMedium }) => (isMedium ? 600 : "100%"),
     top: 30,
-    maxWidth: '100%',
+    maxWidth: "100%",
     minWidth: 220,
 
-    boxShadow: 'none',
-    fontSize: '1.25rem',
+    boxShadow: "none",
+    fontSize: "1.25rem",
   },
   textInfo: {
     fontFamily: robotoCon,
-    padding: '2px 0px',
+    padding: "2px 0px",
     fontWeight: 400,
   },
   titleInfo: {
@@ -40,13 +31,13 @@ const infoStyle = makeStyles((
     marginBottom: 8,
     marginTop: 20,
 
-    '&>:nth-child(1)': {
+    "&>:nth-child(1)": {
       marginTop: 0,
     },
   },
   registerInfo: {
-    margin: '20px 0',
-    textAlign: 'center',
+    margin: "20px 0",
+    textAlign: "center",
     color: primary,
   },
   registerTitle: {

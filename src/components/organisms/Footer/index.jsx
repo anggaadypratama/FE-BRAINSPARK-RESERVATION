@@ -1,9 +1,9 @@
-import React from 'react';
-import { Typography, IconButton } from '@material-ui/core';
-import classNames from 'classnames';
-import { Instagram, Line } from '@assets/image';
-import { NetworkImage } from '@components';
-import FooterStyle from './style';
+import React from "react";
+import { Typography, IconButton } from "@material-ui/core";
+import classNames from "classnames";
+import { Instagram, Line } from "@assets/image";
+import { NetworkImage } from "@components";
+import FooterStyle from "./style";
 
 const Footer = () => {
   const classes = FooterStyle();
@@ -15,7 +15,9 @@ const Footer = () => {
     <>
       <div className={classes.imgWave} alt="footer">
         <div className={classes.bottomContent}>
-          <Typography variant="h6" className={titleClassnames}>FOR MORE INFORMATION</Typography>
+          <Typography variant="h6" className={titleClassnames}>
+            FOR MORE INFORMATION
+          </Typography>
           <div className={contactClassnames}>
             <IconButton>
               <NetworkImage src={Instagram} alt="instagram" />

@@ -1,19 +1,13 @@
-import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import React from 'react';
-import { PropTypes } from 'prop-types';
+import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import React from "react";
+import { PropTypes } from "prop-types";
 
-const ListData = ({
-  Icon, title, onClick, index,
-}) => {
+const ListData = ({ Icon, title, onClick, index }) => {
   const handleItemClick = (event, i) => {
     onClick(i);
   };
   return (
-    <ListItem
-      button
-      selected={0}
-      onClick={(e) => handleItemClick(e, index)}
-    >
+    <ListItem button selected={0} onClick={(e) => handleItemClick(e, index)}>
       <ListItemIcon>
         <Icon />
       </ListItemIcon>
@@ -30,8 +24,8 @@ ListData.propTypes = {
 };
 
 ListData.defaultProps = {
-  Icon: '',
-  title: '',
+  Icon: "",
+  title: "",
   onClick: () => {},
   index: 0,
 };

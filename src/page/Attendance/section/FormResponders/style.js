@@ -1,10 +1,10 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const FormRespondersStyle = makeStyles(({ spacing, color, font }) => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
     marginBottom: spacing(2),
   },
 
@@ -13,8 +13,8 @@ const FormRespondersStyle = makeStyles(({ spacing, color, font }) => ({
     fontFamily: font.raleway,
   },
   buttonWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
+    display: "flex",
+    justifyContent: "center",
     marginTop: spacing(1),
   },
   button: {

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { InputFormAdmin, Button } from '@components';
-import Zoom from 'react-reveal/Zoom';
-import FormRespondersStyle from './style';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { InputFormAdmin, Button } from "@components";
+import Zoom from "react-reveal/Zoom";
+import FormRespondersStyle from "./style";
 
 const FormResponders = ({
   // id,
@@ -14,7 +14,7 @@ const FormResponders = ({
 }) => {
   const classes = FormRespondersStyle();
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     if (e.target.value.length <= 200) {
@@ -47,7 +47,6 @@ const FormResponders = ({
             disabled={message.length < 10}
           >
             Send Feedback
-
           </Button>
         </div>
       </div>
@@ -63,7 +62,8 @@ FormResponders.propTypes = {
   result: PropTypes.oneOfType([
     PropTypes.objectOf(PropTypes.object),
     PropTypes.number,
-    PropTypes.string]),
+    PropTypes.string,
+  ]),
   value: PropTypes.string,
   Title: PropTypes.node,
   handleNext: PropTypes.func,
@@ -72,9 +72,9 @@ FormResponders.propTypes = {
 
 FormResponders.defaultProps = {
   // id: undefined,
-  Title: '',
+  Title: "",
   result: undefined,
-  value: '',
+  value: "",
   handleNext: () => {},
   messageResponse: () => {},
 };

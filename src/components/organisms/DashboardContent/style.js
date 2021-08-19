@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const DashboardContentStyle = makeStyles(({ font, color, spacing }) => ({
   titleContent: {
@@ -10,12 +10,12 @@ const DashboardContentStyle = makeStyles(({ font, color, spacing }) => ({
   cardContent: {
     borderRadius: 20,
     padding: spacing(5),
-    width: '100%',
-    minHeight: '80vh',
+    width: "100%",
+    minHeight: "80vh",
   },
   cardContentResponders: {
-    width: '100%',
-    minHeight: '10vh',
+    width: "100%",
+    minHeight: "10vh",
     borderRadius: 10,
   },
   containerRespondersRoot: {

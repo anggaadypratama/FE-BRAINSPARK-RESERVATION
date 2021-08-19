@@ -1,25 +1,25 @@
-import {
-  RplGdcLogo,
-} from '@components';
-import React, { useState } from 'react';
-import {
-  ButtonBase,
-  Card, Typography,
-} from '@material-ui/core';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { RplGdcLogo } from "@components";
+import React, { useState } from "react";
+import { ButtonBase, Card, Typography } from "@material-ui/core";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { ModalApp } from '@/components/molecules';
-import { useHistory } from 'react-router';
-import SidebarStyle from './style';
-import SidebarMenu from '../SidebarMenu';
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { ModalApp } from "@/components/molecules";
+import { useHistory } from "react-router";
+import SidebarStyle from "./style";
+import SidebarMenu from "../SidebarMenu";
 
 const Sidebar = ({ list, size }) => {
   const [logoutConfirm, setLogoutConfirm] = useState(false);
   const classes = SidebarStyle({ sizeLG: size });
-  const classButtonWrapper = classNames(classes.buttonLogout, classes.buttonWrapper);
-  const payload = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+  const classButtonWrapper = classNames(
+    classes.buttonLogout,
+    classes.buttonWrapper
+  );
+  const payload = JSON.parse(
+    window.atob(localStorage.getItem("token").split(".")[1])
+  );
 
   const history = useHistory();
 
@@ -28,12 +28,13 @@ const Sidebar = ({ list, size }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    history.push('/dashboard');
+    localStorage.removeItem("token");
+    history.push("/dashboard");
   };
 
   const LogoutButton = () => {
-    const displayName = payload.username.length > 6 ? payload.role : payload.username;
+    const displayName =
+      payload.username.length > 6 ? payload.role : payload.username;
 
     return (
       <Card elevation={0} className={classes.logoutButton}>
@@ -43,16 +44,15 @@ const Sidebar = ({ list, size }) => {
           className={classButtonWrapper}
           focusVisibleClassName={classes.focusVisible}
         >
-          {
-            !size && (
+          {!size && (
             <div className={classes.wrapperProfile}>
               <div className={classes.image}>{displayName[0]}</div>
-              <Typography className={classes.userRole}>{displayName}</Typography>
+              <Typography className={classes.userRole}>
+                {displayName}
+              </Typography>
             </div>
-            )
-          }
+          )}
           <ExitToAppIcon className={classes.exitIcon} />
-
         </ButtonBase>
       </Card>
     );
@@ -71,7 +71,6 @@ const Sidebar = ({ list, size }) => {
         Do you really want to logout
       </ModalApp>
       <div className={classes.root}>
-
         <div>
           <div className={classes.listWrapper}>
             <RplGdcLogo className={classes.logo} size={size} />
@@ -85,7 +84,9 @@ const Sidebar = ({ list, size }) => {
 };
 
 Sidebar.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.string])),
+  list: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+  ),
   size: PropTypes.bool,
 };
 

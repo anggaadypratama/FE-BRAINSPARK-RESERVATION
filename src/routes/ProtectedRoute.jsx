@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect } from 'react';
-import { Redirect, Route } from 'react-router';
-import { PropTypes } from 'prop-types';
-import { GetScreenSize } from '@assets';
+import React, { useEffect } from "react";
+import { Redirect, Route } from "react-router";
+import { PropTypes } from "prop-types";
+import { useScreenSize } from "@assets";
 
-import NotFound from '@page/NotFound';
+import NotFound from "@page/NotFound";
 
 const ProtectedRoute = ({ Component, isPrivate, ...rest }) => {
-  const underDesktop = GetScreenSize({ isMax: true, size: 762 });
+  const underDesktop = useScreenSize({ isMax: true, size: 762 });
 
   useEffect(() => {
     Component.preload();
@@ -16,23 +16,29 @@ const ProtectedRoute = ({ Component, isPrivate, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) => (isPrivate && localStorage.token
-        ? underDesktop
-          ? <NotFound />
-          : <Component {...props} />
-        : <Redirect to="/" />)}
+      render={(props) =>
+        isPrivate && localStorage.token ? (
+          underDesktop ? (
+            <NotFound />
+          ) : (
+            <Component {...props} />
+          )
+        ) : (
+          <Redirect to="/" />
+        )
+      }
     />
   );
 };
 
 ProtectedRoute.propTypes = {
-  Component: PropTypes.node,
+  // eslint-disable-next-line react/forbid-prop-types
+  Component: PropTypes.any.isRequired,
   isPrivate: PropTypes.bool,
   rest: PropTypes.oneOfType([PropTypes.objectOf(PropTypes.object)]),
 };
 
 ProtectedRoute.defaultProps = {
-  Component: '',
   isPrivate: false,
   rest: {},
 };

@@ -1,19 +1,19 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const EditEventStyle = makeStyles(({ color }) => ({
   space: {
     height: 14,
-    width: '100%',
+    width: "100%",
   },
   title: {
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     marginBottom: 8,
     color: color.primary,
     fontWeight: 700,
-    textAlign: 'center',
+    textAlign: "center",
   },
   root: {
-    position: 'relative',
+    position: "relative",
     top: -10,
   },
 }));

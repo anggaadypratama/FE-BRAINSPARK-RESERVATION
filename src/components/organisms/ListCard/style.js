@@ -1,14 +1,14 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const listCardStyle = makeStyles(() => ({
   content: {
     marginTop: 50,
   },
   filter: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: ({ mobileSize }) => (mobileSize ? 'column' : 'row'),
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: ({ mobileSize }) => (mobileSize ? "column" : "row"),
   },
   totalItem: {
     marginBottom: ({ mobileSize }) => (mobileSize ? 20 : 0),

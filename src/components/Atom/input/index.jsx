@@ -4,29 +4,47 @@ import {
   FormGroup,
   FormLabel,
   Switch,
-  InputLabel, MenuItem, Radio, RadioGroup, Select, TextField,
-} from '@material-ui/core';
-import MUIEditor, { MUIEditorState } from 'react-mui-draft-wysiwyg';
-import React from 'react';
-import PropTypes from 'prop-types';
-import MomentUtils from '@date-io/moment';
-import { nanoid } from 'nanoid';
+  InputLabel,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  Select,
+  TextField,
+} from "@material-ui/core";
+import MUIEditor, { MUIEditorState } from "react-mui-draft-wysiwyg";
+import React from "react";
+import PropTypes from "prop-types";
+import MomentUtils from "@date-io/moment";
+import { nanoid } from "nanoid";
 import {
-  DatePicker, KeyboardDatePicker, KeyboardTimePicker, MuiPickersUtilsProvider, TimePicker,
-} from '@material-ui/pickers';
-import { CheckBox } from '@material-ui/icons';
-import { Button } from '@components';
-import InputStyle from './style';
+  DatePicker,
+  KeyboardDatePicker,
+  KeyboardTimePicker,
+  MuiPickersUtilsProvider,
+  TimePicker,
+} from "@material-ui/pickers";
+import { CheckBox } from "@material-ui/icons";
+import { Button } from "@components";
+import InputStyle from "./style";
 
 const Input = ({
-  inputType, error,
-  data, placeholder, label, TimeOrDateInput, accept, onChange, value, checked, ...rest
+  inputType,
+  error,
+  data,
+  placeholder,
+  label,
+  TimeOrDateInput,
+  accept,
+  onChange,
+  value,
+  checked,
+  ...rest
 }) => {
   const classes = InputStyle();
 
   const richEditorConfig = {
     editor: {
-      wrapperElement: 'div',
+      wrapperElement: "div",
       className: classes.textEditor,
     },
     toolbar: {
@@ -35,7 +53,7 @@ const Input = ({
   };
 
   switch (inputType) {
-    case 'select':
+    case "select":
       return (
         <FormControl className={classes.root}>
           <InputLabel id="select-label">{label}</InputLabel>
@@ -45,134 +63,130 @@ const Input = ({
             className={classes.root}
             {...rest}
           >
-            {data?.map((val) => <MenuItem key={nanoid()} value={val.value}>{val.name}</MenuItem>)}
+            {data?.map((val) => (
+              <MenuItem key={nanoid()} value={val.value}>
+                {val.name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       );
-    case 'date':
+    case "date":
       return (
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          {
-            TimeOrDateInput
-              ? (
-                <KeyboardDatePicker
-                  className={classes.root}
-                  value={value}
-                  onChange={onChange}
-                  {...rest}
-                  label={label}
-                />
-              )
-              : (
-                <DatePicker
-                  className={classes.root}
-                  value={value}
-                  onChange={onChange}
-                  {...rest}
-                  label={label}
-                />
-              )
-          }
+          {TimeOrDateInput ? (
+            <KeyboardDatePicker
+              className={classes.root}
+              value={value}
+              onChange={onChange}
+              {...rest}
+              label={label}
+            />
+          ) : (
+            <DatePicker
+              className={classes.root}
+              value={value}
+              onChange={onChange}
+              {...rest}
+              label={label}
+            />
+          )}
         </MuiPickersUtilsProvider>
       );
-    case 'time':
+    case "time":
       return (
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          {
-            TimeOrDateInput
-              ? (
-                <KeyboardTimePicker
-                  className={classes.root}
-                  ampm={false}
-                  placeholder="08:00"
-                  mask="__:__"
-                  {...rest}
-                  label={label}
-                  value={value}
-                  onChange={onChange}
-                />
-              )
-              : (
-                <TimePicker
-                  ampm={false}
-                  className={classes.root}
-                  {...rest}
-                  label={label}
-                  value={value}
-                  onChange={onChange}
-                />
-              )
-          }
+          {TimeOrDateInput ? (
+            <KeyboardTimePicker
+              className={classes.root}
+              ampm={false}
+              placeholder="08:00"
+              mask="__:__"
+              {...rest}
+              label={label}
+              value={value}
+              onChange={onChange}
+            />
+          ) : (
+            <TimePicker
+              ampm={false}
+              className={classes.root}
+              {...rest}
+              label={label}
+              value={value}
+              onChange={onChange}
+            />
+          )}
         </MuiPickersUtilsProvider>
       );
 
-    case 'switch': {
+    case "switch": {
       return (
         <FormGroup>
           <FormControlLabel
-            control={(
+            control={
               <Switch
                 checked={value}
                 onChange={onChange}
                 name={label}
                 color="primary"
               />
-        )}
+            }
             label={label}
           />
         </FormGroup>
       );
     }
-    case 'radio':
+    case "radio":
       return (
-        <FormControl error={error} component="fieldset" className={classes.root}>
-          {label ?? <FormLabel color="secondary" classes={{ root: classes.label, label: classes.label }}>{label}</FormLabel>}
+        <FormControl
+          error={error}
+          component="fieldset"
+          className={classes.root}
+        >
+          {label ?? (
+            <FormLabel
+              color="secondary"
+              classes={{ root: classes.label, label: classes.label }}
+            >
+              {label}
+            </FormLabel>
+          )}
           <RadioGroup value={checked} onChange={onChange} {...rest}>
-            {
-              data?.map((val) => (
-                <FormControlLabel
-                  key={nanoid()}
-                  value={val.value}
-                  control={(
-                    <Radio
-                      onChange={onChange}
-                      classes={{ root: classes.input, checked: classes.checked }}
-                    />
-                    )}
-                  label={val.name}
-                />
-              ))
-            }
+            {data?.map((val) => (
+              <FormControlLabel
+                key={nanoid()}
+                value={val.value}
+                control={
+                  <Radio
+                    onChange={onChange}
+                    classes={{ root: classes.input, checked: classes.checked }}
+                  />
+                }
+                label={val.name}
+              />
+            ))}
           </RadioGroup>
         </FormControl>
       );
-    case 'checkbox':
+    case "checkbox":
       return (
         <FormGroup row>
-          {
-            data?.map((val) => {
-              (val.name ||= '');
+          {data?.map((val) => {
+            val.name ||= "";
 
-              return (
-                <FormControlLabel
-                  key={nanoid()}
-                  classes={{ label: classes.checkboxLabel }}
-                  control={(
-                    <CheckBox
-                      {...rest}
-                      name={val.name}
-                      color="primary"
-                    />
-                )}
-                  label={val.name}
-                />
-              );
-            })
-          }
+            return (
+              <FormControlLabel
+                key={nanoid()}
+                classes={{ label: classes.checkboxLabel }}
+                control={<CheckBox {...rest} name={val.name} color="primary" />}
+                label={val.name}
+              />
+            );
+          })}
         </FormGroup>
-
       );
-    case 'editor': {
+    case "editor": {
       return (
         <MUIEditor
           onChange={onChange}
@@ -184,7 +198,7 @@ const Input = ({
       );
     }
 
-    case 'file': {
+    case "file": {
       return (
         <>
           <input
@@ -204,52 +218,55 @@ const Input = ({
         </>
       );
     }
-    default: return (
-      <TextField
-        error={error}
-        className={classes.root}
-        placeholder={placeholder}
-        label={label}
-        type={inputType}
-        value={value}
-        onChange={onChange}
-        color="primary"
-        {...rest}
-      />
-    );
+    default:
+      return (
+        <TextField
+          error={error}
+          className={classes.root}
+          placeholder={placeholder}
+          label={label}
+          type={inputType}
+          value={value}
+          onChange={onChange}
+          color="primary"
+          {...rest}
+        />
+      );
   }
 };
 
 Input.propTypes = {
   error: PropTypes.bool,
   inputType: PropTypes.string,
-  data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.string])),
+  data: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+  ),
   TimeOrDateInput: PropTypes.bool,
   placeholder: PropTypes.string,
   label: PropTypes.string,
   accept: PropTypes.string,
   onChange: PropTypes.func,
   checked: PropTypes.string,
-  value: PropTypes.oneOfType(
-    [
-      PropTypes.array,
-      PropTypes.object,
-      PropTypes.number,
-      PropTypes.string],
-  ),
+  value: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.node,
+  ]),
 };
 
 Input.defaultProps = {
   error: false,
-  inputType: '',
+  inputType: "",
   data: [],
   TimeOrDateInput: false,
-  placeholder: '',
-  label: '',
-  accept: 'image/*',
+  placeholder: "",
+  label: "",
+  accept: "image/*",
   onChange: () => {},
-  value: '',
-  checked: '',
+  value: "",
+  checked: "",
 };
 
 export default Input;

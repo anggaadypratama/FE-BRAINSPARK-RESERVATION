@@ -1,20 +1,14 @@
-import React from 'react';
-import { Typography } from '@material-ui/core';
-import { IconLogo } from '@assets/image';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import RplGdcLogoStyle from './style';
+import React from "react";
+import { Typography } from "@material-ui/core";
+import { IconLogo } from "@assets/image";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import RplGdcLogoStyle from "./style";
 
 const RplGdcLogo = ({ className, size }) => {
   const classes = RplGdcLogoStyle();
-  const {
-    heading,
-    headingIcon,
-    logo,
-    headingInfo,
-    headText,
-    subHeadText,
-  } = classes;
+  const { heading, headingIcon, logo, headingInfo, headText, subHeadText } =
+    classes;
 
   const rootClass = classNames(className, heading);
 
@@ -23,15 +17,12 @@ const RplGdcLogo = ({ className, size }) => {
       <div className={headingIcon}>
         <img className={logo} src={IconLogo} alt="icon logo" />
       </div>
-      {
-        !size && (
+      {!size && (
         <div className={headingInfo}>
           <Typography className={headText}>RPL-GDC</Typography>
           <Typography className={subHeadText}>Admin</Typography>
         </div>
-        )
-      }
-
+      )}
     </div>
   );
 };
@@ -42,7 +33,7 @@ RplGdcLogo.propTypes = {
 };
 
 RplGdcLogo.defaultProps = {
-  className: '',
+  className: "",
   size: false,
 };
 

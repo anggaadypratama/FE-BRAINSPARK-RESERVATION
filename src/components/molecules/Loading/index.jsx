@@ -1,7 +1,7 @@
-import { Backdrop, CircularProgress } from '@material-ui/core';
-import React from 'react';
-import PropTypes from 'prop-types';
-import LoadingStyle from './style';
+import { Backdrop, CircularProgress } from "@material-ui/core";
+import React from "react";
+import PropTypes from "prop-types";
+import LoadingStyle from "./style";
 
 const Loading = ({ hasBackdrop, isActive }) => {
   const classes = LoadingStyle();

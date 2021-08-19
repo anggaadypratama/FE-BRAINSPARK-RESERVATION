@@ -1,13 +1,13 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const RplGdcLogoStyle = makeStyles(({ color }) => ({
   heading: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     marginBottom: 36,
   },
   headingInfo: {
-    display: 'block',
+    display: "block",
     marginLeft: 8,
   },
   logo: {
@@ -15,13 +15,13 @@ const RplGdcLogoStyle = makeStyles(({ color }) => ({
     width: 45,
   },
   headText: {
-    fontWeight: '800',
-    fontSize: '21px',
+    fontWeight: "800",
+    fontSize: "21px",
   },
   subHeadText: {
     color: color.dustyOrange,
-    fontSize: '14px',
-    fontWeight: '800',
+    fontSize: "14px",
+    fontWeight: "800",
   },
 }));
 

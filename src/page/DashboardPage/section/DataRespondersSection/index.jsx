@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   TablePagination,
   TableRow,
@@ -9,53 +9,68 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
-import GetAppIcon from '@material-ui/icons/GetApp';
+import GetAppIcon from "@material-ui/icons/GetApp";
 
-import { useQuery } from 'react-query';
-import { getAllEventWithAuth } from '@services';
-import moment from 'moment';
-import xlsx from 'json-as-xlsx';
+import { useQuery } from "react-query";
+import { getAllEventWithAuth } from "@services";
+import moment from "moment";
+import xlsx from "json-as-xlsx";
 
-import DataRespondersStyle from './style';
+import { nanoid } from "nanoid";
+import DataRespondersStyle from "./style";
 
 const columns = [
   {
-    id: 'no', label: 'No', minWidth: 0, align: 'left',
+    id: "no",
+    label: "No",
+    minWidth: 0,
+    align: "left",
   },
   {
-    id: 'name', label: 'Name', minWidth: 200, align: 'left',
+    id: "name",
+    label: "Name",
+    minWidth: 200,
+    align: "left",
   },
   {
-    id: 'date', label: 'Date', minWidth: 100, align: 'center',
+    id: "date",
+    label: "Date",
+    minWidth: 100,
+    align: "center",
   },
   {
-    id: 'status',
-    label: 'Status',
+    id: "status",
+    label: "Status",
     minWidth: 50,
-    align: 'center',
-    format: (value) => value.toLocaleString('en-US'),
+    align: "center",
+    format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: 'register',
-    label: 'Total Register/Feedback',
+    id: "register",
+    label: "Total Register/Feedback",
     minWidth: 50,
-    align: 'center',
-    format: (value) => value.toLocaleString('en-US'),
+    align: "center",
+    format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: 'download',
-    label: 'Download',
+    id: "download",
+    label: "Download",
     minWidth: 50,
-    align: 'center',
+    align: "center",
     format: (value) => value.toFixed(2),
   },
 ];
 
 function createData(no, name, date, status, register, download) {
   return {
-    no, name, date, status, register, download,
+    no,
+    name,
+    date,
+    status,
+    register,
+    download,
   };
 }
 
@@ -66,92 +81,121 @@ const DataRespondersSection = () => {
 
   const rows = [];
 
-  const {
-    data,
-  } = useQuery(['responders'], getAllEventWithAuth, {
+  const { data } = useQuery(["responders"], getAllEventWithAuth, {
     refetchOnWindowFocus: false,
   });
 
   data?.data
-    ?.sort((a, b) => moment(b.date).format().localeCompare(moment(a.date).format()))
-    ?.forEach(({
-      themeName, date, isEventDone, participant, ticketLimit, isOnlyTelkom,
-    }, i) => {
-      const participantLength = participant.length;
-      const separateTotalRegister = '/';
-      const separateFileName = '_';
-      const participantRegister = participantLength + separateTotalRegister + ticketLimit;
-
-      const settings = {
-        fileName: themeName + separateFileName + moment(date).format('L'),
-        extraLength: 5,
-        writeOptions: {},
-      };
-
-      const xlsxData = [
+    ?.sort((a, b) =>
+      moment(b.date).format().localeCompare(moment(a.date).format())
+    )
+    ?.forEach(
+      (
         {
-          sheet: 'Initial Data',
-          columns: [
-            { label: 'Theme Name', value: 'name' }, // Top level data
-            { label: 'Date', value: (row) => row.date }, // Run functions
-            { label: 'Is Event Done', value: (row) => row.eventDone }, // Deep props
-            { label: 'Ticket Limit', value: (row) => row.ticketLimit },
-            { label: 'Participant Category', value: (row) => row.isOnlyTelkom }, // Deep props
-          ],
-          content: [
-            {
-              name: themeName,
-              date: moment(date).format('L'),
-              eventDone: isEventDone ? 'Done' : 'Ongoing',
-              ticketLimit,
-              isOnlyTelkom: isOnlyTelkom ? 'Public' : 'Telkom University',
-            },
-          ],
+          themeName,
+          date,
+          isEventDone,
+          participant,
+          ticketLimit,
+          isOnlyTelkom,
         },
-        {
-          sheet: 'Participant Data',
-          columns: [
-            { label: 'No', value: (row) => row.no },
-            { label: 'Name', value: (row) => row.name },
-            { label: 'Email', value: (row) => row.email },
-            { label: 'Nim', value: (row) => row.nim },
-            { label: 'Status', value: (row) => row.Status },
-            { label: 'Fakultas', value: (row) => row.fakultas },
-            { label: 'Whatsapp', value: (row) => row.whatsapp },
-            { label: 'Line', value: (row) => row.line },
-            { label: 'Apakah hadir', value: (row) => row.isAbsen },
-            { label: 'Feedback', value: (row) => row.feedback },
-          ],
-          content: [
-            ...participant?.map(({
-              name, email, nim, Status, fakultas, whatsapp, line, isAbsen, feedback,
-            }, index) => ({
-              no: index + 1,
-              name,
-              email,
-              nim: nim > 0 && nim.length > 5 ? nim : '-',
-              Status: Status?.length > 1 ? Status : '-',
-              fakultas: fakultas?.length ? fakultas : '-',
-              whatsapp: whatsapp?.length ? whatsapp : '-',
-              line: line?.length ? line : '-',
-              isAbsen,
-              feedback: feedback?.length ? feedback : '-',
-            })),
-          ],
-        },
-      ];
+        i
+      ) => {
+        const participantLength = participant.length;
+        const separateTotalRegister = "/";
+        const separateFileName = "_";
+        const participantRegister =
+          participantLength + separateTotalRegister + ticketLimit;
 
-      rows.push(createData(
-        i + 1,
-        themeName,
-        moment(date).format('L'),
-        isEventDone ? 'Done' : 'Ongoing',
-        participantRegister,
-        <IconButton onClick={() => xlsx(xlsxData, settings)}>
-          <GetAppIcon />
-        </IconButton>,
-      ));
-    });
+        const settings = {
+          fileName: themeName + separateFileName + moment(date).format("L"),
+          extraLength: 5,
+          writeOptions: {},
+        };
+
+        const xlsxData = [
+          {
+            sheet: "Initial Data",
+            columns: [
+              { label: "Theme Name", value: "name" }, // Top level data
+              { label: "Date", value: (row) => row.date }, // Run functions
+              { label: "Is Event Done", value: (row) => row.eventDone }, // Deep props
+              { label: "Ticket Limit", value: (row) => row.ticketLimit },
+              {
+                label: "Participant Category",
+                value: (row) => row.isOnlyTelkom,
+              }, // Deep props
+            ],
+            content: [
+              {
+                name: themeName,
+                date: moment(date).format("L"),
+                eventDone: isEventDone ? "Done" : "Ongoing",
+                ticketLimit,
+                isOnlyTelkom: isOnlyTelkom ? "Public" : "Telkom University",
+              },
+            ],
+          },
+          {
+            sheet: "Participant Data",
+            columns: [
+              { label: "No", value: (row) => row.no },
+              { label: "Name", value: (row) => row.name },
+              { label: "Email", value: (row) => row.email },
+              { label: "Nim", value: (row) => row.nim },
+              { label: "Status", value: (row) => row.Status },
+              { label: "Fakultas", value: (row) => row.fakultas },
+              { label: "Whatsapp", value: (row) => row.whatsapp },
+              { label: "Line", value: (row) => row.line },
+              { label: "Apakah hadir", value: (row) => row.isAbsen },
+              { label: "Feedback", value: (row) => row.feedback },
+            ],
+            content: [
+              ...participant?.map(
+                (
+                  {
+                    name,
+                    email,
+                    nim,
+                    Status,
+                    fakultas,
+                    whatsapp,
+                    line,
+                    isAbsen,
+                    feedback,
+                  },
+                  index
+                ) => ({
+                  no: index + 1,
+                  name,
+                  email,
+                  nim: nim > 0 && nim.length > 5 ? nim : "-",
+                  Status: Status?.length > 1 ? Status : "-",
+                  fakultas: fakultas?.length ? fakultas : "-",
+                  whatsapp: whatsapp?.length ? whatsapp : "-",
+                  line: line?.length ? line : "-",
+                  isAbsen,
+                  feedback: feedback?.length ? feedback : "-",
+                })
+              ),
+            ],
+          },
+        ];
+
+        rows.push(
+          createData(
+            i + 1,
+            themeName,
+            moment(date).format("L"),
+            isEventDone ? "Done" : "Ongoing",
+            participantRegister,
+            <IconButton onClick={() => xlsx(xlsxData, settings)}>
+              <GetAppIcon />
+            </IconButton>
+          )
+        );
+      }
+    );
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -171,7 +215,7 @@ const DataRespondersSection = () => {
               {columns.map((column) => (
                 <TableCell
                   classes={{ head: classes.headTable, root: classes.table }}
-                  key={column.id}
+                  key={nanoid()}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
@@ -181,22 +225,26 @@ const DataRespondersSection = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                {columns.map((column) => {
-                  const value = row[column.id];
-                  return (
-                    <TableCell
-                      classes={{ root: classes.table }}
-                      key={column.id}
-                      align={column.align}
-                    >
-                      {column.format && typeof value === 'number' ? column.format(value) : value}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            ))}
+            {rows
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => (
+                <TableRow hover role="checkbox" tabIndex={-1} key={nanoid()}>
+                  {columns.map((column) => {
+                    const value = row[column.id];
+                    return (
+                      <TableCell
+                        classes={{ root: classes.table }}
+                        key={nanoid()}
+                        align={column.align}
+                      >
+                        {column.format && typeof value === "number"
+                          ? column.format(value)
+                          : value}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -211,7 +259,6 @@ const DataRespondersSection = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </div>
-
     </Paper>
   );
 };

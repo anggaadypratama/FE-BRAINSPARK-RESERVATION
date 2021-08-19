@@ -1,34 +1,29 @@
-import React from 'react';
-import { Card, Typography, Container } from '@material-ui/core';
-import { PropTypes } from 'prop-types';
-import DashboardContentStyle from './style';
+import React from "react";
+import { Card, Typography, Container } from "@material-ui/core";
+import { PropTypes } from "prop-types";
+import DashboardContentStyle from "./style";
 
 const DashboardContent = ({ children, name, responders }) => {
   const classes = DashboardContentStyle();
 
   return (
     <>
-      <Typography variant="h4" className={classes.titleContent}>{name}</Typography>
+      <Typography variant="h4" className={classes.titleContent}>
+        {name}
+      </Typography>
       <Card
         elevation={3}
         classes={{
-          root:
-            responders
-              ? classes.containerRespondersRoot
-              : '',
+          root: responders ? classes.containerRespondersRoot : "",
         }}
         className={
-          responders
-            ? classes.cardContentResponders
-            : classes.cardContent
+          responders ? classes.cardContentResponders : classes.cardContent
         }
       >
-        <Container classes={{
-          root:
-            responders
-              ? classes.containerRespondersRoot
-              : '',
-        }}
+        <Container
+          classes={{
+            root: responders ? classes.containerRespondersRoot : "",
+          }}
         >
           {children}
         </Container>
@@ -44,8 +39,8 @@ DashboardContent.propTypes = {
 };
 
 DashboardContent.defaultProps = {
-  children: '',
-  name: '',
+  children: "",
+  name: "",
   responders: false,
 };
 

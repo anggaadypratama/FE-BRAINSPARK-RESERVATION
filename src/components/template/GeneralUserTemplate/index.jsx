@@ -1,7 +1,7 @@
-import React from 'react';
-import { Navbar, Footer } from '@components';
+import React from "react";
+import { Navbar, Footer } from "@components";
 // import GeneralUserStyle from './style';
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const GeneralUserTemplate = ({ children, ...rest }) => (
   <>
@@ -16,7 +16,7 @@ GeneralUserTemplate.propTypes = {
 };
 
 GeneralUserTemplate.defaultProps = {
-  children: '',
+  children: "",
 };
 
 export default GeneralUserTemplate;

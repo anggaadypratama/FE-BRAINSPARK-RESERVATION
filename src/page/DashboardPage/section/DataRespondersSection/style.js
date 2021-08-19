@@ -1,11 +1,11 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const DataRespondersStyle = makeStyles(({ spacing, color, font }) => ({
   root: {
-    width: '100%',
+    width: "100%",
   },
   container: {
-    maxHeight: '100%',
+    maxHeight: "100%",
   },
   pagination: {
     marginBottom: 10,
@@ -14,8 +14,8 @@ const DataRespondersStyle = makeStyles(({ spacing, color, font }) => ({
   },
   headTable: {
     backgroundColor: color.primary,
-    color: 'white',
-    fontWeight: '800',
+    color: "white",
+    fontWeight: "800",
     fontFamily: font.raleway,
   },
   table: {

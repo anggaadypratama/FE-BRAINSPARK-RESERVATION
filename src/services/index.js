@@ -7,22 +7,22 @@ import {
   patchWithSlug,
   deleteWithSlug,
   putWithSlug,
-} from './method';
+} from "./method";
 
-export const login = post('users/login/');
-export const checkIsAuthenticated = get('/');
+export const login = post("users/login/");
+export const checkIsAuthenticated = get("/");
 
-export const postNewEvent = postData('event/');
-export const getAllEventWithAuth = get('event/dashboard/');
-export const getDetailEventByIdWithAuth = getWithSlug('event/dashboard/');
-export const getDetailEventById = getWithSlug('event/');
-export const getAllEvent = get('event/');
-export const patchDetailEventById = patchWithSlug('event/');
-export const deleteDetailEventById = deleteWithSlug('event/');
+export const postNewEvent = postData("event/");
+export const getAllEventWithAuth = get("event/dashboard/");
+export const getDetailEventByIdWithAuth = getWithSlug("event/dashboard/");
+export const getDetailEventById = getWithSlug("event/");
+export const getAllEvent = get("event/");
+export const patchDetailEventById = patchWithSlug("event/");
+export const deleteDetailEventById = deleteWithSlug("event/");
 
-export const putEventParticipant = putWithSlug('event/');
-export const putEventParticipantAbsent = putWithSlug('event/');
-export const getEventParticipantSearch = getWithSlug('event/');
+export const putEventParticipant = putWithSlug("event/");
+export const putEventParticipantAbsent = putWithSlug("event/");
+export const getEventParticipantSearch = getWithSlug("event/");
 
 const API = {
   getAllEvent,

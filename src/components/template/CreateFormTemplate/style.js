@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const CreateFormStyle = makeStyles(({ color, spacing }) => ({
   formWrapper: {
@@ -9,19 +9,19 @@ const CreateFormStyle = makeStyles(({ color, spacing }) => ({
   },
   timeWrapper: {
     marginTop: 8,
-    display: 'flex',
+    display: "flex",
     color: color.primaryText,
   },
   buttonWrapper: {
-    width: '100%',
+    width: "100%",
     marginTop: 70,
-    display: 'flex',
-    justifyContent: 'center',
+    display: "flex",
+    justifyContent: "center",
   },
   timeInput: {
-    margin: '0 8px',
+    margin: "0 8px",
 
-    '&:first-child': {
+    "&:first-child": {
       marginLeft: 0,
     },
   },
@@ -35,8 +35,8 @@ const CreateFormStyle = makeStyles(({ color, spacing }) => ({
     marginBottom: 0,
   },
   snackbar: {
-    width: '100%',
-    '& > * + *': {
+    width: "100%",
+    "& > * + *": {
       marginTop: spacing(2),
     },
   },

@@ -1,20 +1,19 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const DashboardStyle = makeStyles(({ color, font }) => ({
-  '@global': {
+  "@global": {
     body: {
       backgroundColor: color.background,
     },
   },
   root: {
-    width: '100%',
-    height: '100vh',
+    width: "100%",
+    height: "100vh",
   },
   content: {
     marginLeft: ({ size }) => (size ? 120 : 300),
     marginRight: ({ responders }) => (responders ? 25 : 100),
-    position: 'relative',
-
+    position: "relative",
   },
   contentWrapper: {
     marginTop: 30,
@@ -28,7 +27,7 @@ const DashboardStyle = makeStyles(({ color, font }) => ({
     color: color.primaryText,
   },
   marginBottom: {
-    width: '100%',
+    width: "100%",
     height: 50,
   },
 }));

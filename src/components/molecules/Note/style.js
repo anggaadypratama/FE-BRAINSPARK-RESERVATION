@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const NoteStyle = makeStyles(({ font, color, spacing }) => ({
   root: {
@@ -11,7 +11,7 @@ const NoteStyle = makeStyles(({ font, color, spacing }) => ({
     marginBottom: spacing(1),
   },
   content: {
-    background: '#F5F6F7',
+    background: "#F5F6F7",
     padding: spacing(2),
   },
 }));

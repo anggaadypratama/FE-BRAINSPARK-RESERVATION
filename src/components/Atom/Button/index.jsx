@@ -1,10 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
-import { Button as ButtonMaterial, Link as LinkMaterial } from '@material-ui/core';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import { Link as LinkDom } from 'react-router-dom';
-import buttonStyle from './style';
+import React from "react";
+import {
+  Button as ButtonMaterial,
+  Link as LinkMaterial,
+} from "@material-ui/core";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import { Link as LinkDom } from "react-router-dom";
+import buttonStyle from "./style";
 
 const Button = ({
   className,
@@ -22,16 +25,27 @@ const Button = ({
 }) => {
   const classes = buttonStyle();
   const {
-    primary, secondary, fullWidth, root, secondaryGradient, transparent, linkButton,
+    primary,
+    secondary,
+    fullWidth,
+    root,
+    secondaryGradient,
+    transparent,
+    linkButton,
   } = classes;
 
-  const buttonColor = color === 'primary' ? primary
-    : color === 'secondary' ? secondary
-      : color === 'secondary-gradient' ? secondaryGradient : '';
+  const buttonColor =
+    color === "primary"
+      ? primary
+      : color === "secondary"
+      ? secondary
+      : color === "secondary-gradient"
+      ? secondaryGradient
+      : "";
 
   const buttonClassnames = classNames(className, root, buttonColor, {
     [`${fullWidth}`]: isFullWidth,
-    [`${transparent}`]: variant === 'transparent',
+    [`${transparent}`]: variant === "transparent",
     [`${disabled}`]: disabled,
   });
   const props = {
@@ -44,7 +58,7 @@ const Button = ({
   };
 
   switch (typebutton) {
-    case 'link':
+    case "link":
       return (
         <LinkMaterial className={linkButton} href={link}>
           <ButtonMaterial className={buttonClassnames} {...props}>
@@ -53,7 +67,7 @@ const Button = ({
         </LinkMaterial>
       );
 
-    case 'link-dom':
+    case "link-dom":
       return (
         <LinkDom to={link} className={linkButton}>
           <ButtonMaterial className={buttonClassnames} {...props}>
@@ -83,24 +97,27 @@ Button.propTypes = {
   typebutton: PropTypes.string,
   isFullWidth: PropTypes.bool,
   size: PropTypes.string,
-  link: PropTypes.oneOfType([PropTypes.string, PropTypes.objectOf(PropTypes.object)]),
+  link: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.objectOf(PropTypes.object),
+  ]),
   color: PropTypes.string,
 };
 
 Button.defaultProps = {
-  className: '',
-  children: '',
+  className: "",
+  children: "",
   props: {},
-  variant: 'text',
+  variant: "text",
   disableElevation: false,
   onClick: () => {},
   disabled: false,
-  type: '',
-  typebutton: '',
+  type: "",
+  typebutton: "",
   isFullWidth: false,
-  size: 'medium',
-  link: '',
-  color: '',
+  size: "medium",
+  link: "",
+  color: "",
 };
 
 export default Button;

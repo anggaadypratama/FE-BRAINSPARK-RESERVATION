@@ -1,51 +1,53 @@
 /* eslint-disable react/no-danger */
-import { Card, Typography } from '@material-ui/core';
-import React, { useState, useCallback } from 'react';
-import {
-  Input, Button, Note, Loading,
-  ModalApp,
-} from '@components';
-import GetScreenSize from '@assets/breakpoints/index';
-import PropTypes from 'prop-types';
-import { participantValidation } from '@helpers/yup';
-import { Alert, AlertTitle } from '@material-ui/lab';
-import { nanoid } from 'nanoid';
-import { useHistory, useParams } from 'react-router';
-import { useMutation } from 'react-query';
-import { putEventParticipant } from '@services';
+import { Card, Typography } from "@material-ui/core";
+import React, { useState, useCallback } from "react";
+import { Input, Button, Note, Loading, ModalApp } from "@components";
+import useScreenSize from "@assets/breakpoints/index";
+import PropTypes from "prop-types";
+import { participantValidation } from "@helpers/yup";
+import { Alert, AlertTitle } from "@material-ui/lab";
+import { nanoid } from "nanoid";
+import { useHistory, useParams } from "react-router";
+import { useMutation } from "react-query";
+import { putEventParticipant } from "@services";
 
-import UserFormStyle from './style';
-import data from './faculty';
+import UserFormStyle from "./style";
+import data from "./faculty";
 
 const UserFormPage = ({ dataContent }) => {
-  const isPhone = GetScreenSize({ isMax: true, size: 500 });
+  const isPhone = useScreenSize({ isMax: true, size: 500 });
   const classes = UserFormStyle({ isPhone });
   const { id } = useParams();
   const history = useHistory();
 
-  const mutation = useMutation((props) => putEventParticipant(`${id}/participant`, props));
+  const mutation = useMutation((props) =>
+    putEventParticipant(`${id}/participant`, props)
+  );
 
   const [errorForm, setErrorForm] = useState(null);
   const [modal, setModal] = useState(true);
 
   const [form, setForm] = useState({
-    name: '',
-    email: '',
+    name: "",
+    email: "",
     isTelkomOnly: dataContent?.isOnlyTelkom,
     nim: 0,
-    Status: '',
-    fakultas: '',
-    whatsapp: '',
-    line: '',
+    Status: "",
+    fakultas: "",
+    whatsapp: "",
+    line: "",
   });
 
-  const handleInputChange = useCallback((val) => (e) => {
-    setForm({ ...form, [val]: e.target.value });
+  const handleInputChange = useCallback(
+    (val) => (e) => {
+      setForm({ ...form, [val]: e.target.value });
 
-    if (e.target.value?.length) {
-      setErrorForm(null);
-    }
-  }, [form]);
+      if (e.target.value?.length) {
+        setErrorForm(null);
+      }
+    },
+    [form]
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,31 +58,24 @@ const UserFormPage = ({ dataContent }) => {
       });
 
     if (validationResult) {
-      const {
-        isTelkomOnly,
-        ...dataResult
-      } = validationResult;
+      const { isTelkomOnly, ...dataResult } = validationResult;
       mutation.mutate(dataResult);
     }
   };
 
   const handleCancel = () => {
-    history.push('/');
+    history.push("/");
   };
 
   const handleCloseModal = () => {
     setModal(false);
-    history.push('/');
+    history.push("/");
   };
 
   return (
     <>
-      <Loading
-        hasBackdrop
-        isActive={mutation.isLoading}
-      />
-      {
-        mutation.isSuccess && (
+      <Loading hasBackdrop isActive={mutation.isLoading} />
+      {mutation.isSuccess && (
         <ModalApp
           isActive={modal}
           title="Register berhasil"
@@ -88,10 +83,11 @@ const UserFormPage = ({ dataContent }) => {
         >
           You have successfully registered
         </ModalApp>
-        )
-      }
+      )}
       <Card className={classes.root} elevation={isPhone ? 0 : 3}>
-        <Typography variant="h6" className={classes.formTitle}>Form Registrasi Peserta Brainspark</Typography>
+        <Typography variant="h6" className={classes.formTitle}>
+          Form Registrasi Peserta Brainspark
+        </Typography>
         <form className={classes.formWrapper} onSubmit={handleSubmit}>
           <div className={classes.inputWrapper}>
             <Input
@@ -99,12 +95,12 @@ const UserFormPage = ({ dataContent }) => {
               label="Nama Lengkap"
               fullWidth
               placeholder="isi dengan benar"
-              InputLabelProps={{
+              inputlabelprops={{
                 shrink: true,
               }}
               id="standard-full-width"
               value={form.name}
-              onChange={handleInputChange('name')}
+              onChange={handleInputChange("name")}
             />
           </div>
           <div className={classes.inputWrapper}>
@@ -114,16 +110,15 @@ const UserFormPage = ({ dataContent }) => {
               inputType="email"
               fullWidth
               placeholder="isi dengan benar"
-              InputLabelProps={{
+              inputlabelprops={{
                 shrink: true,
               }}
               id="standard-full-width"
               value={form.email}
-              onChange={handleInputChange('email')}
+              onChange={handleInputChange("email")}
             />
           </div>
-          {
-          form.isTelkomOnly ? (
+          {form.isTelkomOnly ? (
             <>
               <div className={classes.inputWrapper}>
                 <Input
@@ -132,12 +127,12 @@ const UserFormPage = ({ dataContent }) => {
                   fullWidth
                   placeholder="isi dengan benar"
                   inputType="number"
-                  InputLabelProps={{
+                  inputlabelprops={{
                     shrink: true,
                   }}
                   id="standard-full-width"
                   value={form.nim}
-                  onChange={handleInputChange('nim')}
+                  onChange={handleInputChange("nim")}
                 />
               </div>
               <div className={classes.inputWrapper}>
@@ -146,12 +141,12 @@ const UserFormPage = ({ dataContent }) => {
                   label="Fakultas"
                   data={data}
                   inputType="radio"
-                  InputLabelProps={{
+                  inputlabelprops={{
                     shrink: true,
                   }}
                   id="standard-full-width"
                   checked={form.fakultas}
-                  onChange={handleInputChange('fakultas')}
+                  onChange={handleInputChange("fakultas")}
                 />
               </div>
             </>
@@ -162,28 +157,27 @@ const UserFormPage = ({ dataContent }) => {
                 label="Status/lokasi (mahasiswa/kerja)"
                 fullWidth
                 placeholder="isi dengan benar"
-                InputLabelProps={{
+                inputlabelprops={{
                   shrink: true,
                 }}
                 id="standard-full-width"
                 value={form.Status}
-                onChange={handleInputChange('Status')}
+                onChange={handleInputChange("Status")}
               />
             </div>
-          )
-        }
+          )}
           <div className={classes.inputWrapper}>
             <Input
               label="Whatsapp Number"
               fullWidth
               placeholder="isi dengan benar"
               inputType="number"
-              InputLabelProps={{
+              inputlabelprops={{
                 shrink: true,
               }}
               id="standard-full-width"
               value={form.whatsapp}
-              onChange={handleInputChange('whatsapp')}
+              onChange={handleInputChange("whatsapp")}
             />
           </div>
           <div className={classes.inputWrapper}>
@@ -191,44 +185,57 @@ const UserFormPage = ({ dataContent }) => {
               label="Line ID"
               fullWidth
               placeholder="isi dengan benar"
-              InputLabelProps={{
+              inputlabelprops={{
                 shrink: true,
               }}
               id="standard-full-width"
               value={form.line}
-              onChange={handleInputChange('line')}
+              onChange={handleInputChange("line")}
             />
           </div>
           <Note>
             <div dangerouslySetInnerHTML={{ __html: dataContent?.note }} />
           </Note>
-          {
-                (errorForm || mutation?.isError) && (
-                <Alert classes={{ root: classes.alert }} severity="error" variant="filled">
-                  <AlertTitle>Error</AlertTitle>
-                  <ul>
-                    {
-                    errorForm && errorForm?.map((val) => (
-                      <li>
-                        <Typography key={nanoid()}>{val}</Typography>
-                      </li>
-                    ))
-                  }
-                    {mutation?.isError && (
-                    <li>
-                      <Typography>
-                        {mutation?.error?.response?.data?.message?.email}
-                      </Typography>
+          {(errorForm || mutation?.isError) && (
+            <Alert
+              classes={{ root: classes.alert }}
+              severity="error"
+              variant="filled"
+            >
+              <AlertTitle>Error</AlertTitle>
+              <ul>
+                {errorForm &&
+                  errorForm?.map((val) => (
+                    <li key={nanoid()}>
+                      <Typography>{val}</Typography>
                     </li>
-                    )}
-                  </ul>
-                </Alert>
-                )
-              }
+                  ))}
+                {mutation?.isError && (
+                  <li>
+                    <Typography>
+                      {mutation?.error?.response?.data?.message?.email}
+                    </Typography>
+                  </li>
+                )}
+              </ul>
+            </Alert>
+          )}
 
           <div className={classes.buttonWrapper}>
-            <Button variant="transparent" className={classes.button} onClick={handleCancel}>cancel</Button>
-            <Button color="primary" className={classes.button} typebutton="submit">send</Button>
+            <Button
+              variant="transparent"
+              className={classes.button}
+              onClick={handleCancel}
+            >
+              cancel
+            </Button>
+            <Button
+              color="primary"
+              className={classes.button}
+              typebutton="submit"
+            >
+              send
+            </Button>
           </div>
         </form>
       </Card>

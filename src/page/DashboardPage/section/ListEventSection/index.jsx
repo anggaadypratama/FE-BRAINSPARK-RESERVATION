@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { ListCard, Loading } from '@components';
-import { useQuery } from 'react-query';
-import { getAllEventWithAuth } from '@services/index';
+import React, { useState } from "react";
+import { ListCard, Loading } from "@components";
+import { useQuery } from "react-query";
+import { getAllEventWithAuth } from "@services/index";
 
-import { useDispatch } from 'react-redux';
-import { setRefetch } from '@services/redux/slices/contentPage';
-import ListDataEventStyle from './style';
+import ListDataEventStyle from "./style";
 
 const ListEvent = () => {
   const classes = ListDataEventStyle();
-  const dispatch = useDispatch();
 
   const [isFinished, setFinished] = useState(0);
 
@@ -17,24 +14,13 @@ const ListEvent = () => {
     isFinished,
   };
 
-  const {
-    data: dataEvent,
-    isLoading,
-    refetch,
-  } = useQuery(['event', params], () => getAllEventWithAuth(params), {
-    refetchOnWindowFocus: false,
-  });
-
-  useEffect(() => {
-    dispatch(setRefetch(refetch));
-  }, [refetch]);
+  const { data: dataEvent, isLoading } = useQuery(["event", params], () =>
+    getAllEventWithAuth(params)
+  );
 
   const dataFilter = dataEvent?.data;
 
-  const data = [
-    'All Events',
-    'Done',
-  ];
+  const data = ["All Events", "Done"];
 
   const handleChangeFilter = (e) => {
     setFinished(e);
@@ -54,7 +40,6 @@ const ListEvent = () => {
       lg={4}
       md={6}
       sm={12}
-      refetch={refetch}
     />
   );
 };

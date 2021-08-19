@@ -1,40 +1,37 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-import {
-  Card,
-  Typography,
-} from '@material-ui/core';
-import { Button, RplGdcLogo, Loading } from '@components';
-import { LoginBackgroundLeft, LoginBackgroundRight } from '@assets/image';
-import { Input } from '@components/Atom';
-import { login } from '@services';
-import { useMutation } from 'react-query';
-import { Redirect } from 'react-router';
-import { Alert, AlertTitle } from '@material-ui/lab';
-import { loginValidation } from '@/helpers/yup';
-import { nanoid } from 'nanoid';
-import LoginStyle from './style';
+import React, { useState } from "react";
+import { Card, Typography } from "@material-ui/core";
+import { Button, RplGdcLogo, Loading } from "@components";
+import { LoginBackgroundLeft, LoginBackgroundRight } from "@assets/image";
+import { Input } from "@components/Atom";
+import { login } from "@services";
+import { useMutation } from "react-query";
+import { Redirect } from "react-router";
+import { Alert, AlertTitle } from "@material-ui/lab";
+import { loginValidation } from "@/helpers/yup";
+import { nanoid } from "nanoid";
+import LoginStyle from "./style";
 
 // eslint-disable-next-line no-unused-vars
 const LoginPage = () => {
   const classes = LoginStyle();
 
   const [form, setForm] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
 
   const [errorForm, setErrorForm] = useState(null);
 
-  const {
-    data, isLoading, mutate, error,
-  } = useMutation((props) => login(props));
+  const { data, isLoading, mutate, error } = useMutation((props) =>
+    login(props)
+  );
 
   const token = data?.data?.data;
   const errorData = error?.response?.data;
 
   if (token) {
-    localStorage.setItem('token', token);
+    localStorage.setItem("token", token);
   }
 
   const handleFormInput = (type) => (e) => {
@@ -65,15 +62,19 @@ const LoginPage = () => {
   return (
     <>
       <Loading hasBackdrop isActive={isLoading} />
-      {
-        'token' in localStorage
-        && !isLoading
-        && <Redirect to="/dashboard" />
-      }
+      {"token" in localStorage && !isLoading && <Redirect to="/dashboard" />}
       <div className={classes.root}>
         <div className={classes.wave}>
-          <img src={LoginBackgroundRight} className={classes.waveRight} alt="wave right" />
-          <img src={LoginBackgroundLeft} className={classes.waveLeft} alt="wave left" />
+          <img
+            src={LoginBackgroundRight}
+            className={classes.waveRight}
+            alt="wave right"
+          />
+          <img
+            src={LoginBackgroundLeft}
+            className={classes.waveLeft}
+            alt="wave left"
+          />
         </div>
         <div className={classes.content}>
           <RplGdcLogo className={classes.wrapperlogo} />
@@ -87,63 +88,56 @@ const LoginPage = () => {
                 value={form.username}
                 className={classes.formItem}
                 label="username"
-                onChange={handleFormInput('username')}
+                onChange={handleFormInput("username")}
               />
               <Input
                 error={errorForm !== null || errorData?.message?.password}
                 variant="outlined"
                 inputProps={{
-                  autoComplete: 'new-password',
+                  autoComplete: "new-password",
                   form: {
-                    autoComplete: 'off',
+                    autoComplete: "off",
                   },
                 }}
                 inputType="password"
                 value={form.password}
                 className={classes.formItem}
                 label="password"
-                onChange={handleFormInput('password')}
+                onChange={handleFormInput("password")}
               />
-              {
-                (errorForm || errorData) && (
-                <Alert classes={{ root: classes.alert }} severity="error" variant="filled">
+              {(errorForm || errorData) && (
+                <Alert
+                  classes={{ root: classes.alert }}
+                  severity="error"
+                  variant="filled"
+                >
                   <AlertTitle>Error</AlertTitle>
                   <ul>
-                    {
-                    errorForm?.map((val) => (
-                      <li>
-                        <Typography key={nanoid()}>{val}</Typography>
+                    {errorForm?.map((val) => (
+                      <li key={nanoid()}>
+                        <Typography>{val}</Typography>
                       </li>
-                    ))
-                  }
-                    {
-                    errorData && (
-                    <>
-                      {
-                      errorData?.message?.username && (
-                      <li>
-                        { errorData?.message?.username}
-                      </li>
-                      )
-                    }
-                      {
-                      errorData?.message?.password && (
-                      <li>
-                        { errorData?.message?.password}
-                      </li>
-                      )
-                    }
-
-                    </>
-                    )
-                  }
-
+                    ))}
+                    {errorData && (
+                      <>
+                        {errorData?.message?.username && (
+                          <li>{errorData?.message?.username}</li>
+                        )}
+                        {errorData?.message?.password && (
+                          <li>{errorData?.message?.password}</li>
+                        )}
+                      </>
+                    )}
                   </ul>
                 </Alert>
-                )
-              }
+              )}
               <div className={classes.buttonWrapper}>
-                <Button className={classes.buttonLogin} color="secondary-gradient">Login</Button>
+                <Button
+                  className={classes.buttonLogin}
+                  color="secondary-gradient"
+                >
+                  Login
+                </Button>
               </div>
             </form>
           </Card>

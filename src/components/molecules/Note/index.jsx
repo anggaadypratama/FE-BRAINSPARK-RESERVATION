@@ -1,7 +1,7 @@
-import { Paper, Typography } from '@material-ui/core';
-import React from 'react';
-import PropTypes from 'prop-types';
-import NoteStyle from './style';
+import { Paper, Typography } from "@material-ui/core";
+import React from "react";
+import PropTypes from "prop-types";
+import NoteStyle from "./style";
 
 const Note = ({ children }) => {
   const classes = NoteStyle();
@@ -12,7 +12,6 @@ const Note = ({ children }) => {
       <Paper className={classes.content} variant="outlined">
         {children}
       </Paper>
-
     </div>
   );
 };

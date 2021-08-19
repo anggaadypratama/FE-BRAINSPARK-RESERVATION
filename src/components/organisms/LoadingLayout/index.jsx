@@ -1,7 +1,5 @@
-import {
-  Backdrop, CircularProgress,
-} from '@material-ui/core';
-import React from 'react';
+import { Backdrop, CircularProgress } from "@material-ui/core";
+import React from "react";
 
 const LoadingLayout = () => (
   <Backdrop>
