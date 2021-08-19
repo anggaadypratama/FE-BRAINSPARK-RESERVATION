@@ -3,13 +3,15 @@ import { Container } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GetScreenSize } from '@assets';
+import { useHistory } from 'react-router';
 import DashboardStyle from './style';
 
 const DashboardTemplate = ({
   children, sidebarList,
 }) => {
+  const history = useHistory();
   const size = GetScreenSize({ isMax: true, size: 1100 });
-  const classes = DashboardStyle({ size });
+  const classes = DashboardStyle({ size, responders: history.location.pathname === '/responders' });
 
   return (
     <div className={classes.root}>

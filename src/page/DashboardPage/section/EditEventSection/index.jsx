@@ -1,7 +1,7 @@
 import { patchDetailEventById, getDetailEventByIdWithAuth } from '@services';
 import { CreateFormTemplate, Loading } from '@components';
 import { Divider, Typography } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { ModalApp } from '@/components';
 import { useHistory } from 'react-router';
@@ -13,6 +13,7 @@ import EditEventStyle from './style';
 const EditEventSection = ({ match }) => {
   const classes = EditEventStyle();
   const [successModal, setSuccessModal] = useState(true);
+  const [image, setImage] = useState(null);
   const { id } = match?.params;
 
   const {
@@ -32,9 +33,28 @@ const EditEventSection = ({ match }) => {
     history.push('/');
   };
 
+  const poster = `${process.env.REACT_APP_BASE_URL}/${data?.data?.imagePoster}`;
+  const allData = data?.data;
+
+  useEffect(async () => {
+    try {
+      const imageUrl = await fetch(poster);
+      const blob = await imageUrl.blob();
+      const splitUrl = poster?.split('/');
+      const nameFile = splitUrl[splitUrl.length - 1].split('_')[1];
+      const type = nameFile.split('.');
+      const file = await new File([blob], nameFile, { type: `image/${type[type.length - 1]}` });
+      setImage(file);
+    } catch (err) {
+      throw Error(err);
+    }
+  }, [poster, setImage]);
+
   const mutation = useMutation((props) => patchDetailEventById(id, props, {
     'Content-Type': 'multipart/form-data',
   }));
+
+  const dataResult = { ...allData, imagePoster: image };
 
   return (
     <>
@@ -60,13 +80,13 @@ const EditEventSection = ({ match }) => {
       <Loading isActive={mutation.isLoading} hasBackdrop />
       <Loading isActive={detailLoading || data?.data?.length} hasBackdrop />
       {
-        !detailLoading && data?.status === 200 && (
+        !detailLoading && data?.status === 200 && image !== null && (
         <div className={classes.root}>
           <Typography className={classes.title}>Information</Typography>
           <Divider />
           <div className={classes.space} />
           <CreateFormTemplate
-            defaultData={data?.data}
+            defaultData={dataResult}
             handleSubmitForm={(val) => mutation.mutate(val)}
             refetch={refetch}
           />
@@ -79,11 +99,11 @@ const EditEventSection = ({ match }) => {
 };
 
 EditEventSection.propTypes = {
-  match: PropTypes.oneOfType([PropTypes.objectOf(PropTypes.object), PropTypes.node]),
-};
-
-EditEventSection.defaultProps = {
-  match: {},
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.objectOf(PropTypes.object), PropTypes.string]),
+    }),
+  }).isRequired,
 };
 
 export default EditEventSection;

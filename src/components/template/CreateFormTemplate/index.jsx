@@ -15,6 +15,7 @@ import { nanoid } from 'nanoid';
 import { ContentState, convertFromHTML, EditorState } from 'draft-js';
 import { ModalApp } from '@/components';
 import CreateFormStyle from './style';
+
 import { participantCategory, locationType } from './data';
 
 // eslint-disable-next-line no-unused-vars
@@ -58,7 +59,8 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
     themeName: defaultData
       ? defaultData?.themeName
       : '',
-    imagePoster: {},
+    imagePoster: (defaultData && defaultData?.imagePoster !== null)
+      ? defaultData?.imagePoster : null,
     description: defaultData
       ? descState : MUIEditorState.createEmpty(editorConfig),
     date: defaultData
