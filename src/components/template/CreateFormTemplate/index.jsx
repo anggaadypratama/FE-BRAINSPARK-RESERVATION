@@ -22,8 +22,6 @@ import { participantCategory, locationType } from './data';
 const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
   const classes = CreateFormStyle();
 
-  console.log(defaultData);
-
   const editorConfig = {
     editor: {
       wrapperElement: 'div',
@@ -124,8 +122,6 @@ const CreateFormTemplate = ({ handleSubmitForm, defaultData, refetch }) => {
       setForm({ ...form, [val]: e });
     }
   }, [form]);
-
-  console.log(form);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

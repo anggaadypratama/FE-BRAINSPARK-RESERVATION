@@ -46,7 +46,7 @@ const EditEventSection = ({ match }) => {
       const file = await new File([blob], nameFile, { type: `image/${type[type.length - 1]}` });
       setImage(file);
     } catch (err) {
-      console.log(err);
+      throw Error(err);
     }
   }, [poster, setImage]);
 
