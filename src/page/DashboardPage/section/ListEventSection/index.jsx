@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ListCard, Loading } from "@components";
+import { ListCard } from "@components";
 import { useQuery } from "react-query";
 import { getAllEventWithAuth } from "@services/index";
 
@@ -26,9 +26,7 @@ const ListEvent = () => {
     setFinished(e);
   };
 
-  return isLoading ? (
-    <Loading />
-  ) : (
+  return (
     <ListCard
       dataFilter={data}
       cardData={dataFilter}
@@ -40,6 +38,7 @@ const ListEvent = () => {
       lg={4}
       md={6}
       sm={12}
+      isLoading={isLoading}
     />
   );
 };

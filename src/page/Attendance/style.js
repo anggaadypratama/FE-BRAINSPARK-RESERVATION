@@ -2,7 +2,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const AttendanceStyle = makeStyles(({ spacing, font }) => ({
   root: {
-    width: "100%",
     height: "100vh",
     display: "flex",
     justifyContent: "center",
@@ -21,7 +20,7 @@ const AttendanceStyle = makeStyles(({ spacing, font }) => ({
   waveRightCard: {
     position: "absolute",
     top: 0,
-    right: -70,
+    right: 0,
     zIndex: 0,
     height: 200,
   },
@@ -29,7 +28,7 @@ const AttendanceStyle = makeStyles(({ spacing, font }) => ({
     position: "absolute",
     width: "100%",
     height: "inherit",
-    bottom: ({ screenL, screenS }) => (screenL ? -200 : screenS ? 0 : 0),
+    bottom: ({ screenL, screenS }) => (screenL ? -300 : screenS ? 0 : 0),
     left: 0,
     zIndex: 0,
   },
@@ -37,7 +36,7 @@ const AttendanceStyle = makeStyles(({ spacing, font }) => ({
     position: "absolute",
     width: "100%",
     height: "inherit",
-    bottom: -140,
+    bottom: -100,
     left: 0,
     zIndex: 0,
   },
@@ -48,7 +47,7 @@ const AttendanceStyle = makeStyles(({ spacing, font }) => ({
   },
   cardContent: {
     padding: "21px 27px",
-    width: ({ screenS }) => (screenS ? "100%" : 508),
+    width: ({ screenS }) => !screenS && 508,
     borderRadius: ({ screenS }) => (screenS ? spacing(0) : spacing(1)),
     minHeight: ({ screenS }) => (screenS ? "100vh" : 200),
   },

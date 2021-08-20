@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
@@ -6,7 +7,6 @@
 const {
   override,
   overrideDevServer,
-  watchAll,
   addWebpackAlias,
   addBabelPreset,
   useBabelRc,
@@ -40,7 +40,6 @@ const customizePlugin = [
   }),
   // new webpack.optimize.AggressiveMergingPlugin(),
   new CleanWebpackPlugin(),
-  // eslint-disable-next-line no-useless-escape
   new webpack.ContextReplacementPlugin(
     /moment[\\\/]locale$/,
     /^\.\/(en|zh-tw)$/
@@ -62,6 +61,7 @@ const addCustomize = () => (config) => {
     config = {
       ...config,
       optimization: {
+        minimize: true,
         minimizer: [new UglifyJsPlugin()],
       },
     };

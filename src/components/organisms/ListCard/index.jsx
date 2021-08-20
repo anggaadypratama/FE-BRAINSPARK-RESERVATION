@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import { useScreenSize } from "@assets";
+import { Loading } from "@components";
 import listCardStyle from "./style";
 
 const ListCard = ({
@@ -15,9 +16,9 @@ const ListCard = ({
   hasFilter,
   className,
   canEdit,
-  loading,
   onChange,
   filterState,
+  isLoading,
   ...rest
 }) => {
   const mobileSize = useScreenSize({ isMax: true, size: 1000 });
@@ -36,40 +37,44 @@ const ListCard = ({
           />
         </div>
       )}
-      <div className={classes.content}>
-        <Grid container spacing={4}>
-          {cardData.length ? (
-            cardData?.map(
-              ({
-                _id: id,
-                themeName: title,
-                imagePoster,
-                location,
-                date,
-                eventStart,
-                isEventDone,
-              }) => (
-                <Grid key={id} item {...rest}>
-                  <Fade bottom>
-                    <CardItem
-                      id={id}
-                      title={title}
-                      img={imagePoster}
-                      canEdit={canEdit}
-                      location={location}
-                      date={date}
-                      time={eventStart}
-                      status={isEventDone}
-                    />
-                  </Fade>
-                </Grid>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className={classes.content}>
+          <Grid container spacing={4}>
+            {cardData.length ? (
+              cardData?.map(
+                ({
+                  _id: id,
+                  themeName: title,
+                  imagePoster,
+                  location,
+                  date,
+                  eventStart,
+                  isEventDone,
+                }) => (
+                  <Grid key={id} item {...rest}>
+                    <Fade bottom>
+                      <CardItem
+                        id={id}
+                        title={title}
+                        img={imagePoster}
+                        canEdit={canEdit}
+                        location={location}
+                        date={date}
+                        time={eventStart}
+                        status={isEventDone}
+                      />
+                    </Fade>
+                  </Grid>
+                )
               )
-            )
-          ) : (
-            <EmptyEvent message="Oops, it looks like there is no event for now" />
-          )}
-        </Grid>
-      </div>
+            ) : (
+              <EmptyEvent message="Oops, it looks like there is no event for now" />
+            )}
+          </Grid>
+        </div>
+      )}
     </div>
   );
 };
@@ -84,9 +89,9 @@ ListCard.propTypes = {
     PropTypes.oneOfType([PropTypes.object, PropTypes.string])
   ),
   canEdit: PropTypes.bool,
-  loading: PropTypes.bool,
   onChange: PropTypes.func,
   filterState: PropTypes.number,
+  isLoading: PropTypes.bool,
 };
 
 ListCard.defaultProps = {
@@ -95,9 +100,9 @@ ListCard.defaultProps = {
   hasFilter: false,
   cardData: [],
   canEdit: false,
-  loading: false,
   onChange: () => {},
   filterState: 0,
+  isLoading: false,
 };
 
 export default ListCard;

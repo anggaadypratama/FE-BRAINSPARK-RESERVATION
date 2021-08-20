@@ -11,6 +11,7 @@ const SearchEmail = ({ result, handleChange, value, Title }) => {
       <InputFormAdmin
         error={value.length > 0 && result?.status !== 200}
         fullWidth
+        label=""
         helperText={
           value.length > 0 && result?.status !== 200 && "Email tidak ditemukan"
         }
