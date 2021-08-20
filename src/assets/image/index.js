@@ -1,7 +1,6 @@
 import IconLogo from "./icon.png";
 
 import cardStyle from "./Vector 5.svg";
-import CalendarIcon from "./CalendarX.svg";
 import FooterWave from "./Vector 2.svg";
 
 import Line from "./Vectorline.svg";
@@ -18,7 +17,6 @@ export {
   waveJumboTron,
   waveJumboTron2,
   cardStyle,
-  CalendarIcon,
   FooterWave,
   Line,
   Instagram,
