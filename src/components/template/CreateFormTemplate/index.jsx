@@ -1,6 +1,6 @@
 import { Divider, Typography } from "@material-ui/core";
 import React, { useCallback, useState, useEffect } from "react";
-import { InputFormAdmin, Button } from "@components";
+import { InputFormAdmin, Button, ModalApp } from "@components";
 import Fade from "react-reveal/Fade";
 import { MUIEditorState, toHTML } from "react-mui-draft-wysiwyg";
 import moment from "moment-timezone";
@@ -9,7 +9,7 @@ import { crudValidation } from "@helpers/yup";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { nanoid } from "nanoid";
 import { ContentState, convertFromHTML, EditorState } from "draft-js";
-import { ModalApp } from "@/components";
+
 import CreateFormStyle from "./style";
 
 import { participantCategory, locationType } from "./data";

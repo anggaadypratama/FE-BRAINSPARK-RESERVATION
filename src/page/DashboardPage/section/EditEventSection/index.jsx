@@ -1,9 +1,9 @@
 import { patchDetailEventById, getDetailEventByIdWithAuth } from "@services";
-import { CreateFormTemplate, Loading } from "@components";
+import { CreateFormTemplate, Loading, ModalApp } from "@components";
 import { Divider, Typography } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { ModalApp } from "@/components";
+
 import { useHistory } from "react-router";
 import PropTypes from "prop-types";
 

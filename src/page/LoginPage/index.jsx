@@ -8,7 +8,7 @@ import { login } from "@services";
 import { useMutation } from "react-query";
 import { Redirect } from "react-router";
 import { Alert, AlertTitle } from "@material-ui/lab";
-import { loginValidation } from "@/helpers/yup";
+import { loginValidation } from "@helpers/yup";
 import { nanoid } from "nanoid";
 import LoginStyle from "./style";
 

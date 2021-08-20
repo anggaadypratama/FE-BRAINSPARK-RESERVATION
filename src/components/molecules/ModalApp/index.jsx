@@ -1,7 +1,7 @@
 import { Fade, Modal, Backdrop, Typography, Card } from "@material-ui/core";
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "@/components/Atom";
+import { Button } from "@components/Atom";
 import classNames from "classnames";
 import ModalStyle from "./style";
 

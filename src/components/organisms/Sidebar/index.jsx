@@ -5,7 +5,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { ModalApp } from "@/components/molecules";
+import { ModalApp } from "@components/molecules";
 import { useHistory } from "react-router";
 import SidebarStyle from "./style";
 import SidebarMenu from "../SidebarMenu";

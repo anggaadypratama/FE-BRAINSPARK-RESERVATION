@@ -1,9 +1,9 @@
 import { postNewEvent } from "@services";
-import { CreateFormTemplate, Loading } from "@components";
+import { CreateFormTemplate, Loading, ModalApp } from "@components";
 import { Divider, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
-import { ModalApp } from "@/components";
+
 import { useHistory } from "react-router";
 import CreateEventStyle from "./style";
 
