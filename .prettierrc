@@ -2,6 +2,10 @@
   "prettier": {
     "printWidth": 90,
     "bracketSpacing": false,
-    "trailingComma": "es5"
+    "trailingComma": "es5",
+    "jsxBracketSameLine": false,
+    "useTabs": true,
+    "semi": true,
+    "arrowParens": "avoid"
   }
 }

@@ -82,7 +82,6 @@ const EditEventSection = ({ match }) => {
           title="Event tidak ditemukan"
         />
       )}
-
       <Loading isActive={mutation.isLoading} hasBackdrop />
       <Loading isActive={detailLoading || data?.data?.length} hasBackdrop />
       {!detailLoading && data?.status === 200 && image !== null && (

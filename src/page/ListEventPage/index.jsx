@@ -4,7 +4,7 @@ import React from "react";
 import classNames from "classnames";
 
 import { Container, Typography } from "@material-ui/core";
-import { ListCard, GeneralUserTemplate, Loading } from "@components";
+import { ListCard, GeneralUserTemplate } from "@components";
 import useScreenSize from "@assets/breakpoints";
 import { withRouter } from "react-router-dom";
 
@@ -47,17 +47,14 @@ const ListEventPage = () => {
           <Typography variant="h5" className={classes.titleEvent}>
             Upcoming Event
           </Typography>
-          {isLoading ? (
-            <Loading />
-          ) : (
-            <ListCard
-              loading={!isLoading}
-              cardData={data?.data}
-              md={4}
-              sm={6}
-              xs={12}
-            />
-          )}
+          <ListCard
+            loading={!isLoading}
+            cardData={data?.data}
+            md={4}
+            sm={6}
+            xs={12}
+            isLoading={isLoading}
+          />
         </Container>
       </GeneralUserTemplate>
     </>

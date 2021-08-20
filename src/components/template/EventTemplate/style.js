@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const DetailEventStyle = makeStyles(({ font: { raleway }, color }) => ({
   containerContent: {
-    marginTop: 50,
+    marginTop: ({ isPhone }) => (isPhone ? 0 : 50),
     display: "flex",
     justifyContent: "space-between",
     width: "100%",

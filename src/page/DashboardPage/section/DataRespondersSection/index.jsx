@@ -16,10 +16,12 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 import { useQuery } from "react-query";
 import { getAllEventWithAuth } from "@services";
 import moment from "moment";
-import xlsx from "json-as-xlsx";
 
 import { nanoid } from "nanoid";
+import loadable from "@loadable/component";
 import DataRespondersStyle from "./style";
+
+const xlsx = loadable.lib(() => import("json-as-xlsx"));
 
 const columns = [
   {

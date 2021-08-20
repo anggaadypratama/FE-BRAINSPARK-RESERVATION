@@ -68,33 +68,35 @@ const DashboardPage = () => {
   ]);
 
   return (
-    <Router basename="/">
-      <DashboardTemplate sidebarList={routes}>
-        <Switch>
-          {routes?.map(({ name, path, Component, responders }) => (
+    <>
+      <Router basename="/">
+        <DashboardTemplate sidebarList={routes}>
+          <Switch>
+            {routes?.map(({ name, path, Component, responders }) => (
+              <Route
+                key={nanoid()}
+                path={path}
+                exact
+                render={(props) => (
+                  <DashboardContent name={name} responders={responders}>
+                    <Component {...props} />
+                  </DashboardContent>
+                )}
+              />
+            ))}
             <Route
-              key={nanoid()}
-              path={path}
+              path="/edit/:id"
               exact
-              render={(props) => (
-                <DashboardContent name={name} responders={responders}>
-                  <Component {...props} />
-                </DashboardContent>
-              )}
+              render={() => {
+                <DashboardContent name="Edit Event" responders={false}>
+                  <EditEventSection />
+                </DashboardContent>;
+              }}
             />
-          ))}
-          <Route
-            path="/edit/:id"
-            exact
-            render={() => {
-              <DashboardContent name="Edit Event" responders={false}>
-                <EditEventSection />
-              </DashboardContent>;
-            }}
-          />
-        </Switch>
-      </DashboardTemplate>
-    </Router>
+          </Switch>
+        </DashboardTemplate>
+      </Router>
+    </>
   );
 };
 

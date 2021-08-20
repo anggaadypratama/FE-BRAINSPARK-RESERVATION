@@ -5,7 +5,6 @@ import Zoom from "react-reveal/Zoom";
 import FormRespondersStyle from "./style";
 
 const FormResponders = ({
-  // id,
   Title,
   handleNext,
   result,
@@ -31,6 +30,7 @@ const FormResponders = ({
       <div className={classes.root}>
         <InputFormAdmin
           error={message.length === 200}
+          label=""
           fullWidth
           multiline
           helperText={message.length > 0 && `${message.length}/200`}
@@ -55,10 +55,6 @@ const FormResponders = ({
 };
 
 FormResponders.propTypes = {
-  // id: PropTypes.oneOfType([
-  //   PropTypes.string,
-  //   PropTypes.number,
-  // ]),
   result: PropTypes.oneOfType([
     PropTypes.objectOf(PropTypes.object),
     PropTypes.number,
