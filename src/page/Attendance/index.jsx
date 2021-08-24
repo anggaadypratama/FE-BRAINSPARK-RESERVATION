@@ -119,12 +119,12 @@ const AttendancePage = () => {
 						{!screenS && (
 							<>
 								<img
-									src={LoginBackgroundRight}
+									srcSet={LoginBackgroundRight}
 									className={classes.waveRight}
 									alt="wave right"
 								/>
 								<img
-									src={LoginBackgroundLeft}
+									srcSet={LoginBackgroundLeft}
 									className={classes.waveLeft}
 									alt="wave left"
 								/>
@@ -137,7 +137,7 @@ const AttendancePage = () => {
 								<div className={classes.header}>
 									<img
 										className={classes.logo}
-										src={IconLogo}
+										srcSet={IconLogo}
 										alt="logo-rplgdc"
 									/>
 									<div className={classes.titleWrapper}>
@@ -161,7 +161,7 @@ const AttendancePage = () => {
 											<div className={classes.logoWrapper}>
 												<img
 													className={classes.logoSecond}
-													src={IconLogo}
+													srcSet={IconLogo}
 													alt="logo-rplgdc"
 												/>
 												<Typography className={classes.titleLogo}>
@@ -214,12 +214,12 @@ const AttendancePage = () => {
 							{screenS && (
 								<>
 									<img
-										src={LoginBackgroundRight}
+										srcSet={LoginBackgroundRight}
 										className={classes.waveRightCard}
 										alt="wave right"
 									/>
 									<img
-										src={LoginBackgroundLeft}
+										srcSet={LoginBackgroundLeft}
 										className={classes.waveLeftCard}
 										alt="wave left"
 									/>

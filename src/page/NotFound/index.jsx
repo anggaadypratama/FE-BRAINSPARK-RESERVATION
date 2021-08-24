@@ -17,7 +17,7 @@ const NotFound = () => {
 		<div className={classes.root}>
 			<div className={classes.imageWrapper}>
 				<img
-					src={RocketNotFound}
+					srcSet={RocketNotFound}
 					className={classes.image}
 					alt="rocket not found"
 				/>
