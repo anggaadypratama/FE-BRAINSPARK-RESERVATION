@@ -8,10 +8,11 @@ import {useScreenSize} from "@assets";
 import {Info, Header} from "@components";
 
 import PropTypes from "prop-types";
+import {Skeleton} from "@material-ui/lab";
 import DetailEventStyle from "./style";
 import GeneralUserTemplate from "../GeneralUserTemplate";
 
-const EventTemplate = ({children, dataContent}) => {
+const EventTemplate = ({children, dataContent, isLoading}) => {
 	const isMedium = useScreenSize({isMax: true, size: 900});
 	const isPhone = useScreenSize({isMax: true, size: 400});
 	const classes = DetailEventStyle({isMedium, isPhone});
@@ -24,12 +25,16 @@ const EventTemplate = ({children, dataContent}) => {
 				<Container maxWidth="md" className={classes.containerContent}>
 					<Card elevation={0} className={classes.content}>
 						<Typography variant={heading} className={classes.contentTitle}>
-							{dataContent?.themeName}
+							{isLoading ? <Skeleton /> : dataContent?.themeName}
 						</Typography>
-						<Header speaker={dataContent?.speakerName} />
+						<Header isLoading={isLoading} speaker={dataContent?.speakerName} />
 						<section>{children}</section>
 					</Card>
-					<Info position="sticky" dataContent={dataContent} />
+					<Info
+						position="sticky"
+						isLoading={isLoading}
+						dataContent={dataContent}
+					/>
 				</Container>
 			</GeneralUserTemplate>
 		</>
@@ -42,11 +47,13 @@ EventTemplate.propTypes = {
 		PropTypes.objectOf(PropTypes.object),
 		PropTypes.string,
 	]),
+	isLoading: PropTypes.bool,
 };
 
 EventTemplate.defaultProps = {
 	children: "",
 	dataContent: {},
+	isLoading: false,
 };
 
 export default EventTemplate;

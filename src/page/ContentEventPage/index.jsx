@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-import {EventTemplate, Loading, ModalApp} from "@components";
+import {EventTemplate, ModalApp, Loading} from "@components";
 
 import {useQuery} from "react-query";
 import {getDetailEventById} from "@services";
@@ -44,20 +44,23 @@ const ContentEventPage = ({match}) => {
 
 	return (
 		<>
-			{isLoading ? (
-				<Loading hasBackdrop isActive={isLoading} />
-			) : error?.response?.status === 404 || data?.data?.isEventDone ? (
+			{error?.response?.status === 404 || data?.data?.isEventDone ? (
 				<ModalApp
 					isActive={isDone}
 					handleClose={handleClose}
 					title="The Event Doesn't Exists"
 				/>
 			) : (
-				<EventTemplate dataContent={data?.data}>
+				<EventTemplate isLoading={isLoading} dataContent={data?.data}>
 					{page ? (
 						<UserFormPage dataContent={data?.data} />
+					) : isLoading ? (
+						<Loading />
 					) : (
-						<DetailEventPage dataContent={data?.data} />
+						<DetailEventPage
+							isLoading={isLoading}
+							dataContent={!isLoading && data?.data}
+						/>
 					)}
 				</EventTemplate>
 			)}

@@ -53,8 +53,10 @@ const AttendancePage = () => {
 
 	const isAbsent = absenPage?.data?.isAbsentActive;
 
-	const {data} = useQuery(["fetchUsername", searchEmail], () =>
-		getEventParticipantSearch(`${id}/absent/validate/`, {email: searchEmail})
+	const {data, isLoading: emailLoading} = useQuery(
+		["fetchUsername", searchEmail],
+		() =>
+			getEventParticipantSearch(`${id}/absent/validate/`, {email: searchEmail})
 	);
 	const mutation = useMutation(props =>
 		putEventParticipantAbsent(`${id}/absent`, props)
@@ -186,6 +188,7 @@ const AttendancePage = () => {
 											result={resultSearch}
 											handleChange={handleChange}
 											value={searchEmail}
+											searchLoading={emailLoading}
 											Title={
 												<TitleForm
 													title="Alamat Email"

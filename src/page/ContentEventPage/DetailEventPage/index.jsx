@@ -10,24 +10,43 @@ import CONFIG from "@config";
 
 import {NetworkImage} from "@components";
 
+import {Skeleton} from "@material-ui/lab";
 import DetailEventStyle from "./style";
 
-const DetailEventPage = ({dataContent}) => {
+const DetailEventPage = ({dataContent, isLoading}) => {
 	const classes = DetailEventStyle();
 	const {description = {}, imagePoster = ""} = dataContent;
 
+	console.log(isLoading);
+
 	return (
 		<>
-			<NetworkImage
-				src={`${CONFIG.API_URL}/${imagePoster}`}
-				className={classes.contentBanner}
-				alt="content"
-			/>
-			<div className={classes.contentDescWrapper}>
-				<Typography
-					className={classes.contentDesc}
-					dangerouslySetInnerHTML={{__html: description}}
+			{isLoading && imagePoster.length ? (
+				<Skeleton height={813} width={813} variant="rect" />
+			) : (
+				<NetworkImage
+					src={`${CONFIG.API_URL}/${imagePoster}`}
+					className={classes.contentBanner}
+					alt="content"
 				/>
+			)}
+			<div className={classes.contentDescWrapper}>
+				{isLoading && description.length ? (
+					<>
+						<Skeleton />
+						<Skeleton />
+						<Skeleton />
+						<Skeleton />
+						<Skeleton />
+						<Skeleton />
+						<Skeleton />
+					</>
+				) : (
+					<Typography
+						className={classes.contentDesc}
+						dangerouslySetInnerHTML={{__html: description}}
+					/>
+				)}
 			</div>
 		</>
 	);

@@ -2,15 +2,16 @@ import React from "react";
 import {CardHeader, Avatar, IconButton} from "@material-ui/core";
 import {Share} from "@material-ui/icons";
 import PropTypes from "prop-types";
+import {Skeleton} from "@material-ui/lab";
 import HeaderStyle from "./style";
 
-const Header = ({speaker}) => {
+const Header = ({speaker, isLoading}) => {
 	const classes = HeaderStyle();
 	return (
 		<CardHeader
 			avatar={
 				<Avatar aria-label="recipe" className={classes.avatar}>
-					{speaker[0]}
+					{isLoading ? "?" : speaker[0]}
 				</Avatar>
 			}
 			action={
@@ -18,7 +19,7 @@ const Header = ({speaker}) => {
 					<Share />
 				</IconButton>
 			}
-			title={speaker}
+			title={isLoading ? <Skeleton /> : speaker}
 			subheader="Speaker"
 		/>
 	);
@@ -26,10 +27,12 @@ const Header = ({speaker}) => {
 
 Header.propTypes = {
 	speaker: PropTypes.string,
+	isLoading: PropTypes.bool,
 };
 
 Header.defaultProps = {
 	speaker: "",
+	isLoading: false,
 };
 
 export default Header;

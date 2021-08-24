@@ -1,9 +1,10 @@
 import React from "react";
 import {InputFormAdmin} from "@components";
 import PropTypes from "prop-types";
+import {CircularProgress} from "@material-ui/core";
 import SearchEmailStyle from "./style";
 
-const SearchEmail = ({result, handleChange, value, Title}) => {
+const SearchEmail = ({result, handleChange, value, Title, searchLoading}) => {
 	const classes = SearchEmailStyle();
 
 	return (
@@ -18,6 +19,11 @@ const SearchEmail = ({result, handleChange, value, Title}) => {
 				value={value}
 				onChange={handleChange}
 				title={Title}
+				InputProps={{
+					endAdornment: value.length > 0 && searchLoading && (
+						<CircularProgress />
+					),
+				}}
 			/>
 		</div>
 	);
@@ -32,6 +38,7 @@ SearchEmail.propTypes = {
 	value: PropTypes.string,
 	handleChange: PropTypes.func,
 	Title: PropTypes.node,
+	searchLoading: PropTypes.bool,
 };
 
 SearchEmail.defaultProps = {
@@ -39,6 +46,7 @@ SearchEmail.defaultProps = {
 	value: "",
 	handleChange: () => {},
 	Title: "",
+	searchLoading: false,
 };
 
 export default SearchEmail;

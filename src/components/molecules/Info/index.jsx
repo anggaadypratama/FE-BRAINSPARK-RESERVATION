@@ -8,9 +8,10 @@ import {PropTypes} from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
 import {selectedContentIndex} from "@services/redux/slices/contentPage";
 import moment from "moment";
+import {Skeleton} from "@material-ui/lab";
 import infoStyle from "./style";
 
-const Info = ({position, dataContent}) => {
+const Info = ({position, dataContent, isLoading}) => {
 	const isMedium = useScreenSize({isMax: true, size: 900});
 	const classes = infoStyle({
 		isMedium,
@@ -47,25 +48,37 @@ const Info = ({position, dataContent}) => {
 					<div>
 						<Typography className={classes.titleInfo}>Time and Date</Typography>
 						<Typography className={classes.textInfo}>
-							{moment(dataContent?.date).format("dddd, D MMMM YYYY")}
+							{isLoading ? (
+								<Skeleton />
+							) : (
+								moment(dataContent?.date).format("dddd, D MMMM YYYY")
+							)}
 						</Typography>
 						<Typography className={classes.textInfo}>
-							{`${time(dataContent?.eventStart)} - ${time(
-								dataContent?.eventEnd
-							)} WIB`}
+							{isLoading ? (
+								<Skeleton />
+							) : (
+								`${time(dataContent?.eventStart)} - ${time(
+									dataContent?.eventEnd
+								)} WIB`
+							)}
 						</Typography>
 					</div>
 					<div>
 						<Typography className={classes.titleInfo}>
-							Location ({locationStatus})
+							Location{" "}
+							{isLoading ? <Skeleton width="30%" /> : <>({locationStatus})</>}
 						</Typography>
 						<Typography className={classes.textInfo}>
-							{dataContent?.location}
+							{isLoading ? <Skeleton /> : dataContent?.location}
 						</Typography>
 					</div>
 					<div>
 						<Typography className={classes.titleInfo}>
-							For <span className={classes.textInfo}>{isTelkom}</span>
+							For{" "}
+							<span className={classes.textInfo}>
+								{isLoading ? <Skeleton /> : isTelkom}
+							</span>
 						</Typography>
 					</div>
 				</div>
@@ -78,7 +91,8 @@ const Info = ({position, dataContent}) => {
 								<Typography className={classes.registerTitle}>
 									Ticket{" "}
 									<span className={classes.registerTextInfo}>
-										{dataContent?.totalParticipant}/{dataContent?.ticketLimit}
+										{isLoading ? <Skeleton /> : dataContent?.totalParticipant}/
+										{dataContent?.ticketLimit}
 									</span>
 								</Typography>
 							</div>
@@ -87,7 +101,11 @@ const Info = ({position, dataContent}) => {
 									Registration Until
 								</Typography>
 								<Typography className={classes.registerTextInfo}>
-									{moment(dataContent?.endRegistration).format("D MMMM YYYY")}
+									{isLoading ? (
+										<Skeleton />
+									) : (
+										moment(dataContent?.endRegistration).format("D MMMM YYYY")
+									)}
 								</Typography>
 							</div>
 						</Fade>
@@ -114,10 +132,12 @@ Info.propTypes = {
 		PropTypes.objectOf(PropTypes.object),
 		PropTypes.string,
 	]).isRequired,
+	isLoading: PropTypes.bool,
 };
 
 Info.defaultProps = {
 	position: "",
+	isLoading: false,
 };
 
 export default Info;
