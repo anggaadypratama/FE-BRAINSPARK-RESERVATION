@@ -4,8 +4,8 @@ import GeneralUserTemplate from "./GeneralUserTemplate/index";
 import CreateFormTemplate from "./CreateFormTemplate/index";
 
 export {
-  EventTemplate,
-  DashboardTemplate,
-  GeneralUserTemplate,
-  CreateFormTemplate,
+	EventTemplate,
+	DashboardTemplate,
+	GeneralUserTemplate,
+	CreateFormTemplate,
 };

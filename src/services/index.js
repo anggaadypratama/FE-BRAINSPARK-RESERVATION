@@ -1,16 +1,16 @@
 import {
-  post,
-  // patch,
-  postData,
-  get,
-  getWithSlug,
-  patchWithSlug,
-  deleteWithSlug,
-  putWithSlug,
+	post,
+	// patch,
+	postData,
+	get,
+	getWithSlug,
+	patchWithSlug,
+	deleteWithSlug,
+	putWithSlug,
 } from "./method";
 
 export const login = post("users/login/");
-export const checkIsAuthenticated = get("/");
+export const checkIsAuthenticated = get("");
 
 export const postNewEvent = postData("event/");
 export const getAllEventWithAuth = get("event/dashboard/");
@@ -25,15 +25,15 @@ export const putEventParticipantAbsent = putWithSlug("event/");
 export const getEventParticipantSearch = getWithSlug("event/");
 
 const API = {
-  getAllEvent,
-  getDetailEventById,
-  patchDetailEventById,
-  deleteDetailEventById,
-  getDetailEventByIdWithAuth,
-  getAllEventWithAuth,
-  putEventParticipant,
-  putEventParticipantAbsent,
-  getEventParticipantSearch,
+	getAllEvent,
+	getDetailEventById,
+	patchDetailEventById,
+	deleteDetailEventById,
+	getDetailEventByIdWithAuth,
+	getAllEventWithAuth,
+	putEventParticipant,
+	putEventParticipantAbsent,
+	getEventParticipantSearch,
 };
 
 export default API;

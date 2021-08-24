@@ -1,103 +1,103 @@
-import { DashboardTemplate, DashboardContent } from "@components";
+import {DashboardTemplate, DashboardContent} from "@components";
 
-import React, { useEffect } from "react";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import React, {useEffect} from "react";
+import {HashRouter as Router, Route, Switch} from "react-router-dom";
 
 import PeopleAltRoundedIcon from "@material-ui/icons/PeopleAltRounded";
 import ListAltRoundedIcon from "@material-ui/icons/ListAltRounded";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 
 import loadable from "@loadable/component";
-import { nanoid } from "nanoid";
+import {nanoid} from "nanoid";
 
 const ListEventSection = loadable(() =>
-  import(/* webpackPrefetch: true */ "./section/ListEventSection")
+	import(/* webpackPrefetch: true */ "./section/ListEventSection")
 );
 const DataRespondersSection = loadable(() =>
-  import(/* webpackPrefetch: true */ "./section/DataRespondersSection")
+	import(/* webpackPrefetch: true */ "./section/DataRespondersSection")
 );
 const CreateEventSection = loadable(() =>
-  import(/* webpackPrefetch: true */ "./section/CreateEventSection")
+	import(/* webpackPrefetch: true */ "./section/CreateEventSection")
 );
 const EditEventSection = loadable(() =>
-  import(/* webpackPrefetch: true */ "./section/EditEventSection")
+	import(/* webpackPrefetch: true */ "./section/EditEventSection")
 );
 
 const DashboardPage = () => {
-  const routes = [
-    {
-      name: "List Event",
-      Component: ListEventSection,
-      Icon: ListAltRoundedIcon,
-      responders: false,
-      path: "/",
-    },
-    {
-      name: "Create Event",
-      Component: CreateEventSection,
-      Icon: AddBoxIcon,
-      responders: false,
-      path: "/create",
-    },
-    {
-      name: "Data Responders",
-      Component: DataRespondersSection,
-      Icon: PeopleAltRoundedIcon,
-      responders: true,
-      path: "/responders",
-    },
-    {
-      name: "Edit Event",
-      Component: EditEventSection,
-      Icon: PeopleAltRoundedIcon,
-      responders: false,
-      path: "/edit/:id",
-    },
-  ];
+	const routes = [
+		{
+			name: "List Event",
+			Component: ListEventSection,
+			Icon: ListAltRoundedIcon,
+			responders: false,
+			path: "/",
+		},
+		{
+			name: "Create Event",
+			Component: CreateEventSection,
+			Icon: AddBoxIcon,
+			responders: false,
+			path: "/create",
+		},
+		{
+			name: "Data Responders",
+			Component: DataRespondersSection,
+			Icon: PeopleAltRoundedIcon,
+			responders: true,
+			path: "/responders",
+		},
+		{
+			name: "Edit Event",
+			Component: EditEventSection,
+			Icon: PeopleAltRoundedIcon,
+			responders: false,
+			path: "/edit/:id",
+		},
+	];
 
-  useEffect(() => {
-    ListEventSection.preload();
-    CreateEventSection.preload();
-    DataRespondersSection.preload();
-    EditEventSection.preload();
-  }, [
-    ListEventSection,
-    CreateEventSection,
-    DataRespondersSection,
-    EditEventSection,
-  ]);
+	useEffect(() => {
+		ListEventSection.preload();
+		CreateEventSection.preload();
+		DataRespondersSection.preload();
+		EditEventSection.preload();
+	}, [
+		ListEventSection,
+		CreateEventSection,
+		DataRespondersSection,
+		EditEventSection,
+	]);
 
-  return (
-    <>
-      <Router basename="/">
-        <DashboardTemplate sidebarList={routes}>
-          <Switch>
-            {routes?.map(({ name, path, Component, responders }) => (
-              <Route
-                key={nanoid()}
-                path={path}
-                exact
-                render={(props) => (
-                  <DashboardContent name={name} responders={responders}>
-                    <Component {...props} />
-                  </DashboardContent>
-                )}
-              />
-            ))}
-            <Route
-              path="/edit/:id"
-              exact
-              render={() => {
-                <DashboardContent name="Edit Event" responders={false}>
-                  <EditEventSection />
-                </DashboardContent>;
-              }}
-            />
-          </Switch>
-        </DashboardTemplate>
-      </Router>
-    </>
-  );
+	return (
+		<>
+			<Router basename="/">
+				<DashboardTemplate sidebarList={routes}>
+					<Switch>
+						{routes?.map(({name, path, Component, responders}) => (
+							<Route
+								key={nanoid()}
+								path={path}
+								exact
+								render={props => (
+									<DashboardContent name={name} responders={responders}>
+										<Component {...props} />
+									</DashboardContent>
+								)}
+							/>
+						))}
+						<Route
+							path="/edit/:id"
+							exact
+							render={() => {
+								<DashboardContent name="Edit Event" responders={false}>
+									<EditEventSection />
+								</DashboardContent>;
+							}}
+						/>
+					</Switch>
+				</DashboardTemplate>
+			</Router>
+		</>
+	);
 };
 
 export default DashboardPage;

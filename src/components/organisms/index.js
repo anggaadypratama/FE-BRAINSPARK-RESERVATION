@@ -7,11 +7,11 @@ import SidebarMenu from "./SidebarMenu";
 import DashboardContent from "./DashboardContent/index";
 
 export {
-  Footer,
-  Navbar,
-  LoadingLayout,
-  Sidebar,
-  SidebarMenu,
-  ListCard,
-  DashboardContent,
+	Footer,
+	Navbar,
+	LoadingLayout,
+	Sidebar,
+	SidebarMenu,
+	ListCard,
+	DashboardContent,
 };

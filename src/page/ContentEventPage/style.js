@@ -1,9 +1,9 @@
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 
 const ContentEventStyle = makeStyles(() => ({
-  root: {
-    display: "flex",
-  },
+	root: {
+		display: "flex",
+	},
 }));
 
 export default ContentEventStyle;

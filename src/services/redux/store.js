@@ -1,12 +1,12 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import contentPageReducer from "./slices/contentPage";
 
 const reducer = combineReducers({
-  contentPage: contentPageReducer,
+	contentPage: contentPageReducer,
 });
 
 const store = configureStore({
-  reducer,
+	reducer,
 });
 
 export default store;

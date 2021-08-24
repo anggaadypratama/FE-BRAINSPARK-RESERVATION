@@ -1,9 +1,9 @@
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 
 const ListDataEventStyle = makeStyles(() => ({
-  listcard: {
-    marginTop: 0,
-  },
+	listcard: {
+		marginTop: 0,
+	},
 }));
 
 export default ListDataEventStyle;

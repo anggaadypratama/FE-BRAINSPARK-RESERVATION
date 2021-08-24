@@ -1,4 +1,4 @@
-import { Snackbar } from "@material-ui/core";
+import {Snackbar} from "@material-ui/core";
 import Note from "./Note";
 import CardItem from "./CardItem";
 import Header from "./Header";
@@ -12,16 +12,16 @@ import ModalApp from "./ModalApp";
 import EmptyEvent from "./EmptyEvent";
 
 export {
-  CardItem,
-  Header,
-  Info,
-  Filter,
-  RplGdcLogo,
-  ListData,
-  InputFormAdmin,
-  Loading,
-  ModalApp,
-  Note,
-  EmptyEvent,
-  Snackbar,
+	CardItem,
+	Header,
+	Info,
+	Filter,
+	RplGdcLogo,
+	ListData,
+	InputFormAdmin,
+	Loading,
+	ModalApp,
+	Note,
+	EmptyEvent,
+	Snackbar,
 };
