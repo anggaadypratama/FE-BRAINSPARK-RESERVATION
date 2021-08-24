@@ -131,8 +131,8 @@ const DataRespondersSection = () => {
 								eventDone: isEventDone ? "Done" : "Ongoing",
 								isOnlyTelkom: isOnlyTelkom ?  "Telkom University" : "Public",
 								ticketLimit,
-								totalRegister: `${participant.length} people`,
-								totalAttendance: `${participant.filter(({isAbsen}) => isAbsen).length} people`,
+								totalRegister: participant.length,
+								totalAttendance: participant.filter(({isAbsen}) => isAbsen).length,
 
 							},
 						],
