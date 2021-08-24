@@ -195,7 +195,7 @@ const UserFormPage = ({dataContent}) => {
 						/>
 					</div>
 					<Note>
-						<div dangerouslySetInnerHTML={{__html: dataContent?.note}} />
+						<Typography dangerouslySetInnerHTML={{__html: dataContent?.note}} />
 					</Note>
 					{(errorForm || mutation?.isError) && (
 						<Alert

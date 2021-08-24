@@ -13,6 +13,9 @@ const NoteStyle = makeStyles(({font, color, spacing}) => ({
 	content: {
 		background: "#F5F6F7",
 		padding: spacing(2),
+		inlineSize: "auto",
+		overflowWrap: "break-word",
+		hyphens: "manual"
 	},
 }));
 

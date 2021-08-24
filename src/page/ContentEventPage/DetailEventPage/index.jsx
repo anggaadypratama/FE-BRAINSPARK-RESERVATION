@@ -17,7 +17,6 @@ const DetailEventPage = ({dataContent, isLoading}) => {
 	const classes = DetailEventStyle();
 	const {description = {}, imagePoster = ""} = dataContent;
 
-
 	return (
 		<>
 			{isLoading && imagePoster.length ? (

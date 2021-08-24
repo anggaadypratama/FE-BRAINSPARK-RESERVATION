@@ -35,7 +35,7 @@ const ContentEventPage = ({match}) => {
 		dispatch(selectedContentIndex(false));
 		DetailEventPage.preload();
 		UserFormPage.preload();
-		window.scrollTo(0,0)
+		window.scrollTo(0, 0);
 	}, [selectedContentIndex, DetailEventPage, UserFormPage]);
 
 	const handleClose = () => {

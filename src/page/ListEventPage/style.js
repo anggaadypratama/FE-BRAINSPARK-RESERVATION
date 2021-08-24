@@ -15,7 +15,7 @@ const ListEventStyle = makeStyles(() => ({
 		background: `url("${waveJumboTron2}")`,
 		backgroundRepeat: "no-repeat",
 		backgroundPosition: "bottom center",
-		backgroundSize: 'cover',
+		backgroundSize: "cover",
 		marginBottom: -280,
 		height: "100vh",
 		bottom: screenSize => (screenSize ? "-25vh" : "-30vh"),
