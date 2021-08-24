@@ -9,5 +9,10 @@
 				}
 			]
 		}
-	]
+	],
+	"build": {
+		"env": {
+		  "REACT_APP_URL": "https://brainspark-api.herokuapp.com"
+		}
+	  }
 }
