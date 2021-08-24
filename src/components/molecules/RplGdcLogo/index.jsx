@@ -15,7 +15,7 @@ const RplGdcLogo = ({className, size}) => {
 	return (
 		<div className={rootClass}>
 			<div className={headingIcon}>
-				<img className={logo} srcSet={IconLogo} alt="icon logo" />
+				<img className={logo} src={IconLogo} alt="icon logo" />
 			</div>
 			{!size && (
 				<div className={headingInfo}>

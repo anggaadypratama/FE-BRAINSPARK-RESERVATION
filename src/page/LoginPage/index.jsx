@@ -64,12 +64,12 @@ const LoginPage = () => {
 			<div className={classes.root}>
 				<div className={classes.wave}>
 					<img
-						srcSet={LoginBackgroundRight}
+						src={LoginBackgroundRight}
 						className={classes.waveRight}
 						alt="wave right"
 					/>
 					<img
-						srcSet={LoginBackgroundLeft}
+						src={LoginBackgroundLeft}
 						className={classes.waveLeft}
 						alt="wave left"
 					/>
