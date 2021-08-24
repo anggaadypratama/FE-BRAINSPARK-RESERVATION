@@ -18,12 +18,8 @@ import {getAllEventWithAuth} from "@services";
 import moment from "moment";
 
 import {nanoid} from "nanoid";
-import loadable from "@loadable/component";
+import xlsx from 'json-as-xlsx'
 import DataRespondersStyle from "./style";
-
-const xlsx = loadable.lib(() =>
-	import(/* webpackPrefetch: true */ "json-as-xlsx")
-);
 
 const columns = [
 	{
@@ -112,6 +108,7 @@ const DataRespondersSection = () => {
 					writeOptions: {},
 				};
 
+
 				const xlsxData = [
 					{
 						sheet: "Initial Data",
@@ -119,19 +116,24 @@ const DataRespondersSection = () => {
 							{label: "Theme Name", value: "name"}, // Top level data
 							{label: "Date", value: row => row.date}, // Run functions
 							{label: "Is Event Done", value: row => row.eventDone}, // Deep props
-							{label: "Ticket Limit", value: row => row.ticketLimit},
 							{
 								label: "Participant Category",
 								value: row => row.isOnlyTelkom,
 							}, // Deep props
+							{label: "Ticket Limit", value: row => row.ticketLimit},
+							{label: "Total Register", value: row => row.totalRegister},
+							{label: "Total Attendance", value: row => row.totalAttendance},
 						],
 						content: [
 							{
 								name: themeName,
 								date: moment(date).format("L"),
 								eventDone: isEventDone ? "Done" : "Ongoing",
+								isOnlyTelkom: isOnlyTelkom ?  "Telkom University" : "Public",
 								ticketLimit,
-								isOnlyTelkom: isOnlyTelkom ? "Public" : "Telkom University",
+								totalRegister: `${participant.length} people`,
+								totalAttendance: `${participant.filter(({isAbsen}) => isAbsen).length} people`,
+
 							},
 						],
 					},
@@ -141,14 +143,14 @@ const DataRespondersSection = () => {
 							{label: "No", value: row => row.no},
 							{label: "Name", value: row => row.name},
 							{label: "Email", value: row => row.email},
-							{label: "Nim", value: row => row.nim},
-							{label: "Status", value: row => row.Status},
-							{label: "Fakultas", value: row => row.fakultas},
+							isOnlyTelkom && {label: "Nim", value: row => row.nim},
+							!isOnlyTelkom && {label: "Status", value: row => row.Status},
+							isOnlyTelkom && {label: "Fakultas", value: row => row.fakultas},
 							{label: "Whatsapp", value: row => row.whatsapp},
 							{label: "Line", value: row => row.line},
-							{label: "Apakah hadir", value: row => row.isAbsen},
+							{label: "Apakah hadir", value: row => row.isAbsen ? "Ya" : "Tidak"},
 							{label: "Feedback", value: row => row.feedback},
-						],
+						].filter(val => val),
 						content: [
 							...participant?.map(
 								(
