@@ -107,6 +107,9 @@ const DataRespondersSection = () => {
 					extraLength: 5,
 					writeOptions: {},
 				};
+				const people = " people"
+				const totalRegister = participant.length + people
+				const totalAttendance = participant.filter(({isAbsen}) => isAbsen).length + people
 
 
 				const xlsxData = [
@@ -131,8 +134,8 @@ const DataRespondersSection = () => {
 								eventDone: isEventDone ? "Done" : "Ongoing",
 								isOnlyTelkom: isOnlyTelkom ?  "Telkom University" : "Public",
 								ticketLimit,
-								totalRegister: participant.length,
-								totalAttendance: participant.filter(({isAbsen}) => isAbsen).length,
+								totalRegister,
+								totalAttendance,
 
 							},
 						],
