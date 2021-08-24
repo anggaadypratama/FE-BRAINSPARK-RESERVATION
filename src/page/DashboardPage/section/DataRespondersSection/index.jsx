@@ -18,7 +18,7 @@ import {getAllEventWithAuth} from "@services";
 import moment from "moment";
 
 import {nanoid} from "nanoid";
-import xlsx from 'json-as-xlsx'
+import xlsx from "json-as-xlsx";
 import DataRespondersStyle from "./style";
 
 const columns = [
@@ -107,10 +107,10 @@ const DataRespondersSection = () => {
 					extraLength: 5,
 					writeOptions: {},
 				};
-				const people = " people"
-				const totalRegister = participant.length + people
-				const totalAttendance = participant.filter(({isAbsen}) => isAbsen).length + people
-
+				const people = " people";
+				const totalRegister = participant.length + people;
+				const totalAttendance =
+					participant.filter(({isAbsen}) => isAbsen).length + people;
 
 				const xlsxData = [
 					{
@@ -132,11 +132,10 @@ const DataRespondersSection = () => {
 								name: themeName,
 								date: moment(date).format("L"),
 								eventDone: isEventDone ? "Done" : "Ongoing",
-								isOnlyTelkom: isOnlyTelkom ?  "Telkom University" : "Public",
+								isOnlyTelkom: isOnlyTelkom ? "Telkom University" : "Public",
 								ticketLimit,
 								totalRegister,
 								totalAttendance,
-
 							},
 						],
 					},
@@ -151,7 +150,10 @@ const DataRespondersSection = () => {
 							isOnlyTelkom && {label: "Fakultas", value: row => row.fakultas},
 							{label: "Whatsapp", value: row => row.whatsapp},
 							{label: "Line", value: row => row.line},
-							{label: "Apakah hadir", value: row => row.isAbsen ? "Ya" : "Tidak"},
+							{
+								label: "Apakah hadir",
+								value: row => (row.isAbsen ? "Ya" : "Tidak"),
+							},
 							{label: "Feedback", value: row => row.feedback},
 						].filter(val => val),
 						content: [
