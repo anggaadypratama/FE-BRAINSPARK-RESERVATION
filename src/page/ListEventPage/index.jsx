@@ -44,17 +44,20 @@ const ListEventPage = () => {
 					<div className={waveJumbotronClassNames} />
 				</div>
 				<Container maxWidth="lg">
-					<Typography variant="h5" className={classes.titleEvent}>
-						Upcoming Event
-					</Typography>
-					<ListCard
-						loading={!isLoading}
-						cardData={data?.data}
-						md={4}
-						sm={6}
-						xs={12}
-						isLoading={isLoading}
-					/>
+					<section>
+						<Typography variant="h5" className={classes.titleEvent}>
+							Upcoming Event
+						</Typography>
+
+						<ListCard
+							loading={!isLoading}
+							cardData={data?.data}
+							md={4}
+							sm={6}
+							xs={12}
+							isLoading={isLoading}
+						/>
+					</section>
 				</Container>
 			</GeneralUserTemplate>
 		</>

@@ -14,6 +14,8 @@ const {
 
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const DeadCodePlugin = require('webpack-deadcode-plugin');
 
 const zlib = require("zlib");
 const webpack = require("webpack");
@@ -44,6 +46,14 @@ const customizePlugin = [
 		/moment[\\\/]locale$/,
 		/^\.\/(en|zh-tw)$/
 	),
+	new DeadCodePlugin({
+		patterns: [
+		  'src/**/*.(js|jsx|css)',
+		],
+		exclude: [
+		  '**/*.(stories|spec).(js|jsx)',
+		],
+	  })
 ];
 
 const addCustomize = () => config => {
@@ -61,8 +71,23 @@ const addCustomize = () => config => {
 		config = {
 			...config,
 			optimization: {
+				usedExports: true,
+				splitChunks: {
+					chunks: 'all',
+					cacheGroups: {
+						vendors: false,
+					  },
+				},
 				minimize: true,
-				minimizer: [new UglifyJsPlugin()],
+				minimizer: [
+					new UglifyJsPlugin({
+						cache: true,
+						parallel: true,
+					  }),
+					new TerserPlugin({
+						parallel: true,
+					  }),
+				],
 			},
 		};
 	} else if (process.env.NODE_ENV === "development") {

@@ -1,4 +1,10 @@
 const plugins = [
+	[
+		"transform-react-remove-prop-types",
+		{
+			"removeImport": true
+		}
+	],
 	"@babel/plugin-proposal-logical-assignment-operators",
 	"@loadable/babel-plugin",
 	"@babel/plugin-syntax-dynamic-import",
@@ -15,6 +21,7 @@ const plugins = [
 			},
 		},
 	],
+
 ];
 
 module.exports = {plugins};

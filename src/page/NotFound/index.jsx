@@ -20,6 +20,8 @@ const NotFound = () => {
 					src={RocketNotFound}
 					className={classes.image}
 					alt="rocket not found"
+					height="1000"
+					width="1000"
 				/>
 				{isMobile ? (
 					<section>
