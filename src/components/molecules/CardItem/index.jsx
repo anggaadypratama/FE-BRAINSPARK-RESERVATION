@@ -24,8 +24,6 @@ import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
 import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
 import RoomIcon from "@material-ui/icons/Room";
 
-import CONFIG from "@config";
-
 import moment from "moment";
 
 import {useMutation, useQueryClient} from "react-query";
@@ -125,7 +123,7 @@ const CardItem = ({
 			<img src={cardStyle} className={classes.CardStyle} alt="card style" />
 			<div className={contentWrapperClassnames}>
 				<NetworkImage
-					src={`${CONFIG.API_URL}/${img}`}
+					src={img}
 					className={classes.imageNormal}
 					onErrorImage={ImageNotFound}
 					alt={title}

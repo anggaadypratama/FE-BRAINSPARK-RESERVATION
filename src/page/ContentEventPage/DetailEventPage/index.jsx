@@ -5,9 +5,6 @@
 /* eslint-disable max-len */
 import React from "react";
 import {Typography} from "@material-ui/core";
-
-import CONFIG from "@config";
-
 import {NetworkImage} from "@components";
 
 import {Skeleton} from "@material-ui/lab";
@@ -23,7 +20,7 @@ const DetailEventPage = ({dataContent, isLoading}) => {
 				<Skeleton height={813} width={813} variant="rect" />
 			) : (
 				<NetworkImage
-					src={`${CONFIG.API_URL}/${imagePoster}`}
+					src={imagePoster}
 					className={classes.contentBanner}
 					alt="content"
 				/>

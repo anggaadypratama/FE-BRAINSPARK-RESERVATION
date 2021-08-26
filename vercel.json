@@ -12,7 +12,7 @@
 	],
 	"build": {
 		"env": {
-		  "REACT_APP_URL": "https://brainspark-api.herokuapp.com"
+			"REACT_APP_URL": "https://brainspark-api.herokuapp.com"
 		}
-	  }
+	}
 }

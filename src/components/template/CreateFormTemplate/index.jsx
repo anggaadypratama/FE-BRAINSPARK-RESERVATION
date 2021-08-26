@@ -55,7 +55,7 @@ const CreateFormTemplate = ({handleSubmitForm, defaultData, refetch}) => {
 		themeName: defaultData ? defaultData?.themeName : "",
 		imagePoster:
 			defaultData && defaultData?.imagePoster !== null
-				? defaultData?.imagePoster
+				? defaultData.imagePoster
 				: null,
 		description: defaultData
 			? descState
