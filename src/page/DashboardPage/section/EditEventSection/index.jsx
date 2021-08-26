@@ -7,6 +7,7 @@ import {useMutation, useQuery, useQueryClient} from "react-query";
 import {useHistory} from "react-router";
 import PropTypes from "prop-types";
 
+
 import EditEventStyle from "./style";
 
 const EditEventSection = ({match}) => {
@@ -34,19 +35,21 @@ const EditEventSection = ({match}) => {
 		history.push("/");
 	};
 
-	const poster = `${process.env.REACT_APP_BASE_URL}/${data?.data?.imagePoster}`;
+	const poster = `https://secret-ocean-49799.herokuapp.com/${data?.data?.imagePoster}`;
 	const allData = data?.data;
 
 	useEffect(async () => {
 		try {
 			const imageUrl = await fetch(poster);
 			const blob = await imageUrl.blob();
-			const splitUrl = poster?.split("/");
-			const nameFile = splitUrl[splitUrl?.length - 1]?.split("_")[1];
-			const type = nameFile?.split(".");
-			const file = await new File([blob], nameFile, {
-				type: `image/${type[type?.length - 1]}`,
-			});
+			const type = blob.type.split("/")[1];
+			const file = await new File(
+				[blob],
+				`${data?.data?.themeName.replaceAll(" ", "-")}.${type}`,
+				{
+					type: blob.type,
+				}
+			);
 			setImage(file);
 		} catch (err) {
 			// eslint-disable-next-line no-console
@@ -83,7 +86,10 @@ const EditEventSection = ({match}) => {
 				/>
 			)}
 			<Loading isActive={mutation.isLoading} hasBackdrop />
-			<Loading isActive={detailLoading || data?.data?.length} hasBackdrop />
+			<Loading
+				isActive={detailLoading || data?.data?.length || image === null}
+				hasBackdrop
+			/>
 			{!detailLoading && data?.status === 200 && image !== null && (
 				<div className={classes.root}>
 					<Typography className={classes.title}>Information</Typography>
