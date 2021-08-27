@@ -9,6 +9,7 @@ import {crudValidation} from "@helpers/yup";
 import {Alert, AlertTitle} from "@material-ui/lab";
 import {nanoid} from "nanoid";
 import {ContentState, convertFromHTML, EditorState} from "draft-js";
+import imageCompression from 'browser-image-compression';
 
 import CreateFormStyle from "./style";
 
@@ -120,8 +121,15 @@ const CreateFormTemplate = ({handleSubmitForm, defaultData, refetch}) => {
 			eventStart: start,
 			date,
 			endRegistration: endReg,
+			imagePoster,
 			...dataForm
 		} = form;
+
+		const compressImage = await imageCompression(imagePoster, {
+			maxSizeMB: 1,
+			maxWidthOrHeight: 1000,
+			useWebWorker: true
+		})
 
 		const dateS = moment(date).tz("Asia/Jakarta").format().split("T");
 		const eventE = moment(end).tz("Asia/Jakarta").format().split("T");
@@ -133,6 +141,7 @@ const CreateFormTemplate = ({handleSubmitForm, defaultData, refetch}) => {
 		const endRegistration = new Date(`${endR[0]}T${eventS[1]}`);
 
 		const datas = {
+			imagePoster: compressImage,
 			eventEnd,
 			eventStart,
 			date,

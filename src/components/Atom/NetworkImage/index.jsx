@@ -51,7 +51,7 @@ const NetworkImage = ({src, alt, className, onErrorImage}) => {
 
 	return (
 		<img
-			loading="auto"
+			loading="lazy"
 			height="700"
 			width="700"
 			ref={setImageRef}
