@@ -11,11 +11,17 @@ import {selectedContentIndex} from "@services/redux/slices/contentPage";
 import {useHistory} from "react-router";
 import PropTypes from "prop-types";
 
-const DetailEventPage = loadable(() =>
-	import(/* webpackPrefetch: true */ "./DetailEventPage")
+const DetailEventPage = loadable(
+	() => import(/* webpackPrefetch: true */ "./DetailEventPage"),
+	{
+		fallback: <Loading />,
+	}
 );
-const UserFormPage = loadable(() =>
-	import(/* webpackPrefetch: true */ "./UserFormPage")
+const UserFormPage = loadable(
+	() => import(/* webpackPrefetch: true */ "./UserFormPage"),
+	{
+		fallback: <Loading />,
+	}
 );
 
 const ContentEventPage = ({match}) => {

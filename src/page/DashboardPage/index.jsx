@@ -1,4 +1,4 @@
-import {DashboardTemplate, DashboardContent} from "@components";
+import {DashboardTemplate, DashboardContent, Loading} from "@components";
 
 import React, {useEffect} from "react";
 import {HashRouter as Router, Route, Switch} from "react-router-dom";
@@ -11,17 +11,29 @@ import loadable from "@loadable/component";
 import {nanoid} from "nanoid";
 import {checkIsAuthenticated} from "@services";
 
-const ListEventSection = loadable(() =>
-	import(/* webpackPrefetch: true */ "./section/ListEventSection")
+const ListEventSection = loadable(
+	() => import(/* webpackPrefetch: true */ "./section/ListEventSection"),
+	{
+		fallback: <Loading />,
+	}
 );
-const DataRespondersSection = loadable(() =>
-	import(/* webpackPrefetch: true */ "./section/DataRespondersSection")
+const DataRespondersSection = loadable(
+	() => import(/* webpackPrefetch: true */ "./section/DataRespondersSection"),
+	{
+		fallback: <Loading />,
+	}
 );
-const CreateEventSection = loadable(() =>
-	import(/* webpackPrefetch: true */ "./section/CreateEventSection")
+const CreateEventSection = loadable(
+	() => import(/* webpackPrefetch: true */ "./section/CreateEventSection"),
+	{
+		fallback: <Loading />,
+	}
 );
-const EditEventSection = loadable(() =>
-	import(/* webpackPrefetch: true */ "./section/EditEventSection")
+const EditEventSection = loadable(
+	() => import(/* webpackPrefetch: true */ "./section/EditEventSection"),
+	{
+		fallback: <Loading />,
+	}
 );
 
 const DashboardPage = () => {
