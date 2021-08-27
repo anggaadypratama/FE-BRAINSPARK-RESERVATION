@@ -3,6 +3,7 @@ import {Typography} from "@material-ui/core";
 import {IconLogo} from "@assets/image";
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import {NetworkImage} from "@components";
 import RplGdcLogoStyle from "./style";
 
 const RplGdcLogo = ({className, size}) => {
@@ -15,7 +16,7 @@ const RplGdcLogo = ({className, size}) => {
 	return (
 		<div className={rootClass}>
 			<div className={headingIcon}>
-				<img className={logo} src={IconLogo} alt="icon logo" />
+				<NetworkImage className={logo} src={IconLogo} alt="icon logo" />
 			</div>
 			{!size && (
 				<div className={headingInfo}>

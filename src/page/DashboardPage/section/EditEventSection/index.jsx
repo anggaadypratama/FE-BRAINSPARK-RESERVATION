@@ -7,7 +7,6 @@ import {useMutation, useQuery, useQueryClient} from "react-query";
 import {useHistory} from "react-router";
 import PropTypes from "prop-types";
 
-
 import EditEventStyle from "./style";
 
 const EditEventSection = ({match}) => {

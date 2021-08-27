@@ -16,7 +16,7 @@ import {
 	putEventParticipantAbsent,
 	getDetailEventById,
 } from "@services";
-import {ModalApp, Loading} from "@components";
+import {ModalApp, Loading, NetworkImage} from "@components";
 import AttendanceStyle from "./style";
 
 const FormResponders = loadable(() =>
@@ -120,12 +120,12 @@ const AttendancePage = () => {
 					<div className={classes.wave}>
 						{!screenS && (
 							<>
-								<img
+								<NetworkImage
 									src={LoginBackgroundRight}
 									className={classes.waveRight}
 									alt="wave right"
 								/>
-								<img
+								<NetworkImage
 									src={LoginBackgroundLeft}
 									className={classes.waveLeft}
 									alt="wave left"
@@ -137,7 +137,7 @@ const AttendancePage = () => {
 						<Card className={classes.cardContent} elevation={screenS ? 0 : 3}>
 							{stepper !== 1 && (
 								<div className={classes.header}>
-									<img
+									<NetworkImage
 										className={classes.logo}
 										src={IconLogo}
 										alt="logo-rplgdc"
@@ -161,7 +161,7 @@ const AttendancePage = () => {
 									) : (
 										<div className={classes.greetingWrapper}>
 											<div className={classes.logoWrapper}>
-												<img
+												<NetworkImage
 													className={classes.logoSecond}
 													src={IconLogo}
 													alt="logo-rplgdc"
@@ -216,12 +216,12 @@ const AttendancePage = () => {
 							</section>
 							{screenS && (
 								<>
-									<img
+									<NetworkImage
 										src={LoginBackgroundRight}
 										className={classes.waveRightCard}
 										alt="wave right"
 									/>
-									<img
+									<NetworkImage
 										src={LoginBackgroundLeft}
 										className={classes.waveLeftCard}
 										alt="wave left"
