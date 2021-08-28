@@ -1,9 +1,10 @@
 import {Sidebar} from "@components";
-import {Container} from "@material-ui/core";
+import {Container, LinearProgress} from "@material-ui/core";
 import React from "react";
 import PropTypes from "prop-types";
 import {useScreenSize} from "@assets";
 import {useHistory} from "react-router";
+import {useSelector} from "react-redux";
 import DashboardStyle from "./style";
 
 const DashboardTemplate = ({children, sidebarList}) => {
@@ -14,8 +15,17 @@ const DashboardTemplate = ({children, sidebarList}) => {
 		responders: history.location.pathname === "/responders",
 	});
 
+	const loadingProgress = useSelector(
+		({dashboardPage}) => dashboardPage.loadingProgress
+	);
+
 	return (
 		<div className={classes.root}>
+			<div className={classes.loadingProgress}>
+				{loadingProgress > 0 && (
+					<LinearProgress variant="determinate" value={loadingProgress} />
+				)}
+			</div>
 			<Sidebar list={sidebarList} size={size} />
 			<div className={classes.content}>
 				<Container>

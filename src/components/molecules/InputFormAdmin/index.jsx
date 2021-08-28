@@ -37,9 +37,8 @@ const InputFormAdmin = ({title, type, className, error, link, ...rest}) => {
 						{rest.buttonTitle}
 					</Button>
 					<div className={classes.linkWrapper}>
-					<Typography className={classes.nameFile}>{link}</Typography>
+						<Typography className={classes.nameFile}>{link}</Typography>
 					</div>
-					
 				</Paper>
 			) : (
 				<Input variant="outlined" error={error} inputType={type} {...rest} />

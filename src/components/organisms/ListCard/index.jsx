@@ -70,7 +70,7 @@ const ListCard = ({
 								)
 							)
 						) : (
-							<EmptyEvent message="Oops, it looks like there is no event for now" />
+							<EmptyEvent message="It looks like there is no event for now" />
 						)}
 					</Grid>
 				</div>

@@ -18,14 +18,14 @@ const InputFormAdminStyle = makeStyles(({spacing, color}) => ({
 	},
 	linkWrapper: {
 		width: "100%",
-		boxSizing: 'content-box',
-		overflowX: 'auto',
+		boxSizing: "content-box",
+		overflowX: "auto",
 		margin: "0 12px",
 
-		'&::-webkit-scrollbar': {
-			display: 'none'
-		  },
-	}
+		"&::-webkit-scrollbar": {
+			display: "none",
+		},
+	},
 }));
 
 export default InputFormAdminStyle;

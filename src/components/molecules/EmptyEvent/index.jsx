@@ -11,7 +11,7 @@ const EmptyEvent = ({message}) => {
 		<div className={classes.root}>
 			<div className={classes.messageWrapper}>
 				<Typography variant={isMobile ? "h3" : "h2"} className={classes.title}>
-					Nothing!
+					Oops!
 				</Typography>
 				<Typography className={classes.message}>{message}</Typography>
 			</div>

@@ -53,7 +53,7 @@ export const handleCommonError = error => {
 
 const post =
 	api =>
-	(data, header, timemout = true) => {
+	(data, header, config, timemout = true) => {
 		const tokens = localStorage.getItem("token");
 		const tokenBearer = `Bearer ${tokens}`;
 
@@ -65,6 +65,7 @@ const post =
 					...header,
 					authorization: tokenBearer,
 				},
+				...config,
 			},
 			timemout
 		);
@@ -72,7 +73,7 @@ const post =
 
 const patch =
 	api =>
-	(data, timemout = true) => {
+	(data, config, timemout = true) => {
 		const tokens = localStorage.getItem("token");
 		const tokenBearer = `Bearer ${tokens}`;
 		return axios.patch(
@@ -82,6 +83,7 @@ const patch =
 				headers: {
 					authorization: tokenBearer,
 				},
+				...config,
 			},
 			timemout
 		);
@@ -89,15 +91,17 @@ const patch =
 
 const postData =
 	api =>
-	(data, timemout = true) => {
+	(data, header, config, timemout = true) => {
 		const tokenBearer = `Bearer ${localStorage.getItem("token")}`;
 		return axios.post(
 			fullURL(api),
 			data,
 			{
 				headers: {
+					...header,
 					authorization: tokenBearer,
 				},
+				...config,
 			},
 			{handleNetworkError, handleCommonError},
 			timemout
@@ -144,7 +148,7 @@ const getWithSlug =
 
 const patchWithSlug =
 	api =>
-	(slug, data, header, timeout = true) => {
+	(slug, data, header, config, timeout = true) => {
 		const tokens = localStorage.getItem("token");
 		const tokenBearer = `Bearer ${tokens}`;
 		return axios.patch(
@@ -155,6 +159,7 @@ const patchWithSlug =
 					...header,
 					authorization: tokenBearer,
 				},
+				...config,
 			},
 			timeout
 		);
@@ -162,7 +167,7 @@ const patchWithSlug =
 
 const putWithSlug =
 	api =>
-	(slug, data, header, timeout = true) => {
+	(slug, data, header, config, timeout = true) => {
 		const tokens = localStorage.getItem("token");
 		const tokenBearer = `Bearer ${tokens}`;
 		return axios.put(
@@ -173,6 +178,7 @@ const putWithSlug =
 					...header,
 					authorization: tokenBearer,
 				},
+				...config,
 			},
 			timeout
 		);
