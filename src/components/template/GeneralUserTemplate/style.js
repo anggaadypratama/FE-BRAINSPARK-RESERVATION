@@ -1,7 +1,7 @@
 import {makeStyles} from "@material-ui/core/styles";
 
 const GeneralUserStyle = makeStyles(() => ({
-    "@global": {
+	"@global": {
 		body: {
 			backgroundColor: "white",
 		},

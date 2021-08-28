@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 
 import {useDispatch} from "react-redux";
 import {setLoadingProgress} from "@services/redux/slices/dashboardPage";
-import Fade from 'react-reveal/Fade';
+import Fade from "react-reveal/Fade";
 import EditEventStyle from "./style";
 
 const EditEventSection = ({match}) => {
@@ -93,7 +93,6 @@ const EditEventSection = ({match}) => {
 	);
 
 	const dataResult = {...allData, imagePoster: image};
-
 
 	return (
 		<>
