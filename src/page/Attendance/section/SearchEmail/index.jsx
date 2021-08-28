@@ -21,7 +21,7 @@ const SearchEmail = ({result, handleChange, value, Title, searchLoading}) => {
 				title={Title}
 				InputProps={{
 					endAdornment: value.length > 0 && searchLoading && (
-						<CircularProgress />
+						<CircularProgress size={25} />
 					),
 				}}
 			/>
