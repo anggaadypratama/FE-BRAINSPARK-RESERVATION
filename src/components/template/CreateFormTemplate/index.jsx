@@ -1,4 +1,5 @@
-import {Divider, Typography} from "@material-ui/core";
+// eslint-disable-next-line no-unused-vars
+import {CircularProgress, Divider, Typography} from "@material-ui/core";
 import React, {useCallback, useState, useEffect} from "react";
 import {InputFormAdmin, Button, ModalApp} from "@components";
 import Fade from "react-reveal/Fade";
@@ -9,14 +10,19 @@ import {crudValidation} from "@helpers/yup";
 import {Alert, AlertTitle} from "@material-ui/lab";
 import {nanoid} from "nanoid";
 import {ContentState, convertFromHTML, EditorState} from "draft-js";
-import imageCompression from 'browser-image-compression';
+import imageCompression from "browser-image-compression";
 
+import { useSelector } from "react-redux";
 import CreateFormStyle from "./style";
 
 import {participantCategory, locationType} from "./data";
 
 // eslint-disable-next-line no-unused-vars
-const CreateFormTemplate = ({handleSubmitForm, defaultData, refetch}) => {
+const CreateFormTemplate = ({
+	handleSubmitForm,
+	defaultData,
+	refetch,
+}) => {
 	const classes = CreateFormStyle();
 
 	const editorConfig = {
@@ -28,6 +34,10 @@ const CreateFormTemplate = ({handleSubmitForm, defaultData, refetch}) => {
 			className: classes.toolbarEditor,
 		},
 	};
+
+	const loading = useSelector(
+		({dashboardPage}) => dashboardPage.loadingProgress
+	);
 
 	useEffect(() => {
 		refetch();
@@ -128,8 +138,8 @@ const CreateFormTemplate = ({handleSubmitForm, defaultData, refetch}) => {
 		const compressImage = await imageCompression(imagePoster, {
 			maxSizeMB: 1,
 			maxWidthOrHeight: 1000,
-			useWebWorker: true
-		})
+			useWebWorker: true,
+		});
 
 		const dateS = moment(date).tz("Asia/Jakarta").format().split("T");
 		const eventE = moment(end).tz("Asia/Jakarta").format().split("T");
@@ -387,7 +397,17 @@ const CreateFormTemplate = ({handleSubmitForm, defaultData, refetch}) => {
 
 					<div className={classes.buttonWrapper}>
 						<Button color="primary" type="submit">
-							{Object.keys(defaultData).length ? "Update" : "Upload"}
+							{(loading > 0 && loading <= 100) ? (
+								<CircularProgress
+									size={25}
+									classes={{root: classes.circle}}
+									color="secondary"
+								/>
+							) : Object.keys(defaultData).length ? (
+								"Update"
+							) : (
+								"Upload"
+							)}
 						</Button>
 					</div>
 				</form>

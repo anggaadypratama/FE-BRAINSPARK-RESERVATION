@@ -58,7 +58,6 @@ const NetworkImage = ({src, alt, className, onErrorImage}) => {
 			src={imageSrc}
 			alt={alt}
 			className={imageClassname}
-			onError={onErrorImage}
 		/>
 	);
 };

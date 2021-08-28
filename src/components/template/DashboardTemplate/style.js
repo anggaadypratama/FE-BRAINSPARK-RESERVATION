@@ -30,6 +30,12 @@ const DashboardStyle = makeStyles(({color, font}) => ({
 		width: "100%",
 		height: 50,
 	},
+	loadingProgress: {
+		position: "fixed",
+		width: "100%",
+		top: 0,
+		zIndex: 999999999,
+	},
 }));
 
 export default DashboardStyle;

@@ -43,6 +43,9 @@ const CreateFormStyle = makeStyles(({color, spacing}) => ({
 	attendanceLink: {
 		marginBottom: 21,
 	},
+	circle: {
+		color: "white",
+	},
 }));
 
 export default CreateFormStyle;
