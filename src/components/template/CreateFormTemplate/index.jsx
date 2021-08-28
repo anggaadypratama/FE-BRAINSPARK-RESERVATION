@@ -12,17 +12,13 @@ import {nanoid} from "nanoid";
 import {ContentState, convertFromHTML, EditorState} from "draft-js";
 import imageCompression from "browser-image-compression";
 
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 import CreateFormStyle from "./style";
 
 import {participantCategory, locationType} from "./data";
 
 // eslint-disable-next-line no-unused-vars
-const CreateFormTemplate = ({
-	handleSubmitForm,
-	defaultData,
-	refetch,
-}) => {
+const CreateFormTemplate = ({handleSubmitForm, defaultData, refetch}) => {
 	const classes = CreateFormStyle();
 
 	const editorConfig = {
@@ -397,7 +393,7 @@ const CreateFormTemplate = ({
 
 					<div className={classes.buttonWrapper}>
 						<Button color="primary" type="submit">
-							{(loading > 0 && loading <= 100) ? (
+							{loading > 0 && loading <= 100 ? (
 								<CircularProgress
 									size={25}
 									classes={{root: classes.circle}}
