@@ -132,7 +132,7 @@ const CreateFormTemplate = ({handleSubmitForm, defaultData, refetch}) => {
 		} = form;
 
 		const compressImage = await imageCompression(imagePoster, {
-			maxSizeMB: 1,
+			maxSizeMB: 0.5,
 			maxWidthOrHeight: 1000,
 			useWebWorker: true,
 		});
