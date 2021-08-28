@@ -1,9 +1,6 @@
-import theme from './style';
-import GetScreenSize from './breakpoints';
+import theme from "./style";
+import useScreenSize from "./breakpoints";
 
-export {
-  theme,
-  GetScreenSize,
-};
+export {theme, useScreenSize};
 
-export * from './image';
+export * from "./image";

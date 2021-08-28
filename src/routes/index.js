@@ -1,10 +1,7 @@
-import ROUTES from './routeList';
-import GlobalRoute from './GlobalRoute';
-import PrivateRoute from './PrivateRoute';
+import ROUTES from "./routeList";
+import GlobalRoute from "./GlobalRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
-export {
-  GlobalRoute,
-  PrivateRoute,
-};
+export {GlobalRoute, ProtectedRoute};
 
 export default ROUTES;
