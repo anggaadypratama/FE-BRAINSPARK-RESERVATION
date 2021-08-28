@@ -26,7 +26,9 @@ const Info = ({position, dataContent, isLoading}) => {
 
 	const handleButton = () => {
 		dispatch(selectedContentIndex());
-		window.scrollTo(0, 0);
+		setTimeout(() => {
+			window.scrollTo(0, 0);
+		}, 500);
 	};
 
 	const locationStatus =

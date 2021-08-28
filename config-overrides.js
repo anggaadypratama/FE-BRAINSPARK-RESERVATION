@@ -21,6 +21,7 @@ const zlib = require("zlib");
 const webpack = require("webpack");
 const path = require("path");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const HtmlCriticalWebpackPlugin = require('html-critical-webpack-plugin');
 
 const customizePlugin = [
 	new CompressionWebpackPlugin({
@@ -50,6 +51,19 @@ const customizePlugin = [
 		patterns: ["src/**/*.(js|jsx|css)"],
 		exclude: ["**/*.(stories|spec).(js|jsx)"],
 	}),
+	new HtmlCriticalWebpackPlugin({
+		base: path.resolve(__dirname, 'build'),
+		src: 'index.html',
+		dest: 'index.html',
+		inline: true,
+		minify: true,
+		extract: true,
+		width: 320,
+		height: 565,
+		penthouse: {
+		  blockJSRequests: false,
+		},
+	  }),
 ];
 
 const addCustomize = () => config => {

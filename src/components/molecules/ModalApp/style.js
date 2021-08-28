@@ -11,6 +11,7 @@ const ModalStyle = makeStyles(({color, palette, spacing, shadows, font}) => ({
 		backgroundColor: palette.background.paper,
 		boxShadow: shadows[5],
 		padding: spacing(2, 3),
+		margin: spacing(0, 2),
 	},
 	title: {
 		marginBottom: spacing(2),
