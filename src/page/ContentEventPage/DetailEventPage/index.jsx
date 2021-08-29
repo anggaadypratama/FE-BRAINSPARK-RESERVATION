@@ -3,14 +3,14 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable max-len */
-import React from "react";
+import React, {memo} from "react";
 import {Typography} from "@material-ui/core";
 import {NetworkImage} from "@components";
 
 import {Skeleton} from "@material-ui/lab";
 import DetailEventStyle from "./style";
 
-const DetailEventPage = ({dataContent, isLoading}) => {
+const DetailEventPageM = ({dataContent, isLoading}) => {
 	const classes = DetailEventStyle();
 	const {description = {}, imagePoster = ""} = dataContent;
 
@@ -46,4 +46,11 @@ const DetailEventPage = ({dataContent, isLoading}) => {
 		</>
 	);
 };
+
+const areEqual = (prev, next) =>
+	prev?.dataContent?.imagePoster === next?.dataContent?.imagePoster &&
+	prev?.dataContent?.description === next?.dataContent?.description;
+
+const DetailEventPage = memo(DetailEventPageM, areEqual);
+
 export default DetailEventPage;

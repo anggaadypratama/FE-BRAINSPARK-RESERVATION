@@ -1,4 +1,3 @@
-
 import Note from "./Note";
 import CardItem from "./CardItem";
 import Header from "./Header";

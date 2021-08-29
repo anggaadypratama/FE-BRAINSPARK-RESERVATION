@@ -1,7 +1,7 @@
 import {patchDetailEventById, getDetailEventByIdWithAuth} from "@services";
 import {CreateFormTemplate, Loading, ModalApp} from "@components";
 import {Divider, Typography} from "@material-ui/core";
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 
 import {useHistory} from "react-router";
@@ -94,6 +94,8 @@ const EditEventSection = ({match}) => {
 
 	const dataResult = {...allData, imagePoster: image};
 
+	const handleMutate = useCallback(val => mutation.mutate(val), []);
+
 	return (
 		<>
 			{mutation.isSuccess && (
@@ -121,7 +123,7 @@ const EditEventSection = ({match}) => {
 						<div className={classes.space} />
 						<CreateFormTemplate
 							defaultData={dataResult}
-							handleSubmitForm={val => mutation.mutate(val)}
+							handleSubmitForm={handleMutate}
 							refetch={refetch}
 						/>
 					</Fade>

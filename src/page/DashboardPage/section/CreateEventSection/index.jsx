@@ -1,7 +1,7 @@
 import {postNewEvent} from "@services";
 import {CreateFormTemplate, ModalApp} from "@components";
 import {Divider, Typography} from "@material-ui/core";
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {useMutation} from "react-query";
 
 import {useHistory} from "react-router";
@@ -41,6 +41,8 @@ const CreateEventSection = () => {
 		history.push("/");
 	};
 
+	const handleMutate = useCallback(val => mutation.mutate(val), []);
+
 	return (
 		<>
 			{mutation.isSuccess && (
@@ -55,7 +57,7 @@ const CreateEventSection = () => {
 				<Typography className={classes.title}>Information</Typography>
 				<Divider />
 				<div className={classes.space} />
-				<CreateFormTemplate handleSubmitForm={val => mutation.mutate(val)} />
+				<CreateFormTemplate handleSubmitForm={handleMutate} />
 			</div>
 		</>
 	);

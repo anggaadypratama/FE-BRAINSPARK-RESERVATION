@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import {CircularProgress, Divider, Typography} from "@material-ui/core";
-import React, {useCallback, useState, useEffect} from "react";
+import React, {useCallback, useState, useEffect, memo} from "react";
 import {InputFormAdmin, Button, ModalApp} from "@components";
 import Fade from "react-reveal/Fade";
 import {MUIEditorState, toHTML} from "react-mui-draft-wysiwyg";
@@ -18,7 +18,7 @@ import CreateFormStyle from "./style";
 import {participantCategory, locationType} from "./data";
 
 // eslint-disable-next-line no-unused-vars
-const CreateFormTemplate = ({handleSubmitForm, defaultData, refetch}) => {
+const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 	const classes = CreateFormStyle();
 
 	const editorConfig = {
@@ -74,7 +74,7 @@ const CreateFormTemplate = ({handleSubmitForm, defaultData, refetch}) => {
 		eventEnd: defaultData
 			? moment(defaultData?.eventEnd).format()
 			: moment().format(),
-		isLinkLocation: !!defaultData?.linkLocation,
+		isLinkLocation: defaultData ? defaultData?.isLinkLocation : false,
 		speakerName: defaultData ? defaultData?.speakerName : "",
 		location: defaultData ? defaultData?.location : "",
 		linkLocation: defaultData ? defaultData?.linkLocation : "",
@@ -132,8 +132,8 @@ const CreateFormTemplate = ({handleSubmitForm, defaultData, refetch}) => {
 		} = form;
 
 		const compressImage = await imageCompression(imagePoster, {
-			maxSizeMB: 0.5,
-			maxWidthOrHeight: 1000,
+			maxSizeMB: 0.05,
+			maxWidthOrHeight: 1080,
 			useWebWorker: true,
 		});
 
@@ -155,15 +155,13 @@ const CreateFormTemplate = ({handleSubmitForm, defaultData, refetch}) => {
 			...dataForm,
 		};
 
-		const resultCheck = await crudValidation
+		const resultData = await crudValidation
 			.validate(datas, {abortEarly: false})
 			.catch(({errors}) => {
 				setErrorForm(errors);
 			});
 
-		if (resultCheck) {
-			const {isLinkLocation, ...resultData} = resultCheck;
-
+		if (resultData) {
 			const formData = new FormData();
 			Object.keys(resultData).forEach(key => {
 				const data = ["description", "note"].includes(key)
@@ -283,26 +281,27 @@ const CreateFormTemplate = ({handleSubmitForm, defaultData, refetch}) => {
 							onChange={handleInputChange("isLinkLocation", "radio")}
 						/>
 						<div className={classes.locationWrapper}>
-							{typeof form.isLinkLocation === "boolean" && (
-								<>
-									<InputFormAdmin
-										title="Place"
-										placeholder="Gedung Arwana..."
-										fullWidth
-										value={form.location}
-										onChange={handleInputChange("location", "text")}
-									/>
-									<Fade collapse when={form.isLinkLocation}>
+							{typeof form.isLinkLocation === "boolean" &&
+								form.isLinkLocation !== undefined && (
+									<>
 										<InputFormAdmin
-											title="Link"
-											placeholder="www.meet.google.com..."
+											title="Place"
+											placeholder="Gedung Arwana..."
 											fullWidth
-											value={form.linkLocation}
-											onChange={handleInputChange("linkLocation", "text")}
+											value={form.location}
+											onChange={handleInputChange("location", "text")}
 										/>
-									</Fade>
-								</>
-							)}
+										<Fade collapse when={form.isLinkLocation}>
+											<InputFormAdmin
+												title="Link"
+												placeholder="www.meet.google.com..."
+												fullWidth
+												value={form.linkLocation}
+												onChange={handleInputChange("linkLocation", "text")}
+											/>
+										</Fade>
+									</>
+								)}
 						</div>
 						<InputFormAdmin
 							title="7. Input speaker name"
@@ -412,15 +411,19 @@ const CreateFormTemplate = ({handleSubmitForm, defaultData, refetch}) => {
 	);
 };
 
-CreateFormTemplate.propTypes = {
+CreateFormTemplateM.propTypes = {
 	defaultData: PropTypes.objectOf(PropTypes.object),
 	handleSubmitForm: PropTypes.func.isRequired,
 	refetch: PropTypes.func,
 };
 
-CreateFormTemplate.defaultProps = {
+CreateFormTemplateM.defaultProps = {
 	defaultData: {},
 	refetch: () => {},
 };
+
+const areEqual = (prev, next) => prev.defaultData.id === next.defaultData.id;
+
+const CreateFormTemplate = memo(CreateFormTemplateM, areEqual);
 
 export default CreateFormTemplate;

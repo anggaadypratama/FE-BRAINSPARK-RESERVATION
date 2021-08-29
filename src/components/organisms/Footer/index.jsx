@@ -19,7 +19,7 @@ const Footer = () => {
 					</Typography>
 					<div className={contactClassnames}>
 						<IconButton>
-							<img src={Instagram} alt="instagram"  height="34" width="34"/>
+							<img src={Instagram} alt="instagram" height="34" width="34" />
 						</IconButton>
 						<IconButton>
 							<img src={Line} alt="line" height="34" width="34" />
