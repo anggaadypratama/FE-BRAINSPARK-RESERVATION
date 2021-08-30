@@ -19,7 +19,7 @@ const Header = ({speaker, isLoading}) => {
 					<Share />
 				</IconButton>
 			}
-			title={isLoading ? <Skeleton /> : speaker}
+			title={isLoading ? <Skeleton animation="wave" /> : speaker}
 			subheader="Speaker"
 		/>
 	);
