@@ -8,15 +8,14 @@ import {Typography} from "@material-ui/core";
 import {NetworkImage} from "@components";
 
 import {Skeleton} from "@material-ui/lab";
-import  useScreenSize  from '@assets/breakpoints';
+import useScreenSize from "@assets/breakpoints";
 import DetailEventStyle from "./style";
 
 const DetailEventPageM = ({dataContent, isLoading}) => {
-	const isMedium = useScreenSize({isMax: true, size: 900})
+	const isMedium = useScreenSize({isMax: true, size: 900});
 
 	const classes = DetailEventStyle({isMedium});
 	const {description = {}, imagePoster = ""} = dataContent;
-
 
 	return (
 		<>
