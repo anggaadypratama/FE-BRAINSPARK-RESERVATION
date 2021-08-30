@@ -21,8 +21,8 @@ const NetworkImage = ({src, alt, className}) => {
 			img.onerror = reject;
 			img.src = srcs;
 		});
-		
-	loadImage(src).then(image => setWaitImage(image.complete))
+
+	loadImage(src).then(image => setWaitImage(image.complete));
 
 	return !waitImage ? (
 		<Skeleton

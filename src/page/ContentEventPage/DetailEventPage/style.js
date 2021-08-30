@@ -20,8 +20,8 @@ const DetailEventStyle = makeStyles(
 			color: paragraph,
 		},
 		SkeletonWrapper: {
-			display: 'inline-block'
-		}
+			display: "inline-block",
+		},
 	})
 );
 

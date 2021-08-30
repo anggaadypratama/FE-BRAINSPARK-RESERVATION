@@ -74,7 +74,9 @@ const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 		eventEnd: defaultData
 			? moment(defaultData?.eventEnd).format()
 			: moment().format(),
-		isLinkLocation: defaultData ? defaultData?.isLinkLocation : false,
+		isLinkLocation: Object.keys(defaultData).length
+			? defaultData?.isLinkLocation
+			: false,
 		speakerName: defaultData ? defaultData?.speakerName : "",
 		location: defaultData ? defaultData?.location : "",
 		linkLocation: defaultData ? defaultData?.linkLocation : "",
@@ -127,15 +129,9 @@ const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 			eventStart: start,
 			date,
 			endRegistration: endReg,
-			imagePoster,
+			// imagePoster,
 			...dataForm
 		} = form;
-
-		const compressImage = await imageCompression(imagePoster, {
-			maxSizeMB: 0.05,
-			maxWidthOrHeight: 1080,
-			useWebWorker: true,
-		});
 
 		const dateS = moment(date).tz("Asia/Jakarta").format().split("T");
 		const eventE = moment(end).tz("Asia/Jakarta").format().split("T");
@@ -147,7 +143,6 @@ const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 		const endRegistration = new Date(`${endR[0]}T${eventS[1]}`);
 
 		const datas = {
-			imagePoster: compressImage,
 			eventEnd,
 			eventStart,
 			date,
@@ -155,25 +150,40 @@ const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 			...dataForm,
 		};
 
-		const resultData = await crudValidation
+		const rawData = await crudValidation
 			.validate(datas, {abortEarly: false})
 			.catch(({errors}) => {
 				setErrorForm(errors);
 			});
 
-		if (resultData) {
-			const formData = new FormData();
-			Object.keys(resultData).forEach(key => {
-				const data = ["description", "note"].includes(key)
-					? toHTML(resultData[key].getCurrentContent())
-					: key === "isOnlyTelkom"
-					? JSON.stringify(resultData[key])
-					: resultData[key];
-				return formData.append(key, data);
+		if (rawData) {
+			const {imagePoster: imgP, ...dataValidated} = rawData;
+
+			const imagePoster = await imageCompression(imgP, {
+				maxSizeMB: 0.05,
+				maxWidthOrHeight: 1080,
+				useWebWorker: true,
 			});
 
-			setErrorForm(null);
-			handleSubmitForm(formData);
+			const resultData = {
+				...dataValidated,
+				imagePoster,
+			};
+
+			if (resultData) {
+				const formData = new FormData();
+				Object.keys(resultData).forEach(key => {
+					const data = ["description", "note"].includes(key)
+						? toHTML(resultData[key].getCurrentContent())
+						: key === "isOnlyTelkom"
+						? JSON.stringify(resultData[key])
+						: resultData[key];
+					return formData.append(key, data);
+				});
+
+				setErrorForm(null);
+				handleSubmitForm(formData);
+			}
 		}
 	};
 
