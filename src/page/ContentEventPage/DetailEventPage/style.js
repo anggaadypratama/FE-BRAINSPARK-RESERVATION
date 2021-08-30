@@ -19,6 +19,9 @@ const DetailEventStyle = makeStyles(
 			lineHeight: ({isMedium}) => (isMedium ? "28px" : "32px"),
 			color: paragraph,
 		},
+		SkeletonWrapper: {
+			display: 'inline-block'
+		}
 	})
 );
 

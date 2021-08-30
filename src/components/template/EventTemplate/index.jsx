@@ -25,7 +25,11 @@ const EventTemplate = ({children, dataContent, isLoading}) => {
 				<Container maxWidth="md" className={classes.containerContent}>
 					<Card elevation={0} className={classes.content}>
 						<Typography variant={heading} className={classes.contentTitle}>
-							{isLoading ? <Skeleton /> : dataContent?.themeName}
+							{isLoading ? (
+								<Skeleton animation="wave" />
+							) : (
+								dataContent?.themeName
+							)}
 						</Typography>
 						<Header isLoading={isLoading} speaker={dataContent?.speakerName} />
 						<section>{children}</section>

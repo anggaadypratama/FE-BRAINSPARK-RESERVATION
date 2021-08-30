@@ -52,14 +52,14 @@ const Info = ({position, dataContent, isLoading}) => {
 						<Typography className={classes.titleInfo}>Time and Date</Typography>
 						<Typography className={classes.textInfo}>
 							{isLoading ? (
-								<Skeleton />
+								<Skeleton animation="wave" />
 							) : (
 								moment(dataContent?.date).format("dddd, D MMMM YYYY")
 							)}
 						</Typography>
 						<Typography className={classes.textInfo}>
 							{isLoading ? (
-								<Skeleton />
+								<Skeleton animation="wave" />
 							) : (
 								`${time(dataContent?.eventStart)} - ${time(
 									dataContent?.eventEnd
@@ -70,17 +70,25 @@ const Info = ({position, dataContent, isLoading}) => {
 					<div>
 						<Typography className={classes.titleInfo}>
 							Location{" "}
-							{isLoading ? <Skeleton width="30%" /> : <>({locationStatus})</>}
+							{isLoading ? (
+								<Skeleton animation="wave" width="30%" />
+							) : (
+								<>({locationStatus})</>
+							)}
 						</Typography>
 						<Typography className={classes.textInfo}>
-							{isLoading ? <Skeleton /> : dataContent?.location}
+							{isLoading ? (
+								<Skeleton animation="wave" />
+							) : (
+								dataContent?.location
+							)}
 						</Typography>
 					</div>
 					<div>
 						<Typography className={classes.titleInfo}>
 							For{" "}
 							<span className={classes.textInfo}>
-								{isLoading ? <Skeleton /> : isTelkom}
+								{isLoading ? <Skeleton animation="wave" /> : isTelkom}
 							</span>
 						</Typography>
 					</div>
@@ -94,8 +102,12 @@ const Info = ({position, dataContent, isLoading}) => {
 								<Typography className={classes.registerTitle}>
 									Ticket{" "}
 									<span className={classes.registerTextInfo}>
-										{isLoading ? <Skeleton /> : dataContent?.totalParticipant}/
-										{dataContent?.ticketLimit}
+										{isLoading ? (
+											<Skeleton animation="wave" />
+										) : (
+											dataContent?.totalParticipant
+										)}
+										/{dataContent?.ticketLimit}
 									</span>
 								</Typography>
 							</div>
@@ -105,7 +117,7 @@ const Info = ({position, dataContent, isLoading}) => {
 								</Typography>
 								<Typography className={classes.registerTextInfo}>
 									{isLoading ? (
-										<Skeleton />
+										<Skeleton animation="wave" />
 									) : (
 										moment(dataContent?.endRegistration).format("D MMMM YYYY")
 									)}

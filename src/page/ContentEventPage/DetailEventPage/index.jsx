@@ -8,34 +8,35 @@ import {Typography} from "@material-ui/core";
 import {NetworkImage} from "@components";
 
 import {Skeleton} from "@material-ui/lab";
+import  useScreenSize  from '@assets/breakpoints';
 import DetailEventStyle from "./style";
 
 const DetailEventPageM = ({dataContent, isLoading}) => {
-	const classes = DetailEventStyle();
+	const isMedium = useScreenSize({isMax: true, size: 900})
+
+	const classes = DetailEventStyle({isMedium});
 	const {description = {}, imagePoster = ""} = dataContent;
+
 
 	return (
 		<>
-			{isLoading && imagePoster.length ? (
-				<Skeleton height={813} width={813} variant="rect" />
-			) : (
-				<NetworkImage
-					src={imagePoster}
-					className={classes.contentBanner}
-					alt="content"
-				/>
-			)}
+			<NetworkImage
+				src={imagePoster}
+				className={classes.contentBanner}
+				alt="content"
+			/>
 			<div className={classes.contentDescWrapper}>
-				{isLoading && description.length ? (
-					<>
-						<Skeleton />
-						<Skeleton />
-						<Skeleton />
-						<Skeleton />
-						<Skeleton />
-						<Skeleton />
-						<Skeleton />
-					</>
+				{isLoading ? (
+					<div className={classes.SkeletonWrapper}>
+						<Skeleton height={isMedium ? 16 : 20} width={600} />
+						<Skeleton height={isMedium ? 16 : 20} width={600} />
+						<Skeleton height={isMedium ? 16 : 20} width={600} />
+						<Skeleton height={isMedium ? 16 : 20} width={600} />
+						<Skeleton height={isMedium ? 16 : 20} width={600} />
+						<Skeleton height={isMedium ? 16 : 20} width={600} />
+						<Skeleton height={isMedium ? 16 : 20} width={600} />
+						<Skeleton height={isMedium ? 16 : 20} width={600} />
+					</div>
 				) : (
 					<Typography
 						className={classes.contentDesc}

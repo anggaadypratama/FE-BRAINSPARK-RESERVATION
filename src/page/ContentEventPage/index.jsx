@@ -63,8 +63,6 @@ const ContentEventPage = ({match}) => {
 				<EventTemplate isLoading={isLoading} dataContent={data?.data}>
 					{page ? (
 						<UserFormPage dataContent={data?.data} />
-					) : isLoading ? (
-						<Loading />
 					) : (
 						<DetailEventPage
 							isLoading={isLoading}
