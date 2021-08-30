@@ -1,5 +1,5 @@
 import React from "react";
-import {Typography, IconButton} from "@material-ui/core";
+import {Typography, IconButton, Link} from "@material-ui/core";
 import classNames from "classnames";
 import {Instagram, Line} from "@assets/image";
 import FooterStyle from "./style";
@@ -18,12 +18,16 @@ const Footer = () => {
 						FOR MORE INFORMATION
 					</Typography>
 					<div className={contactClassnames}>
-						<IconButton>
-							<img src={Instagram} alt="instagram" height="34" width="34" />
-						</IconButton>
-						<IconButton>
-							<img src={Line} alt="line" height="34" width="34" />
-						</IconButton>
+						<Link href="https://www.instagram.com/rplgdc_/">
+							<IconButton>
+								<img src={Instagram} alt="instagram" height="34" width="34" />
+							</IconButton>
+						</Link>
+						<Link href="http://line.me/ti/p/~%40ajh8699v">
+							<IconButton>
+								<img src={Line} alt="line" height="34" width="34" />
+							</IconButton>
+						</Link>
 					</div>
 					<Typography className={copyrightClassnames}>
 						© 2019 RPLGDC Laboratory, All Right Reserved

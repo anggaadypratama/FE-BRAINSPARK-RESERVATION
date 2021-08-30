@@ -20,6 +20,7 @@ const DetailEventStyle = makeStyles(
 			color: paragraph,
 		},
 		SkeletonWrapper: {
+			marginTop: 28,
 			display: "inline-block",
 		},
 	})
