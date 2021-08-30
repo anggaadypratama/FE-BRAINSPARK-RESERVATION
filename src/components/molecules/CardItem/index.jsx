@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-vars */
-import React, {useState, useEffect} from "react";
+import React, {useState, memo} from "react";
 import {
 	Card,
 	CardContent,
@@ -31,7 +31,7 @@ import {deleteDetailEventById} from "@services";
 import {useHistory} from "react-router";
 import CardStyle from "./style";
 
-const CardItem = ({
+const CardItemM = ({
 	className,
 	status,
 	title,
@@ -122,12 +122,15 @@ const CardItem = ({
 		<Card className={cardClassnames} elevation={3}>
 			<img src={cardStyle} className={classes.CardStyle} alt="card style" />
 			<div className={contentWrapperClassnames}>
-				<NetworkImage
-					src={img}
-					className={classes.imageNormal}
-					onErrorImage={ImageNotFound}
-					alt={title}
-				/>
+				<div className={classes.networkImage}>
+					<NetworkImage
+						src={img}
+						className={classNames(classes.imageNormal)}
+						onErrorImage={ImageNotFound}
+						alt={title}
+					/>
+				</div>
+
 				<CardContent className={classes.content}>
 					<div>
 						<Typography variant="h6" className={classes.status}>
@@ -183,7 +186,7 @@ const CardItem = ({
 	);
 };
 
-CardItem.propTypes = {
+CardItemM.propTypes = {
 	id: PropTypes.string,
 	className: PropTypes.string,
 	status: PropTypes.bool,
@@ -196,7 +199,7 @@ CardItem.propTypes = {
 	date: PropTypes.string,
 };
 
-CardItem.defaultProps = {
+CardItemM.defaultProps = {
 	id: "",
 	className: "",
 	status: false,
@@ -208,5 +211,9 @@ CardItem.defaultProps = {
 	img: "",
 	date: "",
 };
+
+const areEqual = (prev, next) => prev.id === next.id && prev.img === next.img;
+
+const CardItem = memo(CardItemM, areEqual);
 
 export default CardItem;

@@ -1,63 +1,30 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import {ImageNotFound} from "@assets/image";
+import {LazyLoadImage} from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import NetworkImageStyle from "./style";
+import "./style.css";
 
-const NetworkImage = ({src, alt, className, onErrorImage}) => {
-	const [imageSrc, setImageSrc] = useState(onErrorImage);
-	const [imageRef, setImageRef] = useState();
-
+const NetworkImage = ({src, alt, className}) => {
 	const classes = NetworkImageStyle();
-
-	useEffect(() => {
-		let observer;
-		let didCancel = false;
-
-		if (imageRef && imageSrc !== src) {
-			if (IntersectionObserver) {
-				observer = new IntersectionObserver(
-					entries => {
-						entries.forEach(entry => {
-							if (
-								!didCancel &&
-								(entry.intersectionRatio > 0 || entry.isIntersecting)
-							) {
-								setImageSrc(src);
-							}
-						});
-					},
-					{
-						threshold: 0.01,
-						rootMargin: "75%",
-					}
-				);
-				observer.observe(imageRef);
-			} else {
-				setImageSrc(src);
-			}
-		}
-
-		return () => {
-			didCancel = true;
-
-			if (observer && observer.unobserve) {
-				observer.unobserve(imageRef);
-			}
-		};
-	});
 
 	const imageClassname = classNames(className, classes.image);
 
 	return (
-		<img
-			loading="lazy"
-			height="700"
-			width="700"
-			ref={setImageRef}
-			src={imageSrc}
+		<LazyLoadImage
 			alt={alt}
-			className={imageClassname}
+			visibleByDefault
+			threshold={60}
+			effect="blur"
+			src={src}
+			width="100%"
+			height="auto"
+			placeholderSrc={ImageNotFound}
+			placeholder="div"
+			wrapperClassName={imageClassname}
+			loading="lazy"
 		/>
 	);
 };
@@ -66,12 +33,10 @@ NetworkImage.propTypes = {
 	src: PropTypes.string.isRequired,
 	alt: PropTypes.string.isRequired,
 	className: PropTypes.string,
-	onErrorImage: PropTypes.string,
 };
 
 NetworkImage.defaultProps = {
 	className: "",
-	onErrorImage: ImageNotFound,
 };
 
 export default NetworkImage;

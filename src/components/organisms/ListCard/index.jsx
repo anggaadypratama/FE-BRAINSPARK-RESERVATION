@@ -8,6 +8,10 @@ import classNames from "classnames";
 
 import {useScreenSize} from "@assets";
 import {Loading} from "@components";
+import {
+	LazyLoadComponent,
+	trackWindowScroll,
+} from "react-lazy-load-image-component";
 import listCardStyle from "./style";
 
 const ListCard = ({
@@ -19,6 +23,7 @@ const ListCard = ({
 	onChange,
 	filterState,
 	isLoading,
+	scrollPosition,
 	...rest
 }) => {
 	const mobileSize = useScreenSize({isMax: true, size: 1000});
@@ -38,7 +43,7 @@ const ListCard = ({
 				</div>
 			)}
 			{isLoading ? (
-				<Loading isActive={isLoading} />
+				<Loading />
 			) : (
 				<div className={classes.content}>
 					<Grid container spacing={4}>
@@ -55,16 +60,18 @@ const ListCard = ({
 								}) => (
 									<Grid key={id} item {...rest}>
 										<Fade bottom>
-											<CardItem
-												id={id}
-												title={title}
-												img={imagePoster}
-												canEdit={canEdit}
-												location={location}
-												date={date}
-												time={eventStart}
-												status={isEventDone}
-											/>
+											<LazyLoadComponent scrollPosition={scrollPosition}>
+												<CardItem
+													id={id}
+													title={title}
+													img={imagePoster}
+													canEdit={canEdit}
+													location={location}
+													date={date}
+													time={eventStart}
+													status={isEventDone}
+												/>
+											</LazyLoadComponent>
 										</Fade>
 									</Grid>
 								)
@@ -92,6 +99,7 @@ ListCard.propTypes = {
 	onChange: PropTypes.func,
 	filterState: PropTypes.number,
 	isLoading: PropTypes.bool,
+	scrollPosition: PropTypes.number.isRequired,
 };
 
 ListCard.defaultProps = {
@@ -105,4 +113,4 @@ ListCard.defaultProps = {
 	isLoading: false,
 };
 
-export default ListCard;
+export default trackWindowScroll(ListCard);

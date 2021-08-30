@@ -131,6 +131,9 @@ const CardStyle = makeStyles(({color, font}) => ({
 	buttonView: {
 		marginTop: ({buttonSize}) => (buttonSize ? 18 : 0),
 	},
+	networkImage: {
+		borderRadius: 30,
+	},
 }));
 
 export default CardStyle;

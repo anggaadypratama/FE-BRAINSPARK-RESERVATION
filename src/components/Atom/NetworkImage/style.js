@@ -5,6 +5,9 @@ const NetworkImageStyle = makeStyles(() => ({
 		width: "100%",
 		height: "auto",
 	},
+	imageWrapper: {
+		borderRadius: 20,
+	},
 }));
 
 export default NetworkImageStyle;

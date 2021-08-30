@@ -14,7 +14,7 @@ const AppWrapper = ({children}) => (
 		<Router basename="/">
 			<Switch>
 				<QueryClientProvider client={queryClient}>
-						{children}
+					{children}
 					<ReactQueryDevtools initialIsOpen={false} />
 				</QueryClientProvider>
 			</Switch>
