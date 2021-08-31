@@ -10,7 +10,7 @@ import {crudValidation} from "@helpers/yup";
 import {Alert, AlertTitle} from "@material-ui/lab";
 import {nanoid} from "nanoid";
 import {ContentState, convertFromHTML, EditorState} from "draft-js";
-import imageCompression from "browser-image-compression";
+import Resizer from "react-image-file-resizer";
 
 import {useSelector} from "react-redux";
 import CreateFormStyle from "./style";
@@ -79,7 +79,7 @@ const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 			: false,
 		speakerName: defaultData ? defaultData?.speakerName : "",
 		location: defaultData ? defaultData?.location : "",
-		linkLocation: defaultData ? defaultData?.linkLocation : "",
+		linkLocation: Object.keys(defaultData).length ? defaultData?.linkLocation : "",
 		endRegistration: defaultData
 			? moment(defaultData?.endRegistration).format()
 			: moment().format(),
@@ -90,6 +90,22 @@ const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 		note: defaultData ? noteState : MUIEditorState.createEmpty(editorConfig),
 		isAbsentActive: defaultData && defaultData?.isAbsentActive,
 	});
+
+	const resizeImage = file =>
+		new Promise(resolve => {
+			Resizer.imageFileResizer(
+				file,
+				1080,
+				1080,
+				"WEBP",
+				10,
+				0,
+				uri => {
+					resolve(uri);
+				},
+				"blob"
+			);
+		});
 
 	const handleInputChange = useCallback(
 		(val, type) => e => {
@@ -159,11 +175,7 @@ const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 		if (rawData) {
 			const {imagePoster: imgP, ...dataValidated} = rawData;
 
-			const imagePoster = await imageCompression(imgP, {
-				maxSizeMB: 0.05,
-				maxWidthOrHeight: 1080,
-				useWebWorker: true,
-			});
+			const imagePoster = await resizeImage(imgP);
 
 			const resultData = {
 				...dataValidated,

@@ -116,7 +116,7 @@ const EditEventSection = ({match}) => {
 				{!detailLoading &&
 				data?.status === 200 &&
 				image !== null &&
-				["image/jpeg", "image/jpg", "image/png"].includes(image?.type) ? (
+				["image/jpeg", "image/jpg", "image/png","image/webp"].includes(image?.type) ? (
 					<Fade>
 						<Typography className={classes.title}>Information</Typography>
 						<Divider />
