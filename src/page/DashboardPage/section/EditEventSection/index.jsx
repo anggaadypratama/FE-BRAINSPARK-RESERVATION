@@ -105,6 +105,13 @@ const EditEventSection = ({match}) => {
 					title="Update Berhasil"
 				/>
 			)}
+			{mutation.isError && (
+				<ModalApp
+					isActive={successModal}
+					handleClose={handleCloseModalSuccess}
+					title="Update Gagal"
+				/>
+			)}
 			{!detailLoading && error?.response?.status === 404 && (
 				<ModalApp
 					isActive={successModal}
@@ -116,7 +123,9 @@ const EditEventSection = ({match}) => {
 				{!detailLoading &&
 				data?.status === 200 &&
 				image !== null &&
-				["image/jpeg", "image/jpg", "image/png","image/webp"].includes(image?.type) ? (
+				["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(
+					image?.type
+				) ? (
 					<Fade>
 						<Typography className={classes.title}>Information</Typography>
 						<Divider />

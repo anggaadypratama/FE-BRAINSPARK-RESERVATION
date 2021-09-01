@@ -9,7 +9,6 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 
 import loadable from "@loadable/component";
 import {nanoid} from "nanoid";
-import {checkIsAuthenticated} from "@services";
 
 const ListEventSection = loadable(
 	() => import(/* webpackPrefetch: true */ "./section/ListEventSection"),
@@ -67,10 +66,6 @@ const DashboardPage = () => {
 			path: "/edit/:id",
 		},
 	];
-
-	useEffect(() => {
-		checkIsAuthenticated();
-	}, []);
 
 	useEffect(() => {
 		ListEventSection.preload();

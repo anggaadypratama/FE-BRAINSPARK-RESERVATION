@@ -74,7 +74,9 @@ const crudValidation = yup.object().shape({
 			value =>
 				![null, undefined].includes(value) &&
 				value.length !== 0 &&
-				["image/jpeg", "image/jpg", "image/png","image/webp"].includes(value.type)
+				["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(
+					value.type
+				)
 		),
 	isAbsentActive: yup.boolean(),
 });

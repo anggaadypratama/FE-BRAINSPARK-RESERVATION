@@ -5,9 +5,9 @@ import {nanoid} from "nanoid";
 import {GlobalRoute, ProtectedRoute} from "@routes";
 import ROUTES from "@routes/routeList";
 // import loadable from '@loadable/component';
-import AppWrapper from "./AppWrapper";
 
 // const NotFound = loadable(() => import(/* webpackPrefetch: true */ '@page/NotFound'));
+import AppWrapper from "./AppWrapper";
 
 function App() {
 	return (

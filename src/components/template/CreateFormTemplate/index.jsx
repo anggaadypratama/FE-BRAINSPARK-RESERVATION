@@ -79,7 +79,9 @@ const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 			: false,
 		speakerName: defaultData ? defaultData?.speakerName : "",
 		location: defaultData ? defaultData?.location : "",
-		linkLocation: Object.keys(defaultData).length ? defaultData?.linkLocation : "",
+		linkLocation: Object.keys(defaultData).length
+			? defaultData?.linkLocation
+			: "",
 		endRegistration: defaultData
 			? moment(defaultData?.endRegistration).format()
 			: moment().format(),
