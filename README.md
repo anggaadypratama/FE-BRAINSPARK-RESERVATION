@@ -2,7 +2,6 @@
 
 is a web application to serve event reservations at the rplgdc laboratory. useful to make it easier for users to make event reservations, monitor participants who register and integrate directly with the official rplgdc laboratory website. 
 <br>
-<br>
 
 > This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
