@@ -5,8 +5,6 @@ is a web application to serve event reservations at the rplgdc laboratory. usefu
 
 > This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
-<br>
-
 # Feature
 
 - users can see the list of events also the details of the event.
@@ -20,8 +18,6 @@ is a web application to serve event reservations at the rplgdc laboratory. usefu
 - lazy loading and lazy image
 - code splitting
 
-
-<br>
 
 
 
