@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import {toHTML} from "react-mui-draft-wysiwyg";
-import moment from "moment";
+import moment from "moment-timezone";
 
 const date = new Date(Date.now() - 86400000);
 

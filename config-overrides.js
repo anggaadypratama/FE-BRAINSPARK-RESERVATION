@@ -43,10 +43,7 @@ const customizePlugin = [
 	}),
 	// new webpack.optimize.AggressiveMergingPlugin(),
 	new CleanWebpackPlugin(),
-	new webpack.ContextReplacementPlugin(
-		/moment[\\\/]locale$/,
-		/^\.\/(en|zh-tw)$/
-	),
+	new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 	new DeadCodePlugin({
 		patterns: ["src/**/*.(js|jsx|css)"],
 		exclude: ["**/*.(stories|spec).(js|jsx)"],
@@ -84,8 +81,37 @@ const addCustomize = () => config => {
 				usedExports: true,
 				splitChunks: {
 					chunks: "all",
+					maxInitialRequests: Infinity,
+					minSize: 0,
 					cacheGroups: {
-						vendors: false,
+						reactVendor: {
+							test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+							name: "react-vendor",
+						},
+						style: {
+							test: /[\\/]node_modules[\\/](@material-ui)[\\/]/,
+							name: "style",
+						},
+						editor: {
+							test: /[\\/]node_modules[\\/](draft-js)[\\/]/,
+							name: "editor",
+						},
+						xlsx: {
+							test: /[\\/]node_modules[\\/](xlsx)[\\/]/,
+							name: "xlsx",
+						},
+						components: {
+							test: /[\\/]src[\\/](components)[\\/]/,
+							name: "components",
+						},
+						utilityVendor: {
+							test: /[\\/]node_modules[\\/](lodash|moment|moment-timezone)[\\/]/,
+							name: "utilityVendor",
+						},
+						vendor: {
+							test: /[\\/]node_modules[\\/](!react-bootstrap)(!lodash)(!moment)(!moment-timezone)(!draft-js)(!@material-ui)(!xlsx)(!components)[\\/]/,
+							name: "vendor",
+						},
 					},
 				},
 				minimize: true,
