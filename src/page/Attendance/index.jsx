@@ -58,6 +58,7 @@ const AttendancePage = () => {
 		() =>
 			getEventParticipantSearch(`${id}/absent/validate/`, {email: searchEmail})
 	);
+	
 	const mutation = useMutation(props =>
 		putEventParticipantAbsent(`${id}/absent`, props)
 	);
