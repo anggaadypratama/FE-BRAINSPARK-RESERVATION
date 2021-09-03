@@ -70,7 +70,7 @@ const crudValidation = yup.object().shape({
 		)
 		.test(
 			"typeFile",
-			"Gambar harus jpeg/jpg/png",
+			"Gambar harus jpeg/jpg/png/webp",
 			value =>
 				![null, undefined].includes(value) &&
 				value.length !== 0 &&
