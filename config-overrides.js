@@ -16,7 +16,6 @@ const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const DeadCodePlugin = require("webpack-deadcode-plugin");
-const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 
 const zlib = require("zlib");
 const webpack = require("webpack");
@@ -25,7 +24,6 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const HtmlCriticalWebpackPlugin = require("html-critical-webpack-plugin");
 
 const customizePlugin = [
-	new BundleAnalyzerPlugin(),
 	new CompressionWebpackPlugin({
 		filename: "[path].br",
 		algorithm: "brotliCompress",
