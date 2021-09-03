@@ -24,8 +24,7 @@ is a web application to serve event reservations at the rplgdc laboratory. usefu
 
 <br>
 
-# [Preview](https://rplgdc-brainspark.vercel.app)
-<br>
+
 
 # Instalation
 
@@ -44,6 +43,9 @@ npm install
 npm start
 ```
 4. you runs the app in the development mode
+
+# [Preview](https://rplgdc-brainspark.vercel.app)
+<br>
 
 
 
