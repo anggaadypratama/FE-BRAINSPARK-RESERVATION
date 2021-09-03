@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Switch} from "react-router-dom";
 import {PropTypes} from "prop-types";
 import {ThemeProvider} from "@material-ui/core/styles";
 import {QueryClient, QueryClientProvider} from "react-query";
-import {ReactQueryDevtools} from "react-query/devtools";
+// import {ReactQueryDevtools} from "react-query/devtools";
 import {Provider} from "react-redux";
 import store from "@services/redux/store";
 
@@ -19,7 +19,7 @@ const AppWrapper = ({children}) => (
 					<Switch>
 						<QueryClientProvider client={queryClient}>
 							{children}
-							<ReactQueryDevtools initialIsOpen={false} />
+							{/* <ReactQueryDevtools initialIsOpen={false} /> */}
 						</QueryClientProvider>
 					</Switch>
 				</Router>
