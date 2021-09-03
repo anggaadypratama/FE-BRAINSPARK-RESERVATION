@@ -24,7 +24,7 @@ import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
 import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
 import RoomIcon from "@material-ui/icons/Room";
 
-import moment from "moment";
+import moment from "moment-timezone";
 
 import {useMutation, useQueryClient} from "react-query";
 import {deleteDetailEventById} from "@services";

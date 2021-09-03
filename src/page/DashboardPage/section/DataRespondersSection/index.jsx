@@ -15,7 +15,7 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 
 import {useQuery} from "react-query";
 import {getAllEventWithAuth} from "@services";
-import moment from "moment";
+import moment from "moment-timezone";
 
 import {nanoid} from "nanoid";
 import xlsx from "json-as-xlsx";

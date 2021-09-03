@@ -7,7 +7,7 @@ import useScreenSize from "@assets/breakpoints";
 import {PropTypes} from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
 import {selectedContentIndex} from "@services/redux/slices/contentPage";
-import moment from "moment";
+import moment from "moment-timezone";
 import {Skeleton} from "@material-ui/lab";
 import infoStyle from "./style";
 
