@@ -177,7 +177,8 @@ const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 		if (rawData) {
 			const {imagePoster: imgP, ...dataValidated} = rawData;
 
-			const imagePoster = imgP.name === `${form.themeName}.webp` ? imgP : await resizeImage(imgP);
+			const imagePoster =
+				imgP.name === `${form.themeName}.webp` ? imgP : await resizeImage(imgP);
 
 			const resultData = {
 				...dataValidated,

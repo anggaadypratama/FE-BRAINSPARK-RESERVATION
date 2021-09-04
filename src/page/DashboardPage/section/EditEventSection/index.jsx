@@ -95,7 +95,7 @@ const EditEventSection = ({match}) => {
 	const dataResult = {...allData, imagePoster: image};
 
 	const handleMutate = useCallback(val => {
-		mutation.mutate(val)
+		mutation.mutate(val);
 	}, []);
 
 	return (

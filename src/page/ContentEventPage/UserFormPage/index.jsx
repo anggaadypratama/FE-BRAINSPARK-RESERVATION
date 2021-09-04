@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-danger */
 import {Card, Typography} from "@material-ui/core";
 import React, {useState, useCallback} from "react";
@@ -81,8 +82,18 @@ const UserFormPage = ({dataContent}) => {
 					title="Register Success"
 					handleClose={handleCloseModal}
 				>
-					You have successfully registered, please see the email for more
-					detailed information
+					You have successfully registered, please check the email for more
+					detailed information. if you can't find the email, look in the junk or
+					spam.
+				</ModalApp>
+			)}
+			{mutation.isError && (
+				<ModalApp
+					isActive={modal}
+					title="Register Success"
+					handleClose={handleCloseModal}
+				>
+					Sorry you can't register for this event
 				</ModalApp>
 			)}
 			<Card className={classes.root} elevation={isPhone ? 0 : 3}>
