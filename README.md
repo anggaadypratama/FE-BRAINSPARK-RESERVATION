@@ -14,7 +14,7 @@ is a web application to serve event reservations at the rplgdc laboratory. usefu
 - categorize event by status
 - generate result of event as xlsx and categorize participant who register and attend the events
 - optimization of upload images to always under 100 kb in create or edit event
-- optimize time access and speed in low connection
+- light weight speed to access
 - lazy loading and lazy image
 - code splitting
 
