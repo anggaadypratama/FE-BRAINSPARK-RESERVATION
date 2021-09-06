@@ -11,7 +11,7 @@ import {
 	Select,
 	TextField,
 } from "@material-ui/core";
-import MUIEditor, {MUIEditorState} from "react-mui-draft-wysiwyg";
+import MUIEditor, {LANG_PREFIX, MUIEditorState, toolbarControlTypes} from "react-mui-draft-wysiwyg";
 import React from "react";
 import PropTypes from "prop-types";
 import MomentUtils from "@date-io/moment";
@@ -48,7 +48,61 @@ const Input = ({
 			className: classes.textEditor,
 		},
 		toolbar: {
+			visible: true,
 			className: classes.toolbarEditor,
+			controls: [
+				toolbarControlTypes.bold,
+				toolbarControlTypes.italic,
+				toolbarControlTypes.underline,
+				toolbarControlTypes.strikethrough,
+				toolbarControlTypes.divider,
+				toolbarControlTypes.linkAdd,
+				toolbarControlTypes.linkRemove,
+				toolbarControlTypes.divider,
+				toolbarControlTypes.textAlign,
+				toolbarControlTypes.divider,
+				toolbarControlTypes.blockType,
+				toolbarControlTypes.divider,
+				toolbarControlTypes.unorderedList,
+				toolbarControlTypes.orderedList,
+
+			],
+			controlsConfig: {
+				blockType: {
+					options: [
+						{
+							value: 'default',
+							text: `${LANG_PREFIX}controls.blockType.labels.normal`,
+						  },
+						  {
+							value: 'header-one',
+							text: `${LANG_PREFIX}controls.blockType.labels.header1`,
+						  },
+						  {
+							value: 'header-two',
+							text: `${LANG_PREFIX}controls.blockType.labels.header2`,
+						  },
+						  {
+							value: 'header-three',
+							text: `${LANG_PREFIX}controls.blockType.labels.header3`,
+						  },
+						  {
+							value: 'blockquote',
+							text: 'Quote',
+						  },
+					]
+				},
+				fontSize: {
+					options: [
+						'default',
+						'12px',
+						'14px',
+						'18px',
+						'24px',
+						'30px',
+					],
+				},
+			}
 		},
 	};
 

@@ -21,16 +21,6 @@ import {participantCategory, locationType} from "./data";
 const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 	const classes = CreateFormStyle();
 
-	const editorConfig = {
-		editor: {
-			wrapperElement: "div",
-			className: classes.textEditor,
-		},
-		toolbar: {
-			className: classes.toolbarEditor,
-		},
-	};
-
 	const loading = useSelector(
 		({dashboardPage}) => dashboardPage.loadingProgress
 	);
@@ -66,7 +56,7 @@ const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 				: null,
 		description: defaultData
 			? descState
-			: MUIEditorState.createEmpty(editorConfig),
+			: MUIEditorState.createEmpty(),
 		date: defaultData ? moment(defaultData?.date).format() : moment().format(),
 		eventStart: defaultData
 			? moment(defaultData?.eventStart).format()
@@ -88,8 +78,8 @@ const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 		isOnlyTelkom: defaultData
 			? {isOnlyTelkom: !!defaultData?.isOnlyTelkom}
 			: null,
-		ticketLimit: defaultData ? defaultData?.ticketLimit : "",
-		note: defaultData ? noteState : MUIEditorState.createEmpty(editorConfig),
+		ticketLimit: defaultData ? defaultData?.ticketLimit : 5,
+		note: defaultData ? noteState : MUIEditorState.createEmpty(),
 		isAbsentActive: defaultData && defaultData?.isAbsentActive,
 	});
 
@@ -125,7 +115,10 @@ const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 						...form,
 						isLinkLocation: e.target.value === "online",
 					});
-				} else {
+				} else if (val === "ticketLimit"){
+					const limit = (e.target.value >= 1 && e.target.value<= 100) && e.target.value
+					setForm({...form, [val]: limit});
+				}else {
 					setForm({...form, [val]: e.target.value});
 				}
 			} else if (type === "file") {
@@ -311,7 +304,11 @@ const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 									<>
 										<InputFormAdmin
 											title="Place"
-											placeholder="Gedung Arwana..."
+											placeholder={
+												form.isLinkLocation
+													? " Google Meets "
+													: "Gedung Arwana..."
+											}
 											fullWidth
 											value={form.location}
 											onChange={handleInputChange("location", "text")}
@@ -357,6 +354,8 @@ const CreateFormTemplateM = ({handleSubmitForm, defaultData, refetch}) => {
 						/>
 						<InputFormAdmin
 							title="10. Ticket registration limit"
+							min="5"
+							max="100"
 							fullWidth
 							inputType="number"
 							value={form.ticketLimit}
