@@ -13,7 +13,7 @@ const GlobalRoute = ({Component, isPrivate, ...rest}) => {
 	}, [Component]);
 
 	useQuery("isAuthenticated", checkIsAuthenticated, {
-		refetchInterval: localStorage.token ? 1000 : 120000,
+		refetchInterval: localStorage.token ? 10000 : 120000,
 	});
 
 	return (
