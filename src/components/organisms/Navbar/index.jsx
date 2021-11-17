@@ -18,7 +18,7 @@ import PropTypes from "prop-types";
 import {nanoid} from "nanoid";
 
 import useScreenSize from "@assets/breakpoints";
-import {IconLogo} from "@assets/image";
+// import {IconLogo} from "@assets/image";
 import {Button} from "@components";
 
 import {Link} from "react-router-dom";
@@ -93,9 +93,9 @@ const Navbar = ({className, color}) => {
 			<Container maxWidth="lg">
 				<Toolbar className={classes.toolbar}>
 					<div className={classes.content}>
-						<img src={IconLogo} height="32" width="32" alt="logo rpl-gdc" />
+						{/* <img src={IconLogo} height="32" width="32" alt="logo rpl-gdc" /> */}
 						<Typography variant="h6" className={classes.navText}>
-							RPL-GDC
+							BRAINSPARK
 						</Typography>
 					</div>
 					<div className={classes.content}>

@@ -23,6 +23,12 @@ const RplGdcLogoStyle = makeStyles(({color}) => ({
 		fontSize: "14px",
 		fontWeight: "800",
 	},
+	subHeadText2: {
+		color: color.dustyOrange,
+		fontSize: "14px",
+		fontWeight: "800",
+		textAlign: 'center'
+	},
 }));
 
 export default RplGdcLogoStyle;

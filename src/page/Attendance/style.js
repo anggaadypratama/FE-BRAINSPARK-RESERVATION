@@ -58,7 +58,7 @@ const AttendanceStyle = makeStyles(({spacing, font}) => ({
 		alignItems: "center",
 	},
 	titleWrapper: {
-		margin: spacing(0, 2),
+
 	},
 	title: {
 		fontWeight: 800,

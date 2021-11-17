@@ -30,7 +30,7 @@ const Footer = () => {
 						</Link>
 					</div>
 					<Typography className={copyrightClassnames}>
-						© 2019 RPLGDC Laboratory, All Right Reserved
+						© All Right Reserved
 					</Typography>
 				</div>
 			</div>

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {
 	LoginBackgroundRight,
 	LoginBackgroundLeft,
-	IconLogo,
+	// IconLogo,
 } from "@assets/image";
 import {Card, CircularProgress, Typography} from "@material-ui/core";
 
@@ -138,11 +138,11 @@ const AttendancePage = () => {
 						<Card className={classes.cardContent} elevation={screenS ? 0 : 3}>
 							{stepper !== 1 && (
 								<div className={classes.header}>
-									<img
+									{/* <img
 										className={classes.logo}
 										src={IconLogo}
 										alt="logo-rplgdc"
-									/>
+									/> */}
 									<div className={classes.titleWrapper}>
 										<Typography className={classes.title}>
 											Give Feedback
@@ -162,13 +162,13 @@ const AttendancePage = () => {
 									) : (
 										<div className={classes.greetingWrapper}>
 											<div className={classes.logoWrapper}>
-												<img
+												{/* <img
 													className={classes.logoSecond}
 													src={IconLogo}
 													alt="logo-rplgdc"
-												/>
+												/> */}
 												<Typography className={classes.titleLogo}>
-													RPL-GDC
+													BRAINSPARK
 												</Typography>
 											</div>
 											<Typography className={classes.message}>
